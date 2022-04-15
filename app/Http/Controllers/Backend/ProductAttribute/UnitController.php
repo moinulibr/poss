@@ -87,10 +87,13 @@ class UnitController extends Controller
         $this->unitId = $request->parent_id;
         $unit = $this->getUnitByUnitId();
         $calculationResult = $request->calculation_value;
+        $parent_cal_result = NULL;
         if($unit['status'] == true){
             $calculationResult =  $unit['unit']->calculation_result * $request->calculation_value;
+            $parent_cal_result = $unit['unit']->calculation_result;
         }
-        $saveData->calculation_result = $calculationResult;
+        $saveData->calculation_result   = $calculationResult;
+        $saveData->parent_cal_result    = $parent_cal_result;
 
         $this->unitId = $request->base_unit_id;
         $unit = $this->getUnitByUnitId();
@@ -156,13 +159,16 @@ class UnitController extends Controller
         $updateData = Unit::findOrFail($request->id);
         $updateData->update($request->all());//auth()->user()->unitUsers()->
 
-        $this->unitId = $request->parent_id;
-        $unit = $this->getUnitByUnitId();
+        $this->unitId   = $request->parent_id;
+        $unit           = $this->getUnitByUnitId();
         $calculationResult = $request->calculation_value;
+        $parent_cal_result = NULL;
         if($unit['status'] == true){
             $calculationResult =  $unit['unit']->calculation_result * $request->calculation_value;
+            $parent_cal_result = $unit['unit']->calculation_result;
         }
         $updateData->calculation_result = $calculationResult;
+        $updateData->parent_cal_result  = $parent_cal_result;
 
         $this->unitId = $request->base_unit_id;
         $unit = $this->getUnitByUnitId();
