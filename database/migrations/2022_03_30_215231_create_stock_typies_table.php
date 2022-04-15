@@ -16,7 +16,10 @@ class CreateStockTypiesTable extends Migration
         if(!Schema::hasTable('stock_typies')){
             Schema::create('stock_typies', function (Blueprint $table) {
                 $table->id();
-                $table->string('name',200)->nullable();
+                $table->string('name',100)->nullable()->comment('
+                    use lowercase and underline between tow word,like:regular_stock');
+                $table->string('label',100)->nullable()->comment('
+                    use as name ,like: Regular Stock');
                 $table->text('description')->nullable();
                 $table->string('verified',25)->nullable();
                 $table->integer('verified_by')->nullable();
