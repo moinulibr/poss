@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Backend\Product\Product;
 use App\Traits\Backend\FileUpload\FileUploadTrait;
 use App\Setting\Backend\Product\ProductSetting;
+
+use App\Traits\Backend\Stock\StockChangingTrait;
  /**
   * 
   */
@@ -14,6 +16,7 @@ use App\Setting\Backend\Product\ProductSetting;
  {
     use FileUploadTrait;
     use ProductSetting;
+    use StockChangingTrait;
     /**
      * Its containt product mainid
      * @var integer
@@ -107,11 +110,41 @@ use App\Setting\Backend\Product\ProductSetting;
                 $product->photo = $this->storeImage();
                 $product->save();
             }
+            //for stock history
+            $this->stock_changing_type_id_forStockHistoryStockChangingTrait = 1;
+            $this->stock_changing_sign_forStockHistoryStockChangingTrait = "+";
+            $this->stock_changing_history_forStockHistoryStockChangingTrait = json_encode([
+                'productId' => $product->id,
+                'type' => 'product created time - initial stock',
+                'unitId' => $product->unit_id,
+                'fromStockId' => NULL,
+                'fromStockName' => NULL,
+                'toStockId' => NULL,
+                'toStockName' => NULL,
+            ]);
+
+            $this->stock_type_id_forStockChangingTrait = 1;
+            $this->product_id_forStockChangingTrait     = $product->id;
+            $this->sell_price_forStockChangingTrait     = $product->sell_price;
+            $this->whole_sell_price_forStockChangingTrait = $product->whole_sell_price;
+            $this->offer_price_forStockChangingTrait    = $product->offer_price;
+            $this->mrp_price_forStockChangingTrait      =  $product->mrp_price;
+            $this->purchase_price_forStockChangingTrait = $product->purchase_price;
+            $this->unit_id_forStockChangingTrait        = $product->unit_id;
+            $this->stock_quantity_forStockChangingTrait = $product->initial_stock;
+            $product->available_stock = $this->incrementOrDecrementProductStock();
+            $product->save();
         }
         return true;
     }//product store
 
 
+    /**
+     * product update
+     *
+     * @param [type] $request
+     * @return void
+     */
     public function productUpdate($request)
     {
         $product =  Product::find($request['id']);
@@ -150,7 +183,7 @@ use App\Setting\Backend\Product\ProductSetting;
         $product->whole_sell_price  = $request['whole_sell_price'];
         $product->sell_price        = $request['sell_price'];
         $product->offer_price       = $request['offer_price'];
-        $product->initial_stock     = intval($request['initial_stock']);
+        //$product->initial_stock     = intval($request['initial_stock']);
         $product->alert_stock       = intval($request['alert_stock']);
         $product->description       = $request['description'];
         $product->created_by        = Auth::user()->id;
@@ -170,6 +203,14 @@ use App\Setting\Backend\Product\ProductSetting;
         return $product;
     }
 
+
+    /**
+     * product delete
+     *
+     * @param [type] $id, product id
+     * @param [type] $field , product photo field
+     * @return void
+     */
     public function productDelete($id,$field)
     {
         $this->destination  = $this->productSetting(["imageUpload",'location',"storage_location"]);  //its mandatory;

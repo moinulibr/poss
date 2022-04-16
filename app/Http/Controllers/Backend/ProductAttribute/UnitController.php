@@ -25,7 +25,6 @@ class UnitController extends Controller
     public function index()
     {
         $data['datas'] = Unit::latest()->paginate(50);
-        //return $this->callTraitForTest();
         return view('backend.product-attribute.unit.index',$data);
     }
 
@@ -176,7 +175,7 @@ class UnitController extends Controller
         if($unit['status'] == true){
             $baseUnitId =  $unit['unit']->id;
         }
-        $updateData->created_by = Auth::user()->id;
+        //$updateData->created_by = Auth::user()->id;
         $updateData->base_unit_id = $request->base_unit_id == 0 ? $updateData->id : $baseUnitId;
         $updateData->save();
         return response()->json([

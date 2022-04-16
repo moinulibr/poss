@@ -85,8 +85,8 @@ class ProductController extends Controller
         $data['units']          = Unit::latest()->get();
 
         $data['warehouses']     = Warehouse::latest()->get();
-        return view('backend.pos.create',$data);
         return view('backend.product.product.create',$data);
+        return view('backend.pos.create',$data);
         //return view('backend.product.product.old_create',$data);
     }
 

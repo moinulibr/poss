@@ -80,12 +80,12 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label class="form-label">Initial Stock</label>
-                                                            <input type="text" value="{{ $product->initial_stock }}" class="form-control initial_stock initial_stock_0" data-initial_stock="0" name="initial_stock"  style="background-color:rgb(232, 240, 254);color:#030312;" placeholder="Initial Stock" />
+                                                            <input type="text" value="{{ $product->initial_stock }}" disabled class="form-control initial_stock initial_stock_0" data-initial_stock="0" name="initial_stock"  style="background-color:rgb(232, 240, 254);color:#030312;" placeholder="Initial Stock" />
                                                             <div class="clearfix"></div>
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label class="form-label">Alert Quantity</label>
-                                                            <input type="text" class="form-control alert_stock alert_stock_0" data-alert_stock="0" name="alert_stock"  style="background-color:rgb(232, 240, 254);color:#030312;" placeholder="Alert Quantity" />
+                                                            <input type="text" value="{{ $product->alert_stock }}" class="form-control alert_stock alert_stock_0" data-alert_stock="0" name="alert_stock"  style="background-color:rgb(232, 240, 254);color:#030312;" placeholder="Alert Quantity" />
                                                             <div class="clearfix"></div>
                                                         </div>
                                                     </div>

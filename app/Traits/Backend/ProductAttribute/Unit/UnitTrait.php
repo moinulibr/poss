@@ -17,7 +17,7 @@ trait UnitTrait
     public int $unitId;
 
     /**
-     * Undocumented function
+     * get unit by unit id function
      *
      * @return void
      */
