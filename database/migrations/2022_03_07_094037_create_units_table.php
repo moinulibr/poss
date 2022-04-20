@@ -16,6 +16,7 @@ class CreateUnitsTable extends Migration
         if(!Schema::hasTable('units')){
             Schema::create('units', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('full_name',170)->nullable();
                 $table->string('short_name',30)->nullable();
                 $table->integer('parent_id')->default(0);

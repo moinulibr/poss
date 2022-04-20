@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSupplierGroupsTable extends Migration
+class CreateStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateSupplierGroupsTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('supplier_groups')){
-            Schema::create('supplier_groups', function (Blueprint $table) {
+        if(!Schema::hasTable('stocks')){
+            Schema::create('stocks', function (Blueprint $table) {
                 $table->id();
                 $table->integer('branch_id')->nullable();
-                $table->string('name',100)->nullable();
+                $table->string('name',100)->nullable()->comment('
+                    use lowercase and underline between tow word,like:regular_stock');
+                $table->string('label',100)->nullable()->comment('
+                    use as name ,like: Regular Stock');
                 $table->text('description')->nullable();
-                $table->string('company_name',150)->nullable();
-                $table->text('address')->nullable();
-                $table->text('note')->nullable();
-                $table->tinyInteger('status')->nullable();
                 $table->string('verified',25)->nullable();
                 $table->integer('verified_by')->nullable();
+                $table->tinyInteger('status')->nullable();
                 $table->integer('created_by')->nullable();
                 $table->softDeletes();
                 $table->timestamps();
@@ -39,6 +39,6 @@ class CreateSupplierGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supplier_groups');
+        Schema::dropIfExists('stocks');
     }
 }

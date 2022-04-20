@@ -16,6 +16,7 @@ class CreateWarehouseRacksTable extends Migration
         if(!Schema::hasTable('warehouse_racks')){
             Schema::create('warehouse_racks', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->integer('warehouse_id')->nullable();
                 $table->string('name',100)->nullable();
                 $table->text('description')->nullable();

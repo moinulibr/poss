@@ -16,8 +16,10 @@ class CreateProductCommissionsTable extends Migration
         if(!Schema::hasTable('product_commissions')){
             Schema::create('product_commissions', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->integer('commission_type_id')->nullable();
                 $table->integer('product_id')->nullable();
+                $table->integer('price_id')->nullable();
                 
                 $table->decimal('minimum_amount',20,2)->nullable();
                 $table->decimal('maximum_amount',20,2)->nullable();

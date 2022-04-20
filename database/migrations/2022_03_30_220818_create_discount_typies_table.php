@@ -16,6 +16,7 @@ class CreateDiscountTypiesTable extends Migration
         if(!Schema::hasTable('discount_typies')){
             Schema::create('discount_typies', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',50)->nullable();
                 $table->text('description')->nullable();
                 $table->string('verified',25)->nullable();

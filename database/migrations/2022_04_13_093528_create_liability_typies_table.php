@@ -16,6 +16,7 @@ class CreateLiabilityTypiesTable extends Migration
         if(!Schema::hasTable('liability_typies')){
             Schema::create('liability_typies', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',50)->nullable();
                 $table->text('description')->nullable();
                 $table->string('verified',25)->nullable();

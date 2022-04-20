@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSupplierGroupsTable extends Migration
+class CreateProductPricesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,22 @@ class CreateSupplierGroupsTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('supplier_groups')){
-            Schema::create('supplier_groups', function (Blueprint $table) {
+        if(!Schema::hasTable('product_prices')){
+            Schema::create('product_prices', function (Blueprint $table) {
                 $table->id();
                 $table->integer('branch_id')->nullable();
-                $table->string('name',100)->nullable();
-                $table->text('description')->nullable();
-                $table->string('company_name',150)->nullable();
-                $table->text('address')->nullable();
-                $table->text('note')->nullable();
+                $table->integer('product_id')->nullable();
+                $table->integer('price_id')->nullable();
+                $table->integer('stock_id')->nullable();
+                $table->integer('product_stock_id')->nullable();
+                $table->decimal('price',20,2)->nullable();
+                $table->string('price_name',100)->nullable();
                 $table->tinyInteger('status')->nullable();
                 $table->string('verified',25)->nullable();
                 $table->integer('verified_by')->nullable();
                 $table->integer('created_by')->nullable();
                 $table->softDeletes();
+
                 $table->timestamps();
             });
         }
@@ -39,6 +41,6 @@ class CreateSupplierGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supplier_groups');
+        Schema::dropIfExists('product_prices');
     }
 }

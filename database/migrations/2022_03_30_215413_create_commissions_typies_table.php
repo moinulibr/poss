@@ -16,6 +16,7 @@ class CreateCommissionsTypiesTable extends Migration
         if(!Schema::hasTable('commissions_typies')){
             Schema::create('commissions_typies', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',50)->nullable();
                 $table->text('description')->nullable();
                 $table->string('verified',25)->nullable();

@@ -16,6 +16,7 @@ class CreateCustomerTypiesTable extends Migration
         if(!Schema::hasTable('customer_typies')){
             Schema::create('customer_typies', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',50)->nullable();
                 $table->text('description')->nullable();
                 $table->text('note')->nullable();

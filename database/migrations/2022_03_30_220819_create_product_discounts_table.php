@@ -16,8 +16,10 @@ class CreateProductDiscountsTable extends Migration
         if(!Schema::hasTable('product_discounts')){
             Schema::create('product_discounts', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->integer('discount_type_id')->nullable();
                 $table->integer('product_id')->nullable();
+                $table->integer('price_id')->nullable();
                 
                 $table->decimal('minimum_amount',20,2)->nullable();
                 $table->decimal('maximum_amount',20,2)->nullable();

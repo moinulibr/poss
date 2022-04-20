@@ -16,9 +16,10 @@ class CreateProductLiabilitiesTable extends Migration
         if(!Schema::hasTable('product_liabilities')){
             Schema::create('product_liabilities', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->integer('liability_type_id')->nullable();
                 $table->integer('product_id')->nullable();
-            $table->string('duration',6)->nullable()->comment('mention only day');
+                $table->string('duration',6)->nullable()->comment('mention only day');
                 $table->tinyInteger('conditional_status')->default(0)->comment(
                     '0. regular process,   1. break regular process'
                 );

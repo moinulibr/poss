@@ -16,6 +16,7 @@ class CreateBrandsTable extends Migration
         if(!Schema::hasTable('brands')){
             Schema::create('brands', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',200);
                 $table->text('description')->nullable();
                 $table->text('note')->nullable();

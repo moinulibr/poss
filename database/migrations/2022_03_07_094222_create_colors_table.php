@@ -16,6 +16,7 @@ class CreateColorsTable extends Migration
         if(!Schema::hasTable('colors')){
             Schema::create('colors', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',200);
                 $table->text('description')->nullable();
                 $table->text('note')->nullable();

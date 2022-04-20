@@ -16,6 +16,7 @@ class CreateReferencesTable extends Migration
         if(!Schema::hasTable('references')){
             Schema::create('references', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('custom_id',30)->nullable();
                 $table->string('name',150)->nullable();
                 $table->string('email')->nullable();

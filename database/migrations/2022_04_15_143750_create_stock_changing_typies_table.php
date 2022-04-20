@@ -16,6 +16,7 @@ class CreateStockChangingTypiesTable extends Migration
         if(!Schema::hasTable('stock_changing_typies')){
             Schema::create('stock_changing_typies', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',100)->nullable()->comment('
                     use lowercase and underline between tow word,like:regular_stock');
                 $table->string('label',200)->nullable()->comment('

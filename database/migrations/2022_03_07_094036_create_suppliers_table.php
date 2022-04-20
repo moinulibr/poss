@@ -16,6 +16,7 @@ class CreateSuppliersTable extends Migration
         if(!Schema::hasTable('suppliers')){
             Schema::create('suppliers', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->integer('supplier_type_id')->nullable();
                 $table->integer('supplier_group_id')->nullable();
                 $table->string('custom_id',30)->nullable();

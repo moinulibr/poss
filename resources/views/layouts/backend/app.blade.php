@@ -2,7 +2,7 @@
 <html lang="en" class="default-style layout-fixed layout-navbar-fixed">
     <!-- Mirrored from html.phoenixcoded.net/empire/bootstrap/default/tables_bootstrap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jun 2020 10:58:42 GMT -->
     <head>
-        <title> {{ config('app.name') }} @yield('page_title')</title>
+        <title> {{ config('app.name') }}  @yield('page_title')</title>
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />

@@ -16,6 +16,7 @@ class CreateSupplierTypiesTable extends Migration
         if(!Schema::hasTable('supplier_typies')){
             Schema::create('supplier_typies', function (Blueprint $table) {
                 $table->id();
+                $table->integer('branch_id')->nullable();
                 $table->string('name',50)->nullable();
                 $table->text('description')->nullable();
                 $table->text('note')->nullable();
