@@ -22,7 +22,7 @@ use App\Models\Backend\ProductAttribute\SubCategory;
 use App\Models\Backend\ProductAttribute\ProductGrade;
 use App\Http\Requests\Backend\Product\ProductValidationTrait;
 use App\Models\Backend\Warehouse\Warehouse;
-use App\Traits\Backend\Product\Product\Logical\ProductTrait;
+use App\Traits\Backend\Product\Logical\ProductTrait;
 class ProductController extends Controller
 {
     use ProductValidationTrait;
