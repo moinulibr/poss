@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 trait UnitValidationTrait
 {
 
-
     /**
      * Unit validation function
      *

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Requests\Backend\ProductAttribute;
+namespace App\Traits\Backend\ProductAttribute\Unit\Request;
 
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
  */
 trait UnitValidationTrait
 {
-
 
     /**
      * Unit validation function

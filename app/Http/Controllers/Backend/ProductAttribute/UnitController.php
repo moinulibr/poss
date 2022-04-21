@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\ProductAttribute\UnitRequest;
 use Illuminate\Support\Facades\Auth;
-//use Illuminate\Support\Facades\Validator;
 use App\Models\Backend\ProductAttribute\Unit;
 
-use App\Http\Requests\Backend\ProductAttribute\UnitValidationTrait;
-use App\Traits\Backend\ProductAttribute\Unit\UnitTrait;
+use App\Traits\Backend\ProductAttribute\Unit\Request\UnitValidationTrait;
+use App\Traits\Backend\ProductAttribute\Unit\Logical\UnitTrait;
 use App\Traits\Permission\Permission;
 
 class UnitController extends Controller

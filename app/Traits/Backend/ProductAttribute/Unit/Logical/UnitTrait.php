@@ -1,6 +1,5 @@
 <?php
-
-    namespace App\Traits\Backend\ProductAttribute\Unit\Locial;
+namespace App\Traits\Backend\ProductAttribute\Unit\Logical;
 
 use App\Models\Backend\ProductAttribute\Unit;
 

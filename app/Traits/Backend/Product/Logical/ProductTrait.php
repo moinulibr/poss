@@ -8,7 +8,8 @@ use App\Models\Backend\Product\Product;
 use App\Traits\Backend\FileUpload\FileUploadTrait;
 use App\Setting\Backend\Product\ProductSetting;
 
-use App\Traits\Backend\Stock\StockChangingTrait;
+use App\Traits\Backend\Stock\Logical\StockChangingTrait;
+
  /**
   * 
   */
@@ -111,7 +112,7 @@ use App\Traits\Backend\Stock\StockChangingTrait;
                 $product->save();
             }
             //for stock history
-            $this->stock_changing_type_id_forStockHistoryStockChangingTrait = 1;
+            /* $this->stock_changing_type_id_forStockHistoryStockChangingTrait = 1;
             $this->stock_changing_sign_forStockHistoryStockChangingTrait = "+";
             $this->stock_changing_history_forStockHistoryStockChangingTrait = json_encode([
                 'productId' => $product->id,
@@ -133,7 +134,7 @@ use App\Traits\Backend\Stock\StockChangingTrait;
             $this->unit_id_forStockChangingTrait        = $product->unit_id;
             $this->stock_quantity_forStockChangingTrait = $product->initial_stock;
             $product->available_stock = $this->incrementOrDecrementProductStock();
-            $product->save();
+            $product->save(); */
         }
         return true;
     }//product store

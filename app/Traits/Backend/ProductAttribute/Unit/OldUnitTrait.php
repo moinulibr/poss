@@ -7,7 +7,7 @@ use App\Models\Backend\ProductAttribute\Unit;
 /**
  * 
  */
-trait UnitTrait
+trait OldUnitTrait
 {
     /**
      * Its containt only unit id
