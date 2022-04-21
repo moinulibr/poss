@@ -13,7 +13,7 @@ class Warehouse extends Model
     protected $table = 'warehouses';
     //protected $primaryKey = 'GROUP_ROLE_ID';
     protected $fillable = [
-        'name','description','verified','verified_by','status','deleted_at','created_by'
+        'name','branch_id','description','verified','verified_by','status','deleted_at','created_by'
     ];
 
 }

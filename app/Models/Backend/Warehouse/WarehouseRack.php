@@ -12,7 +12,7 @@ class WarehouseRack extends Model
     protected $table = 'warehouse_racks';
 
     protected $fillable = [
-       'warehouse_id', 'name','description','verified','verified_by','status','deleted_at','created_by'
+       'warehouse_id', 'branch_id','name','description','verified','verified_by','status','deleted_at','created_by'
     ];
 
 

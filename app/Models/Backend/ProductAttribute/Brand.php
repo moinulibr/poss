@@ -13,6 +13,6 @@ class Brand extends Model
     protected $table = 'brands';
     //protected $primaryKey = 'GROUP_ROLE_ID';
     protected $fillable = [
-        'name','description','note','verified','deleted_at','verified_by','created_by'
+        'name','branch_id','description','note','verified','deleted_at','verified_by','created_by'
     ];
 }

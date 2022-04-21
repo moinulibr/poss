@@ -27,6 +27,7 @@ class CreatePricesTable extends Migration
                 $table->string('verified',25)->nullable();
                 $table->integer('verified_by')->nullable();
                 $table->tinyInteger('status')->nullable();
+                $table->tinyInteger('use_in')->nullable()->comment('use in pos,and others. show this row if 1=use');
                 $table->integer('created_by')->nullable();
                 $table->softDeletes();
                 $table->timestamps();

@@ -13,7 +13,7 @@ class Unit extends Model
     protected $table = 'units';
     //protected $primaryKey = 'GROUP_ROLE_ID';
     protected $fillable = [
-        'full_name','short_name','parent_id','parent_cal_result','calculation_value','calculation_result','base_unit_id','description','note','verified','deleted_at','verified_by','created_by'
+        'full_name','branch_id','short_name','parent_id','parent_cal_result','calculation_value','calculation_result','base_unit_id','description','note','verified','deleted_at','verified_by','created_by'
     ];
     
 

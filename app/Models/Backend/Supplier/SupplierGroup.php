@@ -13,6 +13,6 @@ class SupplierGroup extends Model
     protected $table = 'supplier_groups';
     //protected $primaryKey = 'GROUP_ROLE_ID';
     protected $fillable = [
-        'name','description','company_name','address','note','verified','deleted_at','verified_by','created_by'
+        'name','branch_id','description','company_name','address','note','verified','deleted_at','verified_by','created_by'
     ];
 }

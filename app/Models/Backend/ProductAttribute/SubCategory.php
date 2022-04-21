@@ -13,7 +13,7 @@ class SubCategory extends Model
     protected $table = 'sub_categories';
     //protected $primaryKey = 'GROUP_ROLE_ID';
     protected $fillable = [
-        'category_id','name','description','note','verified','deleted_at','verified_by','created_by'
+        'category_id','branch_id','name','description','note','verified','deleted_at','verified_by','created_by'
     ];
 
     public function categories()
