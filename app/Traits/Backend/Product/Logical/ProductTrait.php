@@ -1,5 +1,5 @@
 <?php
-namespace App\Traits\Backend\Product\Product;
+namespace App\Traits\Backend\Product\Product\Logical;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
