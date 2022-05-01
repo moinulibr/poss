@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Requests\Backend\Product;
+namespace App\Traits\Backend\Product\Request;
 
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -25,7 +25,7 @@ trait ProductValidationTrait
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             //'supplier_id' => 'required',
             //'category_id' => 'required',
-            //'unit_id' => 'required',
+            'unit_id' => 'required',
             //'custom_id' => 'nullable|max:30',
             //'email' => 'nullable|max:191|unique:customers,email',
             //'phone' => $allFormData['customer_type_id'] == 1 ? 'required': 'nullable'.'|max:15|unique:customers,phone',

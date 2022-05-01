@@ -97,8 +97,9 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
             $product->offer_price = $request['offer_price_'.$form_index];
             $product->initial_stock = intval($request['initial_stock_'.$form_index]);
             $product->alert_stock   = intval($request['alert_stock_'.$form_index]);
-            $product->description = $request['description_'.$form_index]; 
-            $product->created_by = Auth::user()->id;
+            $product->description   = $request['description_'.$form_index]; 
+            $product->created_by    = Auth::guard('web')->user()->id;
+            $product->branch_id     = Auth::guard('web')->user()->branch_id;
             $product->save();
             
             if(isset($request['photo_'.$form_index]))
@@ -111,30 +112,13 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
                 $product->photo = $this->storeImage();
                 $product->save();
             }
-            //for stock history
-            /* $this->stock_changing_type_id_forStockHistoryStockChangingTrait = 1;
-            $this->stock_changing_sign_forStockHistoryStockChangingTrait = "+";
-            $this->stock_changing_history_forStockHistoryStockChangingTrait = json_encode([
-                'productId' => $product->id,
-                'type' => 'product created time - initial stock',
-                'unitId' => $product->unit_id,
-                'fromStockId' => NULL,
-                'fromStockName' => NULL,
-                'toStockId' => NULL,
-                'toStockName' => NULL,
-            ]);
 
-            $this->stock_type_id_forStockChangingTrait = 1;
-            $this->product_id_forStockChangingTrait     = $product->id;
-            $this->sell_price_forStockChangingTrait     = $product->sell_price;
-            $this->whole_sell_price_forStockChangingTrait = $product->whole_sell_price;
-            $this->offer_price_forStockChangingTrait    = $product->offer_price;
-            $this->mrp_price_forStockChangingTrait      =  $product->mrp_price;
-            $this->purchase_price_forStockChangingTrait = $product->purchase_price;
-            $this->unit_id_forStockChangingTrait        = $product->unit_id;
-            $this->stock_quantity_forStockChangingTrait = $product->initial_stock;
-            $product->available_stock = $this->incrementOrDecrementProductStock();
-            $product->save(); */
+            $this->stock_id_FSCT = 1;
+            $this->product_id_FSCT              = $product->id;
+            $this->stock_quantity_FSCT          = $product->initial_stock;
+            $this->unit_id_FSCT                 = $product->unit_id;
+            $product->available_stock           = $this->initialStockTypeIncrement();
+            $product->save();
         }
         return true;
     }//product store

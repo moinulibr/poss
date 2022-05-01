@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 /**
  * 
  */
-trait UnitValidationTrait
+trait OldUnitValidationTrait
 {
 
     /**

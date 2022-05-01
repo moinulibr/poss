@@ -26,8 +26,6 @@ class CreateStockHistoriesTable extends Migration
 
                 $table->decimal('stock',20,3)->nullable()->comment('real product (as product purchase unit) stock');
               
-                $table->string('verified',25)->nullable();
-                $table->integer('verified_by')->nullable();
                 $table->tinyInteger('status')->nullable();
                 $table->integer('created_by')->nullable();
                 $table->softDeletes();

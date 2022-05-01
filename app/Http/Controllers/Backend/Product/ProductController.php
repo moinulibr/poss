@@ -20,9 +20,9 @@ use App\Models\Backend\Supplier\SupplierGroup;
 use App\Models\Backend\ProductAttribute\Category;
 use App\Models\Backend\ProductAttribute\SubCategory;
 use App\Models\Backend\ProductAttribute\ProductGrade;
-use App\Http\Requests\Backend\Product\ProductValidationTrait;
 use App\Models\Backend\Warehouse\Warehouse;
 use App\Traits\Backend\Product\Logical\ProductTrait;
+use App\Traits\Backend\Product\Request\ProductValidationTrait;
 class ProductController extends Controller
 {
     use ProductValidationTrait;
