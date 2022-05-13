@@ -59,7 +59,8 @@ use App\Traits\Backend\Price\Logical\PricingTrait;
         {
             $product = new Product();
             $product->sku               = Str::random(10);
-            $product->bacode            = Str::random(10);
+            $product->bacode            = $product->sku;
+            $product->status            = 1;
 
             $product->supplier_id       = $request['supplier_id'];
             $product->category_id       = $request['category_id'];

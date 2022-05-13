@@ -51,7 +51,7 @@
                                 <h6 class="price"><span style="color:orange">  AS Code </span> : <span style="background-color:#e3e3f3;padding:2px;">{{ $product->custom_code }}</span></h6>
                                 <h6 class="price"><span style="color:blue"> Company Code </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->company_code}}</span></h6>
                                 <h6 class="price"><span style="color:green"> SKU </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->sku}}</span></h6>
-                                <h6 class="price"><span style="color:blue"> Barcode </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->bacode}}</span></h6>
+                                <h6 class="price"><span style="color:blue"> Stock </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->available_base_stock??0}}</span></h6>
                                 <h6 class="price"><span style="color:#286e2d"> Status </span> : 
                                     <span style="background-color:#e3e3f3;padding:2px;">
                                         @if (!$product->deleted_at)
@@ -167,13 +167,22 @@
                                                     {{$product->sku }}
                                                 </th>
                                             </tr>
-                                            <tr>
+                                           {{--  <tr>
                                                 <th style="width:20%;border:none;">
                                                     Barcode
                                                 </th>
                                                 <td style="width:1%;border:none;">:</td>
                                                 <th style="border:none;">
                                                     {{$product->bacode }}
+                                                </th>
+                                            </tr> --}}
+                                            <tr>
+                                                <th style="width:20%;border:none;">
+                                                    Created By
+                                                </th>
+                                                <td style="width:1%;border:none;">:</td>
+                                                <th style="border:none;">
+                                                    {{$product->createdBy?$product->createdBy->name:NULL }}
                                                 </th>
                                             </tr>
                                             <tr>

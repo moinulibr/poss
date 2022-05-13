@@ -11,6 +11,7 @@
                 </th>
                 <th>Category</th>
                 <th>Grade</th>
+                <th>Stock</th>
                 @foreach ($prices as $price)
                     <th>{{$price->label}}</th>
                 @endforeach
@@ -79,6 +80,11 @@
                         <small>
                         {{$item->productGrades ? $item->productGrades->name : ""}}
                         </small>
+                    </td> 
+                    <td>
+                        <strong>
+                        {{$item->available_base_stock ?? 0 }}
+                        </strong>
                     </td> 
 
                     @foreach ($item->onlyRegularProductPricesWhereStatusIsActive as $pp)    

@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits\Backend\Stock\Logical;
 
+use App\Models\Backend\Product\Product;
 use App\Models\Backend\Stock\ProductStock;
 use App\Models\Backend\Stock\Stock;
 use Illuminate\Support\Facades\Auth;
@@ -74,8 +75,10 @@ trait StockChangingTrait
         $this->stockQuantityChangingSign_FSCT = "+";
         $this->usedStockQuantityChangingSignStatus_FSCT = false;
         $this->usedStockQuantityChangingSign_FSCT = "";
-        return $this->changingProductStockQuantityAsIncrementOrDecrementStock();
 
+        $available_stock =  $this->changingProductStockQuantityAsIncrementOrDecrementStock();
+        $this->productRealStockUpdate();
+        return $available_stock;
         //-- product_stocks
         // branch_id, stock_id,product_id,available_stock
         // available_base_stock, used_stock, used_base_stock
@@ -343,31 +346,52 @@ trait StockChangingTrait
 
 
 
-    /**
-     * changing product stock quantity as increment or decrement stock
-     * this method return available stock/quantity
-     * 
-     */
-    public function changingProductStockQuantityAsIncrementOrDecrementStock()
-    {
-        $exist = $this->checkThisProductIsExistOrNotInThisProductStock();
-        $available_stock = 0;
-        //Update stock
-        if($exist) 
+    /*
+    |-------------------------------------------------------------------------------------------
+    | stock increment or decrement main method
+    |------------------------------------------------------------------------------------------
+    | 
+    | stock increment or decrement of any product / any stock
+    | this is main method,have to call this mehtod 
+    | 
+    |
+    */
+        /**
+         * changing product stock quantity as increment or decrement stock
+         * this method return available stock/quantity
+         * 
+         */
+        public function changingProductStockQuantityAsIncrementOrDecrementStock()
         {
-            $stock                              = $this->updateProductStockWhenStockQuantityChanging($exist);
-            $available_stock                    = $stock->available_stock;
-            $this->product_stock_id_FSCT        = $stock->id;
+            $exist = $this->checkThisProductIsExistOrNotInThisProductStock();
+            $available_stock = 0;
+            //Update stock
+            if($exist) 
+            {
+                $stock                              = $this->updateProductStockWhenStockQuantityChanging($exist);
+                $available_stock                    = $stock->available_stock;
+                $this->product_stock_id_FSCT        = $stock->id;
+            }
+            //insert stock 
+            else{
+            $stock                               = $this->firstTimeStoreStockInTheProductStock();
+            $available_stock                     = $stock->available_stock;
+            $this->product_stock_id_FSCT         = $stock->id;
+            }
+            $this->storeProductStockHistoryWhenStockQuantityChanging();
+            return $available_stock;
         }
-        //insert stock 
-        else{
-           $stock                               = $this->firstTimeStoreStockInTheProductStock();
-           $available_stock                     = $stock->available_stock;
-           $this->product_stock_id_FSCT         = $stock->id;
-        }
-        $this->storeProductStockHistoryWhenStockQuantityChanging();
-        return $available_stock;
-    }
+
+    /*
+    |-----------------------------------------------------------------------------------------
+    | stock increment or decrement main method
+    |-----------------------------------------------------------------------------------------
+    | 
+    | stock increment or decrement of any product / any stock
+    | this is main method,have to call this mehtod 
+    | 
+    |-------------------------------------------------------------------------------------------
+    */
 
 
     /**
@@ -433,66 +457,77 @@ trait StockChangingTrait
     }
 
 
-    /**
-     * Update product stock when stock quantity change
-     *
-     * @param [type] $stockExist
-     */
-    private function updateProductStockWhenStockQuantityChanging($stockExist)
-    {
-        $this->current_available_stock_FSCT      = $stockExist->available_stock;
-        $this->current_available_base_stock_FSCT = $stockExist->available_base_stock;
-        $this->current_used_stock_FSCT           = $stockExist->used_stock;
-        $this->current_used_base_stock_FSCT      = $stockExist->used_base_stock;
-        
-        $this->regularStockQuantityAfterAllCalculation_FSCT   = $this->calculatedUnitStockByUnitType('regular');
-        $this->baseStockQuantityAfterAllCalculation_FSCT      = $this->calculatedUnitStockByUnitType('base');
+    
+    /*
+    |-------------------------------------------------------------------------------------------
+    | changing stock in the product stocks table (product_stocks) 
+    |------------------------------------------------------------------------------------------
+    */
+        /**
+         * Update product stock when stock quantity change
+         *
+         * @param [type] $stockExist
+         */
+        private function updateProductStockWhenStockQuantityChanging($stockExist)
+        {
+            $this->current_available_stock_FSCT      = $stockExist->available_stock;
+            $this->current_available_base_stock_FSCT = $stockExist->available_base_stock;
+            $this->current_used_stock_FSCT           = $stockExist->used_stock;
+            $this->current_used_base_stock_FSCT      = $stockExist->used_base_stock;
+            
+            $this->regularStockQuantityAfterAllCalculation_FSCT   = $this->calculatedUnitStockByUnitType('regular');
+            $this->baseStockQuantityAfterAllCalculation_FSCT      = $this->calculatedUnitStockByUnitType('base');
 
-        //for regular stock
-        if($this->stockQuantityChangingSign_FSCT == "+" && 
-            $this->stockQuantityChangingSignStatus_FSCT == true
-        )
-        {
-            $available_stock                = $this->current_available_stock_FSCT        + $this->regularStockQuantityAfterAllCalculation_FSCT;
-            $available_base_stock           = $this->current_available_base_stock_FSCT   + $this->baseStockQuantityAfterAllCalculation_FSCT ;
-        }
-        else if($this->stockQuantityChangingSign_FSCT == "-" &&
-            $this->stockQuantityChangingSignStatus_FSCT == true
-        )
-        {
-            $available_stock                = $this->current_available_stock_FSCT        - $this->regularStockQuantityAfterAllCalculation_FSCT;
-            $available_base_stock           = $this->current_available_base_stock_FSCT   - $this->baseStockQuantityAfterAllCalculation_FSCT ;
-        }else{
-            $available_stock                = $this->current_available_stock_FSCT;
-            $available_base_stock           = $this->current_available_base_stock_FSCT;
-        }
+            //for regular stock
+            if($this->stockQuantityChangingSign_FSCT == "+" && 
+                $this->stockQuantityChangingSignStatus_FSCT == true
+            )
+            {
+                $available_stock                = $this->current_available_stock_FSCT        + $this->regularStockQuantityAfterAllCalculation_FSCT;
+                $available_base_stock           = $this->current_available_base_stock_FSCT   + $this->baseStockQuantityAfterAllCalculation_FSCT ;
+            }
+            else if($this->stockQuantityChangingSign_FSCT == "-" &&
+                $this->stockQuantityChangingSignStatus_FSCT == true
+            )
+            {
+                $available_stock                = $this->current_available_stock_FSCT        - $this->regularStockQuantityAfterAllCalculation_FSCT;
+                $available_base_stock           = $this->current_available_base_stock_FSCT   - $this->baseStockQuantityAfterAllCalculation_FSCT ;
+            }else{
+                $available_stock                = $this->current_available_stock_FSCT;
+                $available_base_stock           = $this->current_available_base_stock_FSCT;
+            }
 
-        //for used stock
-        if($this->usedStockQuantityChangingSign_FSCT == "+" &&
-            $this->usedStockQuantityChangingSignStatus_FSCT == true
-        )
-        {
-            $used_stock                     = $this->current_used_stock_FSCT             + $this->regularStockQuantityAfterAllCalculation_FSCT;
-            $used_base_stock                = $this->current_used_base_stock_FSCT        + $this->baseStockQuantityAfterAllCalculation_FSCT ;
-        }
-        else if($this->usedStockQuantityChangingSign_FSCT == "-" && 
-            $this->usedStockQuantityChangingSignStatus_FSCT == true
-        )
-        {
-            $used_stock                     = $this->current_used_stock_FSCT             - $this->regularStockQuantityAfterAllCalculation_FSCT;
-            $used_base_stock                = $this->current_used_base_stock_FSCT        - $this->baseStockQuantityAfterAllCalculation_FSCT ;
-        }else{
-            $used_stock                     = $this->current_used_stock_FSCT;
-            $used_base_stock                = $this->current_used_base_stock_FSCT;
-        }
+            //for used stock
+            if($this->usedStockQuantityChangingSign_FSCT == "+" &&
+                $this->usedStockQuantityChangingSignStatus_FSCT == true
+            )
+            {
+                $used_stock                     = $this->current_used_stock_FSCT             + $this->regularStockQuantityAfterAllCalculation_FSCT;
+                $used_base_stock                = $this->current_used_base_stock_FSCT        + $this->baseStockQuantityAfterAllCalculation_FSCT ;
+            }
+            else if($this->usedStockQuantityChangingSign_FSCT == "-" && 
+                $this->usedStockQuantityChangingSignStatus_FSCT == true
+            )
+            {
+                $used_stock                     = $this->current_used_stock_FSCT             - $this->regularStockQuantityAfterAllCalculation_FSCT;
+                $used_base_stock                = $this->current_used_base_stock_FSCT        - $this->baseStockQuantityAfterAllCalculation_FSCT ;
+            }else{
+                $used_stock                     = $this->current_used_stock_FSCT;
+                $used_base_stock                = $this->current_used_base_stock_FSCT;
+            }
 
-        $stockExist->available_stock        = $available_stock;
-        $stockExist->available_base_stock   = $available_base_stock;
-        $stockExist->used_stock             = $used_stock;
-        $stockExist->used_base_stock        = $used_base_stock;
-        $stockExist->save();
-        return $stockExist;
-    }
+            $stockExist->available_stock        = $available_stock;
+            $stockExist->available_base_stock   = $available_base_stock;
+            $stockExist->used_stock             = $used_stock;
+            $stockExist->used_base_stock        = $used_base_stock;
+            $stockExist->save();
+            return $stockExist;
+        }
+    /*
+    |-------------------------------------------------------------------------------------------
+    | changing stock in the product stocks table (product_stocks) 
+    |------------------------------------------------------------------------------------------
+    */
 
 
 
@@ -569,7 +604,10 @@ trait StockChangingTrait
         | first time store all stock wise data in the product stock table  
         | default stock is 0, except regular stock
         */
-
+    /**
+    * first time add/store stock in the product stock table
+    * when product create or purchase product
+    */
 
 
 
@@ -614,13 +652,57 @@ trait StockChangingTrait
 
 
 
+    /*
+    |----------------------------------------------------------------------------
+    | stock updating in the products table 
+    |--------------------------------------------------------------------------
+    | 
+    | after all action completed in this file, 
+    | then this method will call and update stocks in 
+    | the products table  
+    |
+    */
+        /**
+         * Product real stock update
+         * available base stock, available stock, used stock, used based stock
+         * update in the products table 
+         *
+         */
+        private function productRealStockUpdate()
+        {
+            $productStocks = ProductStock::where('branch_id',authBranch_hh())
+            ->where('product_id',$this->product_id_FSCT)
+            ->select('available_stock','available_base_stock','used_stock','used_base_stock')
+            ->where('status',1)
+            ->whereNull('deleted_at')
+            ->get();
+            //$productStocks->sum('available_stock');
+            //$productStocks->sum('available_base_stock');
+            //$productStocks->sum('used_stock');
+
+            Product::where('id',$this->product_id_FSCT)
+            ->update([
+                'available_stock'       => $productStocks->sum('available_stock'), 
+                'available_base_stock'  => $productStocks->sum('available_base_stock')
+            ]);
+            return true;
+        }
+    /*
+    |----------------------------------------------------------------------------
+    | stock updating in the products table 
+    |--------------------------------------------------------------------------
+    | 
+    | after all action completed in this file, 
+    | then this method will call and update stocks in 
+    | the products table  
+    |---------------------------------------------------------------------------------------
+    */
 
 
 
 
-
-
-    //--------------------------------product update time-------------------------------------
+    /*--------------------------------product update time-------------------------------------*/
+    /*----------------------------------------------------------------------------------------*/
      /** 
      * update stock as increment stock
      * when product update : 
@@ -655,52 +737,11 @@ trait StockChangingTrait
            $this->product_stock_id_FSCT         = $stock->id;
         }
         $this->storeProductStockHistoryWhenStockQuantityChanging();
+        $this->productRealStockUpdate();
         return $available_stock;
-        //$this->stock_id_FSCT = ;
-        //$this->product_id_FSCT = ;
-        //$this->stock_quantity_FSCT = ;
-        //$this->unit_id_FSCT = ;
-        //$this->initialStockTypeIncrement();
-
-        $this->product_stock_id_FSCT;//for history
-        $this->stock_changing_type_id_FSCT = 1;//for history
-        $this->stock_changing_sign_FSCT    = '+';//for history
-        $this->stock_changing_history_FSCT = [];//for history
-
-        $this->stockQuantityChangingSignStatus_FSCT = true;
-        $this->stockQuantityChangingSign_FSCT = "+";
-        $this->usedStockQuantityChangingSignStatus_FSCT = false;
-        $this->usedStockQuantityChangingSign_FSCT = "";
-        return $this->changingProductStockQuantityAsIncrementOrDecrementStock();
-
-        //total previous stock
-        //$product->getTotalAvailableStockFromProductStock()
-        //$product->getTotalUsedStockFromProductStock()
-        return ProductStock::where('branch_id',authBranch_hh())
-        ->where('product_id',$this->product_id_FSCT)
-        ->where('status',1)
-        ->whereNull('deleted_at')
-        ->first();
-
-        //-- product_stocks
-        // branch_id, stock_id,product_id,available_stock
-        // available_base_stock, used_stock, used_base_stock
-
-        //--history
-        // branch_id, stock_id , product_stock_id, product_id , stock_changing_type_id
-        // stock_changing_sign , stock_changing_history
-        // stock
-        /* [
-            'productId' => $product->id,
-            'type' => 'product created time - initial stock',
-            'unitId' => $product->unit_id,
-            'fromStockId' => NULL,
-            'fromStockName' => NULL,
-            'toStockId' => NULL,
-            'toStockName' => NULL,
-        ] */
     }
-
+    /*--------------------------------product update time-------------------------------------*/
+    /*----------------------------------------------------------------------------------------*/
 
 
 }

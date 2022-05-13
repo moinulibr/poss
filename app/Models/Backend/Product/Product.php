@@ -15,6 +15,7 @@ use App\Models\Backend\Stock\Stock;
 use App\Models\Backend\Supplier\Supplier;
 use App\Models\Backend\Warehouse\Warehouse;
 use App\Models\Backend\Warehouse\WarehouseRack;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -67,6 +68,11 @@ class Product extends Model
     public function warehouseRacks()
     {
         return $this->belongsTo(WarehouseRack::class,'warehouse_rack_id','id');
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class,'created_by','id');
     }
 
     /*
