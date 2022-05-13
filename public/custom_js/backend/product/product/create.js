@@ -37,7 +37,7 @@
 //-----------------------------------------------------------------------------------------
 
     //input field protected .. only for numeric
-    $(document).on('keyup keypress','.purchase_price ,.mrp_price,.whole_sell_price,.sell_price,.initial_stock',function(e){
+    $(document).on('keyup keypress','.inputFieldValidatedOnlyNumeric,.purchase_price ,.mrp_price,.whole_sell_price,.sell_price,.initial_stock',function(e){
         if (String.fromCharCode(e.keyCode).match(/[^0-9\.]/g)) return false;
         /* var charCode = (e.which) ? e.which : event.keyCode    
         if (String.fromCharCode(charCode).match(/[^0-9\.]/g))    
@@ -128,6 +128,10 @@
                 {   
                     printErrorMsg(response.error);
                 }
+                else if(response.status == 'exception')
+                {
+                    $.notify(response.message, response.type);
+                }
                 else if(response.status == true)
                 {
                     form[0].reset();
@@ -159,3 +163,67 @@
             });
         }
     });
+
+
+
+
+
+    
+
+    //from product create page. prices field
+    /*
+        // price from create_form_data and index js
+        <div class="form-group col-md-3">
+            <label class="form-label">Purchase Price</label>
+            <input type="text" class="form-control purchase_price purchase_price_0"  data-purchase_price="0" name="purchase_price_0"   placeholder="Purchase Price" style="background-color:#ebd354;color:#161603;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">MRP Price</label>
+            <input type="text" class="form-control mrp_price mrp_price_0"  data-mrp_price="0" name="mrp_price_0"  placeholder="MRP Price" style="background-color: black;color:yellow;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="form-label">Whole Sell Price</label>
+            <input type="text" class="form-control whole_sell_price whole_sell_price_0"  data-whole_sell_price="0" name="whole_sell_price_0"  placeholder="Whole Sell Price" style="background-color: #f17777;color:midnightblue;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">Sell Price</label>
+            <input type="text" class="form-control sell_price sell_price_0"  data-sell_price="0" name="sell_price_0"  placeholder="Sell Price" style="background-color: aliceblue;color:blue;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">Offer Price</label>
+            <input type="text" class="form-control offer_price offer_price_0"  data-offer_price="0" name="offer_price_0"  placeholder="Offer Price" style="background-color: #044176;color:#f5f5f9;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="form-group col-md-3">
+        <label class="form-label">Purchase Price</label>
+            <input type="text" class="form-control purchase_price purchase_price_${uniqueId}"  data-purchase_price="${uniqueId}" name="purchase_price_${uniqueId}"   placeholder="Purchase Price" style="background-color:#ebd354;color:#161603;font-weight:900;" />
+            <div class="clearfix"></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">MRP Price</label>
+            <input type="text" class="form-control mrp_price mrp_price_${uniqueId}"  data-mrp_price="${uniqueId}" name="mrp_price_${uniqueId}"  placeholder="MRP Price" style="background-color: black;color:yellow;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="form-label">Whole Sell Price</label>
+            <input type="text" class="form-control whole_sell_price whole_sell_price_${uniqueId}"  data-whole_sell_price="${uniqueId}" name="whole_sell_price_${uniqueId}"  placeholder="Whole Sell Price" style="background-color: #f17777;color:midnightblue;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">Sell Price</label>
+            <input type="text" class="form-control sell_price sell_price_${uniqueId}"  data-sell_price="${uniqueId}" name="sell_price_${uniqueId}"  placeholder="Sell Price" style="background-color: aliceblue;color:blue;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">Offer Price</label>
+            <input type="text" class="form-control offer_price offer_price_${uniqueId}"  data-offer_price="${uniqueId}" name="offer_price_${uniqueId}"  placeholder="Offer Price" style="background-color: #044176;color:#f5f5f9;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+    */

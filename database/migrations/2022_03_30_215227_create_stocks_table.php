@@ -26,6 +26,7 @@ class CreateStocksTable extends Migration
                 $table->integer('verified_by')->nullable();
                 $table->tinyInteger('status')->nullable();
                 $table->tinyInteger('use_in')->nullable()->comment('use in pos,and others. show this row if 1=use');
+                $table->tinyInteger('custom_serial')->nullable();
                 $table->integer('created_by')->nullable();
                 $table->softDeletes();
                 $table->timestamps();

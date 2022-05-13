@@ -80,7 +80,15 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label class="form-label">Initial Stock</label>
-                                                            <input type="text" value="{{ $product->initial_stock }}" disabled class="form-control initial_stock initial_stock_0" data-initial_stock="0" name="initial_stock"  style="background-color:rgb(232, 240, 254);color:#030312;" placeholder="Initial Stock" />
+                                                            @if ($product->initial_stock == 0 && 
+                                                                ($product->getTotalAvailableStockFromProductStock() == 0 
+                                                                    && $product->getTotalUsedStockFromProductStock() == 0
+                                                                    )
+                                                                )
+                                                                <input type="text" value="{{ $product->initial_stock }}"  name="initial_stock" class="form-control initial_stock initial_stock_0" data-initial_stock="0"  style="background-color:rgb(232, 240, 254);color:#030312;" />
+                                                                @else
+                                                                <input type="text" value="{{ $product->initial_stock }}" disabled class="form-control initial_stock initial_stock_0" data-initial_stock="0" style="background-color:rgb(232, 240, 254);color:#030312;" placeholder="Initial Stock" />
+                                                            @endif
                                                             <div class="clearfix"></div>
                                                         </div>
                                                         <div class="form-group col-md-3">
@@ -95,32 +103,14 @@
                                                 <!--price--->
                                                 <div style="background-color:#54a52a;color:white;padding:5px;">
                                                     <div class="form-row">
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label">Purchase Price</label>
-                                                            <input type="text" value="{{ $product->purchase_price }}" class="form-control purchase_price purchase_price_0"  data-purchase_price="0" name="purchase_price"   placeholder="Purchase Price" style="background-color:#ebd354;color:#161603;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label class="form-label">MRP Price</label>
-                                                            <input type="text" value="{{ $product->mrp_price }}" class="form-control mrp_price mrp_price_0"  data-mrp_price="0" name="mrp_price"  placeholder="MRP Price" style="background-color: black;color:yellow;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label">Whole Sell Price</label>
-                                                            <input type="text"  value="{{ $product->whole_sell_price }}" class="form-control whole_sell_price whole_sell_price_0"  data-whole_sell_price="0" name="whole_sell_price"  placeholder="Whole Sell Price" style="background-color: #f17777;color:midnightblue;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label class="form-label">Sell Price</label>
-                                                            <input type="text"  value="{{ $product->sell_price }}"  class="form-control sell_price sell_price_0"  data-sell_price="0" name="sell_price"  placeholder="Sell Price" style="background-color: aliceblue;color:blue;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label class="form-label">Offer Price</label>
-                                                            <input type="text"  value="{{ $product->offer_price }}" class="form-control offer_price offer_price_0"  data-offer_price="0" name="offer_price"  placeholder="Offer Price" style="background-color: #044176;color:#f5f5f9;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
+                                                        @foreach ($product->onlyRegularProductPricesWithPriceAllDataWhereStatusIsActive as $price)
+                                                            <div class="{{$price->class}}">
+                                                                <label class="form-label">{{$price->label}}</label>
+                                                                <input type="text" value="{{$price->price}}" name="{{$price->id}}_0"  class="form-control inputFieldValidatedOnlyNumeric {{$price->id}} {{$price->id}}_0"  data-{{$price->id}}="0"   placeholder="{{$price->label}}" style="{{$price->css_style}}" />
+                                                                <div class="clearfix"></div>
+                                                            </div> 
+                                                            <input type="hidden" value="{{$price->id}}" name="price[]" class="0_price" data-price="0">
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                                 <!--price--->
@@ -152,9 +142,9 @@
                                                     <div class="form-group col-md-2">
                                                         <small >Previous Photo</small> <br/>
                                                         @if($product->photo)
-                                                            <img src="{{ asset('storage/backend/product/product/'.$product->id.".".$product->photo) }}" alt="" width="100%" height="38">
+                                                            <img src="{{ asset(productImageViewLocation_hh().$product->id.".".$product->photo) }}" alt="" width="100%" height="38">
                                                             @else
-                                                            <img src="{{ asset('storage/backend/default/product/5.png') }}" alt="" width="100%" height="38">
+                                                            <img src="{{ asset(defaultProductImageUrl_hh()) }}" alt="" width="100%" height="38">
                                                         @endif
                                                     </div>
                                                     <div class="form-group col-md-4">
@@ -369,3 +359,42 @@
             
                         </div>
                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- <div class="form-group col-md-3">
+            <label class="form-label">Purchase Price</label>
+            <input type="text" value="{{ $product->purchase_price }}" class="form-control purchase_price purchase_price_0"  data-purchase_price="0" name="purchase_price"   placeholder="Purchase Price" style="background-color:#ebd354;color:#161603;font-weight:900;" />
+            <div class="clearfix"></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">MRP Price</label>
+            <input type="text" value="{{ $product->mrp_price }}" class="form-control mrp_price mrp_price_0"  data-mrp_price="0" name="mrp_price"  placeholder="MRP Price" style="background-color: black;color:yellow;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-3">
+            <label class="form-label">Whole Sell Price</label>
+            <input type="text"  value="{{ $product->whole_sell_price }}" class="form-control whole_sell_price whole_sell_price_0"  data-whole_sell_price="0" name="whole_sell_price"  placeholder="Whole Sell Price" style="background-color: #f17777;color:midnightblue;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">Sell Price</label>
+            <input type="text"  value="{{ $product->sell_price }}"  class="form-control sell_price sell_price_0"  data-sell_price="0" name="sell_price"  placeholder="Sell Price" style="background-color: aliceblue;color:blue;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="form-label">Offer Price</label>
+            <input type="text"  value="{{ $product->offer_price }}" class="form-control offer_price offer_price_0"  data-offer_price="0" name="offer_price"  placeholder="Offer Price" style="background-color: #044176;color:#f5f5f9;font-weight:900;" />
+            <div class="clearfix"></div>
+        </div> --}}

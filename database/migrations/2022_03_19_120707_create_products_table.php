@@ -37,16 +37,18 @@ class CreateProductsTable extends Migration
                 $table->integer('warehouse_id')->nullable();
                 $table->integer('warehouse_rack_id')->nullable();
 
-                $table->decimal('purchase_price',20,2)->nullable();
+                /* $table->decimal('purchase_price',20,2)->nullable();
                 $table->decimal('mrp_price',20,2)->nullable();
                 $table->decimal('whole_sell_price',20,2)->nullable();
                 $table->decimal('sell_price',20,2)->nullable();
-                $table->decimal('offer_price',20,2)->nullable();
+                $table->decimal('offer_price',20,2)->nullable(); */
 
                 $table->decimal('initial_stock',20,3)->nullable();
 
                 $table->decimal('alert_stock',20,3)->nullable();
-                $table->decimal('available_stock',20,3)->nullable();
+                
+                $table->decimal('available_stock',20,3)->nullable()->comment('multiple with calculation_result');
+                $table->decimal('available_base_stock',20,3)->nullable()->comment('no change, same to product purchase unit');
 
                 $table->text('description')->nullable();
                 $table->tinyInteger('discount_status')->default(0);

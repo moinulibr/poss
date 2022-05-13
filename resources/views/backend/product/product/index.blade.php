@@ -104,6 +104,11 @@
             <!-------delete Product Modal------> 
             
 
+            <!-------edit Product Price Modal------> 
+            <div class="modal fade " id="editProductPriceModal"  aria-modal="true"></div>
+            <input type="hidden" class="editProductPriceModalRoute" value="{{ route('admin.product.price.index') }}">
+            <!-------edit Product Price Modal------> 
+
 
 
         
@@ -143,6 +148,7 @@
 <script src="{{asset('custom_js/backend')}}/product/product/index.js?v=1"></script>
 <script src="{{asset('custom_js/backend')}}/product/product/create.js?v=2"></script>
 <script src="{{asset('custom_js/backend')}}/product/product/edit.js?v=3"></script>
+<script src="{{asset('custom_js/backend')}}/product/product/price-edit.js?v=4"></script>
 
 
     <!---------product attributes all modal linked there---------->
@@ -234,32 +240,15 @@
                                     <!--price--->
                                     <div style="background-color:#54a52a;color:white;padding:5px;">
                                         <div class="form-row">
-                                            <div class="form-group col-md-3">
-                                                <label class="form-label">Purchase Price</label>
-                                                <input type="text" class="form-control purchase_price purchase_price_${uniqueId}"  data-purchase_price="${uniqueId}" name="purchase_price_${uniqueId}"   placeholder="Purchase Price" style="background-color:#ebd354;color:#161603;font-weight:900;" />
-                                                <div class="clearfix"></div>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label class="form-label">MRP Price</label>
-                                                <input type="text" class="form-control mrp_price mrp_price_${uniqueId}"  data-mrp_price="${uniqueId}" name="mrp_price_${uniqueId}"  placeholder="MRP Price" style="background-color: black;color:yellow;font-weight:900;" />
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label class="form-label">Whole Sell Price</label>
-                                                <input type="text" class="form-control whole_sell_price whole_sell_price_${uniqueId}"  data-whole_sell_price="${uniqueId}" name="whole_sell_price_${uniqueId}"  placeholder="Whole Sell Price" style="background-color: #f17777;color:midnightblue;font-weight:900;" />
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label class="form-label">Sell Price</label>
-                                                <input type="text" class="form-control sell_price sell_price_${uniqueId}"  data-sell_price="${uniqueId}" name="sell_price_${uniqueId}"  placeholder="Sell Price" style="background-color: aliceblue;color:blue;font-weight:900;" />
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label class="form-label">Offer Price</label>
-                                                <input type="text" class="form-control offer_price offer_price_${uniqueId}"  data-offer_price="${uniqueId}" name="offer_price_${uniqueId}"  placeholder="Offer Price" style="background-color: #044176;color:#f5f5f9;font-weight:900;" />
-                                                <div class="clearfix"></div>
-                                            </div>
+                                            @foreach ($prices as $price)
+                                                <div class="{{$price->class}}">
+                                                    <label class="form-label">{{$price->label}}</label>
+                                                    <input type="text" value="0"  name="{{$price->id}}_${uniqueId}"  class="form-control {{$price->id}} inputFieldValidatedOnlyNumeric {{$price->id}}_${uniqueId}"  data-{{$price->id}}="${uniqueId}"  placeholder="{{$price->label}}" style="{{$price->css_style}}" required />
+                                                    <div class="clearfix"></div>
+                                                </div> 
+                                                <input type="hidden" value="{{$price->id}}" name="${uniqueId}_price[]" class="${uniqueId}_price" data-price="${uniqueId}">
+                                            @endforeach
+                                            
                                         </div>
                                     </div>
                                     <!--price--->

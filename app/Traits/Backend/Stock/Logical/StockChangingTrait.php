@@ -54,8 +54,10 @@ trait StockChangingTrait
      */
     public function initialStockTypeIncrement()
     {   
+
+        // available_base_stock :: in the products table 
         $this->authId_FSCT                       = Auth::guard('web')->user()->id;
-        $this->authBranchId_FSCT                 = Auth::guard('web')->user()->branch_id;
+        $this->authBranchId_FSCT                 = authBranch_hh();
        
         //$this->stock_id_FSCT = ;
         //$this->product_id_FSCT = ;
@@ -103,7 +105,7 @@ trait StockChangingTrait
     public function sellingFromPossStockTypeDecrement()
     {
         $this->authId_FSCT                       = Auth::guard('web')->user()->id;
-        $this->authBranchId_FSCT                 = Auth::guard('web')->user()->branch_id;
+        $this->authBranchId_FSCT                 = authBranch_hh();
        
         //$this->stock_id_FSCT = ;
         //$this->product_id_FSCT = ;
@@ -112,7 +114,7 @@ trait StockChangingTrait
         //$this->sellingFromPossStockTypeDecrement();
 
         $this->product_stock_id_FSCT;//for history
-        $this->stock_changing_type_id_FSCT = 1;//for history
+        $this->stock_changing_type_id_FSCT = 2;//for history
         $this->stock_changing_sign_FSCT    = '-';//for history
         $this->stock_changing_history_FSCT = [];//for history
 
@@ -143,7 +145,7 @@ trait StockChangingTrait
     public function sellingReturnStockTypeIncrement()
     {
         $this->authId_FSCT                       = Auth::guard('web')->user()->id;
-        $this->authBranchId_FSCT                 = Auth::guard('web')->user()->branch_id;
+        $this->authBranchId_FSCT                 = authBranch_hh();
        
         //$this->stock_id_FSCT = ;
         //$this->product_id_FSCT = ;
@@ -152,7 +154,7 @@ trait StockChangingTrait
         //$this->sellingReturnStockTypeIncrement();
 
         $this->product_stock_id_FSCT;//for history
-        $this->stock_changing_type_id_FSCT = 1;//for history
+        $this->stock_changing_type_id_FSCT = 3;//for history
         $this->stock_changing_sign_FSCT    = '+';//for history
         $this->stock_changing_history_FSCT = [];//for history
 
@@ -182,7 +184,7 @@ trait StockChangingTrait
     public function purchaseRegularStockTypeIncrement()
     {
         $this->authId_FSCT                       = Auth::guard('web')->user()->id;
-        $this->authBranchId_FSCT                 = Auth::guard('web')->user()->branch_id;
+        $this->authBranchId_FSCT                 = authBranch_hh();
        
         //$this->stock_id_FSCT = ;
         //$this->product_id_FSCT = ;
@@ -191,7 +193,7 @@ trait StockChangingTrait
         //$this->purchaseRegularStockTypeIncrement();
 
         $this->product_stock_id_FSCT;//for history
-        $this->stock_changing_type_id_FSCT = 1;//for history
+        $this->stock_changing_type_id_FSCT = 4;//for history
         $this->stock_changing_sign_FSCT    = '+';//for history
         $this->stock_changing_history_FSCT = [];//for history
 
@@ -221,7 +223,7 @@ trait StockChangingTrait
     public function purchaseReturnStockTypeDecrement()
     {
         $this->authId_FSCT                       = Auth::guard('web')->user()->id;
-        $this->authBranchId_FSCT                 = Auth::guard('web')->user()->branch_id;
+        $this->authBranchId_FSCT                 = authBranch_hh();
        
         //$this->stock_id_FSCT = ;
         //$this->product_id_FSCT = ;
@@ -230,7 +232,7 @@ trait StockChangingTrait
         //$this->purchaseReturnStockTypeDecrement();
 
         $this->product_stock_id_FSCT;//for history
-        $this->stock_changing_type_id_FSCT = 1;//for history
+        $this->stock_changing_type_id_FSCT = 5;//for history
         $this->stock_changing_sign_FSCT    = '-';//for history
         $this->stock_changing_history_FSCT = [];//for history
 
@@ -283,7 +285,7 @@ trait StockChangingTrait
     public function damageStockTypeDecrement()
     {
         $this->authId_FSCT                       = Auth::guard('web')->user()->id;
-        $this->authBranchId_FSCT                 = Auth::guard('web')->user()->branch_id;
+        $this->authBranchId_FSCT                 = authBranch_hh();
        
         //$this->stock_id_FSCT = ;
         //$this->product_id_FSCT = ;
@@ -292,7 +294,7 @@ trait StockChangingTrait
         //$this->transferFromStockTypeDecrement();
 
         $this->product_stock_id_FSCT;//for history
-        $this->stock_changing_type_id_FSCT = 1;//for history
+        $this->stock_changing_type_id_FSCT = 8;//for history
         $this->stock_changing_sign_FSCT    = '-';//for history
         $this->stock_changing_history_FSCT = [];//for history
 
@@ -503,18 +505,72 @@ trait StockChangingTrait
         $stock = new ProductStock();
         $stock->stock_id                = $this->stock_id_FSCT;
         $stock->product_id              = $this->product_id_FSCT;
-
         $stock->available_stock         = $this->calculatedUnitStockByUnitType('regular');
         $stock->available_base_stock    = $this->calculatedUnitStockByUnitType('base');
         $stock->used_stock              = 0;
         $stock->used_base_stock         = 0;
-
         $stock->status                  = 1;
-        $stock->branch_id               = $this->authBranchId_FSCT;
-        $stock->created_by              = $this->authId_FSCT;
+        $stock->branch_id               = authBranch_hh();
+        $stock->created_by              = authId_hh();
         $stock->save();
+        /*
+        |----------------
+        | first time all stock store in the product stock table
+        | default store 0 quantity
+        */
+        $this->firstTimeStoreAllStockWiseZeoQuantityInTheProductStock();
         return $stock;
     }
+        /*
+        |------------------------------------------
+        | first time store all stock wise data in the product stock table  
+        | default stock is 0, except regular stock
+        */
+            private function firstTimeStoreAllStockWiseZeoQuantityInTheProductStock()
+            {
+                $onlyIdsExceptRegularStockId = Stock::where('status',1)
+                    ->where('id','!=',1)//regular stock
+                    ->where('branch_id',authBranch_hh())
+                    ->select('id','branch_id')
+                    ->pluck('id')
+                    ->toArray();
+                foreach($onlyIdsExceptRegularStockId as $stockId)
+                {
+                    //if product is not exist in the product stocks, 
+                    //then create new product stock
+                    if(!$this->checkThisProductIsExistOrNotByStockIdInThisProductStock($stockId))
+                    {
+                        $stock = new ProductStock();
+                        $stock->stock_id                = $stockId;
+                        $stock->product_id              = $this->product_id_FSCT;
+                        $stock->available_stock         = 0;
+                        $stock->available_base_stock    = 0;
+                        $stock->used_stock              = 0;
+                        $stock->used_base_stock         = 0;
+                        $stock->status                  = 1;
+                        $stock->branch_id               = authBranch_hh();
+                        $stock->created_by              = authId_hh();
+                        $stock->save();
+                    }
+                }
+                return true;
+            }
+            private function checkThisProductIsExistOrNotByStockIdInThisProductStock($stockId)
+            {
+                return ProductStock::where('stock_id',$stockId)
+                ->where('branch_id',authBranch_hh())
+                ->where('product_id',$this->product_id_FSCT)
+                ->where('status',1)
+                ->whereNull('deleted_at')
+                ->first();
+            }
+        /*
+        |------------------------------------------
+        | first time store all stock wise data in the product stock table  
+        | default stock is 0, except regular stock
+        */
+
+
 
 
     /**
@@ -525,7 +581,7 @@ trait StockChangingTrait
     private function checkThisProductIsExistOrNotInThisProductStock()
     {
         return ProductStock::where('stock_id',$this->stock_id_FSCT)
-        ->where('branch_id',$this->authBranchId_FSCT)
+        ->where('branch_id',authBranch_hh())
         ->where('product_id',$this->product_id_FSCT)
         ->where('status',1)
         ->whereNull('deleted_at')
@@ -547,8 +603,8 @@ trait StockChangingTrait
         $stock->stock_changing_history  = json_encode( $this->stock_changing_history_FSCT);
         $stock->stock                   = $this->stock_quantity_FSCT;
         $stock->status                  = 1;
-        $stock->branch_id               = $this->authBranchId_FSCT;
-        $stock->created_by              = $this->authId_FSCT;
+        $stock->branch_id               = authBranch_hh();
+        $stock->created_by              = authId_hh();
         $stock->save();
         return $stock;
         // branch_id, stock_id , product_stock_id, product_id , stock_changing_type_id
@@ -557,6 +613,93 @@ trait StockChangingTrait
     }
 
 
+
+
+
+
+
+
+
+    //--------------------------------product update time-------------------------------------
+     /** 
+     * update stock as increment stock
+     * when product update : 
+     */
+    public function updateStockWhenProductUpdateStockTypeIncrement()
+    {   
+        $this->authId_FSCT                       = Auth::guard('web')->user()->id;
+        $this->authBranchId_FSCT                 = authBranch_hh();
+       
+        $this->stock_changing_type_id_FSCT = 1;//for history
+        $this->stock_changing_sign_FSCT    = '+';//for history
+        $this->stock_changing_history_FSCT = [];//for history
+
+        $this->stockQuantityChangingSignStatus_FSCT = true;
+        $this->stockQuantityChangingSign_FSCT = "+";
+        $this->usedStockQuantityChangingSignStatus_FSCT = false;
+        $this->usedStockQuantityChangingSign_FSCT = "";
+
+        $exist = $this->checkThisProductIsExistOrNotInThisProductStock();
+        $available_stock = 0;
+        //Update stock
+        if($exist) 
+        {
+            $stock                              = $this->updateProductStockWhenStockQuantityChanging($exist);
+            $available_stock                    = $stock->available_stock;
+            $this->product_stock_id_FSCT        = $stock->id;
+        }
+        //insert stock 
+        else{
+           $stock                               = $this->firstTimeStoreStockInTheProductStock();
+           $available_stock                     = $stock->available_stock;
+           $this->product_stock_id_FSCT         = $stock->id;
+        }
+        $this->storeProductStockHistoryWhenStockQuantityChanging();
+        return $available_stock;
+        //$this->stock_id_FSCT = ;
+        //$this->product_id_FSCT = ;
+        //$this->stock_quantity_FSCT = ;
+        //$this->unit_id_FSCT = ;
+        //$this->initialStockTypeIncrement();
+
+        $this->product_stock_id_FSCT;//for history
+        $this->stock_changing_type_id_FSCT = 1;//for history
+        $this->stock_changing_sign_FSCT    = '+';//for history
+        $this->stock_changing_history_FSCT = [];//for history
+
+        $this->stockQuantityChangingSignStatus_FSCT = true;
+        $this->stockQuantityChangingSign_FSCT = "+";
+        $this->usedStockQuantityChangingSignStatus_FSCT = false;
+        $this->usedStockQuantityChangingSign_FSCT = "";
+        return $this->changingProductStockQuantityAsIncrementOrDecrementStock();
+
+        //total previous stock
+        //$product->getTotalAvailableStockFromProductStock()
+        //$product->getTotalUsedStockFromProductStock()
+        return ProductStock::where('branch_id',authBranch_hh())
+        ->where('product_id',$this->product_id_FSCT)
+        ->where('status',1)
+        ->whereNull('deleted_at')
+        ->first();
+
+        //-- product_stocks
+        // branch_id, stock_id,product_id,available_stock
+        // available_base_stock, used_stock, used_base_stock
+
+        //--history
+        // branch_id, stock_id , product_stock_id, product_id , stock_changing_type_id
+        // stock_changing_sign , stock_changing_history
+        // stock
+        /* [
+            'productId' => $product->id,
+            'type' => 'product created time - initial stock',
+            'unitId' => $product->unit_id,
+            'fromStockId' => NULL,
+            'fromStockName' => NULL,
+            'toStockId' => NULL,
+            'toStockName' => NULL,
+        ] */
+    }
 
 
 

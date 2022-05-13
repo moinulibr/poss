@@ -11,10 +11,9 @@
                 </th>
                 <th>Category</th>
                 <th>Grade</th>
-                <th><small>Purchase Price</small></th>
-                <th><small>MRP Price</small></th>
-                <th><small>Whole Sell Price</small></th>
-                <th><small>Sell Price</small></th>
+                @foreach ($prices as $price)
+                    <th>{{$price->label}}</th>
+                @endforeach
             </tr>
         </thead>
         <tbody>
@@ -33,6 +32,7 @@
                                 <a class="dropdown-item singleShowModal" data-id="{{$item->id}}"  href="javascript:void(0)">View</a>
                                 <a class="dropdown-item singleEditModal" data-id="{{$item->id}}" href="javascript:void(0)">Edit</a>
                                 <a class="dropdown-item singleDeleteModal" data-id="{{$item->id}}" data-name="{{$item->name}}" href="javascript:void(0)">Delete</a>
+                                <a class="dropdown-item singlePriceEditModal" data-id="{{$item->id}}" href="javascript:void(0)">Edit Price</a>
                                 {{-- <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)">Separated link</a>
                             </div> --}}
@@ -42,9 +42,9 @@
                         {{-- @if(Storage::disk('public')->exists("storage/backend/product/product/{$item->id}.",$item->photo)) --}}
                         <span style="cursor:pointer;" class="singleShowModal" data-id="{{$item->id}}" href="javascript:void(0)">
                             @if($item->photo)
-                                <img src="{{ asset('storage/backend/product/product/'.$item->id.".".$item->photo) }}" alt="" width="40" height="40" style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
+                                <img src="{{ asset(productImageViewLocation_hh().$item->id.".".$item->photo) }}" alt="" width="40" height="40" style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
                                 @else
-                                <img src="{{ asset('storage/backend/default/product/5.png') }}" alt="" width="40" height="40" style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
+                                <img src="{{ asset(defaultProductImageUrl_hh()) }}" alt="" width="40" height="40" style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
                             @endif
                         </span>
                     </td>
@@ -80,27 +80,15 @@
                         {{$item->productGrades ? $item->productGrades->name : ""}}
                         </small>
                     </td> 
+
+                    @foreach ($item->onlyRegularProductPricesWhereStatusIsActive as $pp)    
                     <td>
                         <small>
-                        {{$item->purchase_price}}
+                        {{$pp->price}}
                         </small>
                     </td>
-                    <td>
-                        <small>
-                            {{$item->whole_sell_price}}
-                        </small>
-                    </td> 
-                    <td>
-                        <small>
-                            {{$item->sell_price}}
-                        </small>
-                    </td> 
-                    <td>
-                        <small>
-                            {{$item->purchase_price}}
-                        </small>
-                    </td>
-                    
+                    @endforeach
+
                 </tr>
             @endforeach
         </tbody>

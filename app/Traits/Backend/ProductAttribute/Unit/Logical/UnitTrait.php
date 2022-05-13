@@ -18,7 +18,6 @@ trait UnitTrait
     /**
      * get unit by unit id function
      *
-     * @return void
      */
     public function getUnitByUnitId()
     {

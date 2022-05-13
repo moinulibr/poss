@@ -4,25 +4,31 @@ namespace App\Http\Controllers\Backend\Product;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
-use Illuminate\Support\Facades\Auth;
-use App\Traits\Permission\Permission;
+use App\Models\Backend\Price\Price;
+use App\Models\Backend\Stock\Stock;
 
 //use Illuminate\Support\Facades\Validator;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Traits\Permission\Permission;
 use App\Models\Backend\Product\Product;
 use App\Models\Backend\Supplier\Supplier;
+use App\Models\Backend\Price\ProductPrice;
+use App\Models\Backend\Stock\ProductStock;
+use App\Models\Backend\Warehouse\Warehouse;
 use App\Models\Backend\ProductAttribute\Unit;
 use App\Models\Backend\ProductAttribute\Brand;
 use App\Models\Backend\ProductAttribute\Color;
 use App\Models\Backend\Supplier\SupplierGroup;
 use App\Models\Backend\ProductAttribute\Category;
 use App\Models\Backend\ProductAttribute\SubCategory;
-use App\Models\Backend\ProductAttribute\ProductGrade;
-use App\Models\Backend\Warehouse\Warehouse;
 use App\Traits\Backend\Product\Logical\ProductTrait;
+use App\Models\Backend\ProductAttribute\ProductGrade;
 use App\Traits\Backend\Product\Request\ProductValidationTrait;
+
 class ProductController extends Controller
 {
     use ProductValidationTrait;
@@ -33,9 +39,14 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $data['colors'] = Color::latest()->get();
         $data['datas']  = Product::latest()->paginate(50);
+        $data['prices'] = Price::where('status',1)
+                        ->where('branch_id',authBranch_hh())
+                        ->whereNull('deleted_at')
+                        ->orderBy('custom_serial','ASC')
+                        ->get();
         return view('backend.product.product.index',$data);
     }
 
@@ -43,11 +54,16 @@ class ProductController extends Controller
      * Undocumented function
      *
      * @param Request $request
-     * @return void
      */
     public function productListByAjaxResponse(Request $request)
     {
         $data['colors'] = Color::latest()->get();
+        $data['prices'] = Price::where('status',1)
+                        ->where('branch_id',authBranch_hh())
+                        ->whereNull('deleted_at')
+                        ->orderBy('custom_serial','ASC')
+                        ->get();
+
         $product  = Product::query();
         if($request->ajax())
         {
@@ -85,6 +101,13 @@ class ProductController extends Controller
         $data['units']          = Unit::latest()->get();
 
         $data['warehouses']     = Warehouse::latest()->get();
+
+        $data['prices']         = Price::where('status',1)
+                                ->where('branch_id',authBranch_hh())
+                                ->whereNull('deleted_at')
+                                ->orderBy('custom_serial','ASC')
+                                ->get();
+
         return view('backend.product.product.create',$data);
         return view('backend.pos.create',$data);
         //return view('backend.product.product.old_create',$data);
@@ -106,9 +129,21 @@ class ProductController extends Controller
                 'error'=> $validators['errors']->getMessageBag()->toArray()
             ]);
         }
-
-        $this->productStore($request->all());
-      
+        DB::beginTransaction();
+        try {
+            $this->productStore($request->all());
+            DB::commit();
+        } catch (\Exception  $e) {
+            DB::rollback();
+            throw $e;
+            return response()->json([
+                'status' => 'exception',
+                'type' => 'warning',
+                'message' => "Product added successfully",
+                'message'=>  $e->getMessage()
+            ]);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
         return response()->json([
             'status' => true,
             'type' => 'success',
@@ -144,7 +179,11 @@ class ProductController extends Controller
         $data['supplierGroups'] = SupplierGroup::latest()->get();
         $data['units']          = Unit::latest()->get();
         $data['warehouses']     = Warehouse::latest()->get();
-
+        $data['prices']         = Price::where('status',1)
+                                ->where('branch_id',authBranch_hh())
+                                ->whereNull('deleted_at')
+                                ->orderBy('custom_serial','ASC')
+                                ->get();
         $data['product'] = Product::findOrFail($request->id);
         return view('backend.product.product.edit',$data);
     }
@@ -167,8 +206,21 @@ class ProductController extends Controller
             ]);
         }
 
-        $this->productUpdate($request->all());
-
+        DB::beginTransaction();
+        try {
+            $this->productUpdate($request->all());
+            DB::commit();
+        } catch (\Exception  $e) {
+            DB::rollback();
+            throw $e;
+            return response()->json([
+                'status' => 'exception',
+                'type' => 'warning',
+                'message' => "Product added successfully",
+                'message'=>  $e->getMessage()
+            ]);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
         return response()->json([
             'status' => true,
             'type' => 'success',

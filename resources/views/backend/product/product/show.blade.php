@@ -24,9 +24,9 @@
                                   <div class="tab-pane active" id="pic-1">
                                         {{-- @if(Storage::disk('public')->exists("storage/backend/product/product/{$item->id}.",$item->photo)) --}}
                                         @if($product->photo)
-                                        <img src="{{ asset('storage/backend/product/product/'.$product->id.".".$product->photo) }}" width="100%" height="195;" style="padding:4px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px" />
+                                        <img src="{{ asset(productImageViewLocation_hh().$product->id.".".$product->photo) }}" width="100%" height="195;" style="padding:4px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px" />
                                             @else
-                                            <img src="{{ asset('storage/backend/default/product/5.png') }}" width="100%" height="195;" style="padding:4px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px" />
+                                            <img src="{{ asset(defaultProductImageUrl_hh()) }}" width="100%" height="195;" style="padding:4px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px" />
                                         @endif
                                     </div>
                                 </div>
@@ -47,11 +47,25 @@
                                 -->
                                 <div style="border-bottom:1px solid rgba(24,28,33,.06);padding:5px;margin-bottom:10px;"></div>
                                 
-                                <h6 class="price"><span style="color:orange"> Purchase price </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->sell_price}}</span></h6>
+                                
+                                <h6 class="price"><span style="color:orange">  AS Code </span> : <span style="background-color:#e3e3f3;padding:2px;">{{ $product->custom_code }}</span></h6>
+                                <h6 class="price"><span style="color:blue"> Company Code </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->company_code}}</span></h6>
+                                <h6 class="price"><span style="color:green"> SKU </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->sku}}</span></h6>
+                                <h6 class="price"><span style="color:blue"> Barcode </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->bacode}}</span></h6>
+                                <h6 class="price"><span style="color:#286e2d"> Status </span> : 
+                                    <span style="background-color:#e3e3f3;padding:2px;">
+                                        @if (!$product->deleted_at)
+                                            <span class="badge badge-success">Active</span>
+                                            @else
+                                            <span class="badge badge-danger">Inactive</span>
+                                        @endif    
+                                    </span>
+                                </h6>
+                                {{--  <h6 class="price"><span style="color:orange"> Purchase price </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->sell_price}}</span></h6>
                                 <h6 class="price"><span style="color:blue"> MRP price </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->mrp_price}}</span></h6>
                                 <h6 class="price"><span style="color:green"> Whole Sell price </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->whole_sell_price}}</span></h6>
                                 <h6 class="price"><span style="color:blue"> Sell price </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->sell_price}}</span></h6>
-                                <h6 class="price"><span style="color:#286e2d"> Offer price </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->offer_price}}</span></h6>
+                                <h6 class="price"><span style="color:#286e2d"> Offer price </span> : <span style="background-color:#e3e3f3;padding:2px;">{{$product->offer_price}}</span></h6> --}}
                                 
                                 <!-- 
                                     <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
@@ -72,11 +86,49 @@
                                     </div> 
                                 -->
                             </div><!---col-6-->
-
-
-                          
                         </div><!---wrapper row--->
                         
+
+                        <div class="wrapper row">
+                            <div class="col-md-12">
+                                <div>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                <th  style="font-size:16px;background-color: darkgray;color: floralwhite;border-bottom-color:#f1e7e7;">
+                                                    Stock
+                                                </th>
+                                                <th style="font-size:16px;background-color: #c1b8b8;color:yellow;border-bottom-color:#f1e7e7;">
+                                                    Quantity
+                                                </th>
+                                                @foreach ($product->priceNORWhereStatusIsActive() as $ppric) 
+                                                    <td style="font-size: 12px;">{{$ppric->label}}</td>
+                                                    <input type="hidden" name="prices[]" value="{{$ppric->id}}">
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($product->productStockNORWhereStatusIsActive() as $productStock)    
+                                                <tr>
+                                                    <th style="font-size:16px;background-color: darkgray;color: floralwhite;border-bottom-color:#f1e7e7;">
+                                                        {{$productStock->label}}
+                                                    </th>
+                                                    <th style="font-size:16px;background-color: #c1b8b8;color:yellow;border-bottom-color:#f1e7e7;">
+                                                        {{$productStock->available_base_stock}}
+                                                    </th>
+                                                    @foreach ($productStock->productStockWiseProductPrices() as $pSPPrice) 
+                                                        <td>
+                                                            {{$pSPPrice->price}}
+                                                        </td>
+                                                    @endforeach
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>  
+                        </div><!---wrapper row--->
 
 
 
@@ -161,7 +213,7 @@
                                                 </th>
                                                 <td style="width:1%;border:none;">:</td>
                                                 <th style="border:none;">
-                                                    {{$product->available_stock }}
+                                                    {{ unitView_hh($product->unit_id,$product->available_stock)  }}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -252,32 +304,9 @@
                                                 <th style="width:20%;border:none;" colspan="3">
                                                     Rack/Sefl : {{$product->warehouseRacks ? $product->warehouseRacks->name : "Default Rack/Self" }}
                                                 </th>
-                                               
                                             </tr>
                                         </thead>
                                     </table>
-                                    {{-- <div>
-                                        <strong>Supplier</strong> : <span>{{$product->suppliers ? $product->suppliers->name : null }}</span>
-                                    </div>
-                                    <div>
-                                        <strong>Category</strong> : <span>{{$product->categories ? $product->categories->name : null }}</span>
-                                    </div>
-                                    @if ($product->sub_category_id)    
-                                    <div>
-                                        <strong>Sub-category</strong> : <span>{{$product->subCategories ? $product->subCategories->name : null }}</span>
-                                    </div>    
-                                    @endif
-                                    @if ($product->color_id)    
-                                    <div>
-                                        <strong>Color</strong> : <span>{{$product->colors ? $product->colors->name : null }}</span>
-                                    </div>
-                                    @endif
-                                    <div>
-                                        <strong>Grade</strong> : <span>{{$product->productGrades ? $product->productGrades->name : null }}</span>
-                                    </div>
-                                    <div>
-                                        <strong>Unit</strong> : <span>{{$product->units ? $product->units->full_name : null }}</span>
-                                    </div> --}}
 
                                 </div>
                             </div>
@@ -287,6 +316,7 @@
                         <div style="border-bottom:1px solid rgba(24,28,33,.06);padding:5px;margin-bottom:10px;"></div>
                             
 
+                     
                         <div class="wrapper row">
                             <div class="col-md-12">
                                 <strong style="border-bottom:1px solid gray;padding-bottom:5px;">Description</strong><br/>

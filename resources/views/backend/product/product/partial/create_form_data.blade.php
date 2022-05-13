@@ -109,34 +109,16 @@
                                                 <!--price--->
                                                 <div style="background-color:#54a52a;color:white;padding:5px;">
                                                     <div class="form-row">
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label">Purchase Price</label>
-                                                            <input type="text" class="form-control purchase_price purchase_price_0"  data-purchase_price="0" name="purchase_price_0"   placeholder="Purchase Price" style="background-color:#ebd354;color:#161603;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label class="form-label">MRP Price</label>
-                                                            <input type="text" class="form-control mrp_price mrp_price_0"  data-mrp_price="0" name="mrp_price_0"  placeholder="MRP Price" style="background-color: black;color:yellow;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label class="form-label">Whole Sell Price</label>
-                                                            <input type="text" class="form-control whole_sell_price whole_sell_price_0"  data-whole_sell_price="0" name="whole_sell_price_0"  placeholder="Whole Sell Price" style="background-color: #f17777;color:midnightblue;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label class="form-label">Sell Price</label>
-                                                            <input type="text" class="form-control sell_price sell_price_0"  data-sell_price="0" name="sell_price_0"  placeholder="Sell Price" style="background-color: aliceblue;color:blue;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label class="form-label">Offer Price</label>
-                                                            <input type="text" class="form-control offer_price offer_price_0"  data-offer_price="0" name="offer_price_0"  placeholder="Offer Price" style="background-color: #044176;color:#f5f5f9;font-weight:900;" />
-                                                            <div class="clearfix"></div>
-                                                        </div>
-            
-                                                    </div>
+                                                        @foreach ($prices as $price)
+                                                            <div class="{{$price->class}}">
+                                                                <label class="form-label">{{$price->label}}</label>
+                                                                <input type="text" name="{{$price->id}}_0"  class="form-control inputFieldValidatedOnlyNumeric {{$price->id}} {{$price->id}}_0" required data-{{$price->id}}="0"  placeholder="{{$price->label}}" style="{{$price->css_style}}" />
+                                                                <div class="clearfix"></div>
+                                                            </div> 
+                                                            <input type="hidden" value="{{$price->id}}" name="0_price[]" class="0_price" data-price="0">
+                                                        @endforeach
+
+                                                    </div><!--form-row--->
                                                 </div>
                                                 <!--price--->
             

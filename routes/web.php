@@ -282,6 +282,10 @@ Route::group(['middleware' => ['auth']], function ()
             Route::post('update','ProductController@update')->name('update');//->middleware(['permissions:unit|index']);
         
             Route::get('delete','ProductController@delete')->name('delete');//->middleware(['permissions:unit|index']);
+            
+            //product price
+            Route::get('price/update','ProductPriceController@index')->name('price.index');//->middleware(['permissions:unit|index']);
+            Route::post('price/updating','ProductPriceController@store')->name('price.store');//->middleware(['permissions:unit|index']);
         });
 
 

@@ -22,16 +22,10 @@ class CreateProductStocksTable extends Migration
                 $table->integer('product_id')->nullable();
 
                 $table->decimal('available_stock',20,3)->nullable();
-                $table->decimal('available_base_stock',20,3)->nullable()->comment('available base unit stock');
+                $table->decimal('available_base_stock',20,3)->nullable()->comment('no change, same to product purchase unit');
                 $table->decimal('used_stock',20,3)->nullable()->comment('total used stock including stock transfer');
                 $table->decimal('used_base_stock',20,3)->nullable()->comment('used base unit stock  including stock transfer');
 
-               /*  $table->decimal('sell_price',20,2)->nullable()->comment('if not need, then not use this');
-                $table->decimal('whole_sell_price',20,2)->nullable()->comment('if not need, then not use this');
-                $table->decimal('offer_price',20,2)->nullable()->comment('if not need, then not use this');
-                $table->decimal('mrp_price',20,2)->nullable()->comment('if not need, then not use this');
-                $table->decimal('purchase_price',20,2)->nullable()->comment('if not need, then not use this'); */
-                
                 $table->tinyInteger('stock_lock_applicable')->default(0)->comment('0 = is regular process, 1= activate, never transfer or sell from this stock');
                 $table->decimal('stock_lock_quantity',20,3)->nullable();
 

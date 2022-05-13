@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits\Backend\Product\Logical;
 
+use App\Models\Backend\Price\ProductPrice;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,6 +10,7 @@ use App\Traits\Backend\FileUpload\FileUploadTrait;
 use App\Setting\Backend\Product\ProductSetting;
 
 use App\Traits\Backend\Stock\Logical\StockChangingTrait;
+use App\Traits\Backend\Price\Logical\PricingTrait;
 
  /**
   * 
@@ -18,6 +20,7 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
     use FileUploadTrait;
     use ProductSetting;
     use StockChangingTrait;
+    use PricingTrait;
     /**
      * Its containt product mainid
      * @var integer
@@ -44,7 +47,6 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
     /**
      * product store
      * @param array $request
-     * @return void
      */
     public function productStore(array $request)
     {
@@ -53,7 +55,7 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
         //$this->dbImageField = "png";
         //return $this->imageDelete();
         
-        foreach($request['form_data'] as $index => $form_index)
+        foreach($request['form_data'] as  $form_index)
         {
             $product = new Product();
             $product->sku               = Str::random(10);
@@ -89,17 +91,13 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
                 $product->name = $request['name']." ". $variant ;
             }
 
-            $product->color_id = $request['color_id_'.$form_index];
-            $product->purchase_price = $request['purchase_price_'.$form_index];
-            $product->mrp_price = $request['mrp_price_'.$form_index];
-            $product->whole_sell_price = $request['whole_sell_price_'.$form_index];
-            $product->sell_price = $request['sell_price_'.$form_index];
-            $product->offer_price = $request['offer_price_'.$form_index];
-            $product->initial_stock = intval($request['initial_stock_'.$form_index]);
-            $product->alert_stock   = intval($request['alert_stock_'.$form_index]);
-            $product->description   = $request['description_'.$form_index]; 
-            $product->created_by    = Auth::guard('web')->user()->id;
-            $product->branch_id     = Auth::guard('web')->user()->branch_id;
+            $product->color_id          = $request['color_id_'.$form_index];
+
+            $product->initial_stock     = floatval($request['initial_stock_'.$form_index]);
+            $product->alert_stock       = floatval($request['alert_stock_'.$form_index]);
+            $product->description       = $request['description_'.$form_index]; 
+            $product->created_by        = Auth::guard('web')->user()->id;
+            $product->branch_id         = authBranch_hh();
             $product->save();
             
             if(isset($request['photo_'.$form_index]))
@@ -113,12 +111,43 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
                 $product->save();
             }
 
-            $this->stock_id_FSCT = 1;
-            $this->product_id_FSCT              = $product->id;
-            $this->stock_quantity_FSCT          = $product->initial_stock;
-            $this->unit_id_FSCT                 = $product->unit_id;
-            $product->available_stock           = $this->initialStockTypeIncrement();
-            $product->save();
+            /*
+            |-----------------------------------------------------
+            | stock changing section
+            |-----------------------------------------------------
+            */
+                $this->stock_id_FSCT                = regularStockId_hh();
+                $this->product_id_FSCT              = $product->id;
+                $this->stock_quantity_FSCT          = $product->initial_stock;
+                $this->unit_id_FSCT                 = $product->unit_id;
+                $product->available_stock           = $this->initialStockTypeIncrement();
+                $product->save();
+            /*
+            |-----------------------------------------------------
+            | stock changing section
+            |-----------------------------------------------------
+            */
+
+
+            /*
+            |-----------------------------------------------------
+            | product price section
+            |-----------------------------------------------------
+            */
+                $priceData = [];
+                foreach($request[$form_index."_price"] as $index => $pric)
+                {
+                    $priceData[$pric] = $request[$pric."_".$form_index];
+                }
+                $this->productPrices_FPT    = $priceData;
+                $this->product_id_FPT       = $product->id;
+                $this->insertPriceInTheProductPrice();
+            /*
+            |-----------------------------------------------------
+            | product price section
+            |-----------------------------------------------------
+            */
+            
         }
         return true;
     }//product store
@@ -128,7 +157,6 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
      * product update
      *
      * @param [type] $request
-     * @return void
      */
     public function productUpdate($request)
     {
@@ -144,11 +172,11 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
         $product->warehouse_id      = $request['warehouse_id'];
         $product->warehouse_rack_id = $request['warehouse_rack_id'];
 
-        $product->custom_code   = $request['custom_code'];
-        $product->company_code  = $request['company_code'];
+        $product->custom_code       = $request['custom_code'];
+        $product->company_code      = $request['company_code'];
 
-        $variant = $request['product_variant'];
-        $variant_position = $request['variant_position'];
+        $variant                    = $request['product_variant'];
+        $variant_position           = $request['variant_position'];
         
         $product->variants = json_encode([
             "name"              => $request['name'],
@@ -163,15 +191,15 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
         }
 
         $product->color_id          = $request['color_id'];
-        $product->purchase_price    = $request['purchase_price'];
-        $product->mrp_price         = $request['mrp_price'];
-        $product->whole_sell_price  = $request['whole_sell_price'];
-        $product->sell_price        = $request['sell_price'];
-        $product->offer_price       = $request['offer_price'];
-        //$product->initial_stock     = intval($request['initial_stock']);
-        $product->alert_stock       = intval($request['alert_stock']);
+
+        $initialStock = $product->initial_stock;
+        if(isset($request['initial_stock']))
+        {
+            $initialStock = floatval($request['initial_stock']);
+        }
+        $product->initial_stock     = $initialStock;
+        $product->alert_stock       = floatval($request['alert_stock']);
         $product->description       = $request['description'];
-        $product->created_by        = Auth::user()->id;
         $product->save();
         
         if(isset($request['photo']))
@@ -185,8 +213,48 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
             $product->photo     = $this->updateImage();
             $product->save();
         }
+
+        
+        /*
+        |-----------------------------------------------------
+        | product price section : update
+        |-----------------------------------------------------
+        */
+            $priceData = [];
+            foreach($request["price"] as $productPriceId)
+            {
+                $priceData[$productPriceId] = $request[$productPriceId."_0"];
+            }
+            $this->productPrices_FPT = $priceData;
+            $this->product_id_FPT    = $product->id;
+            $this->productPriceUpdateWhenProductUpdate($priceData,$product->id);
+        /*
+        |-----------------------------------------------------
+        | product price section : update
+        |-----------------------------------------------------
+        */
+        if($product->initial_stock > 0 && 
+            ($product->getTotalAvailableStockFromProductStock() == 0 
+            && $product->getTotalUsedStockFromProductStock() == 0
+            )
+        )
+        {
+            $this->stock_id_FSCT                = regularStockId_hh();
+            $this->product_id_FSCT              = $product->id;
+            $this->stock_quantity_FSCT          = $product->initial_stock;
+            $this->unit_id_FSCT                 = $product->unit_id;
+            $product->available_stock           = $this->updateStockWhenProductUpdateStockTypeIncrement();
+            $product->save();
+        }
+
         return $product;
+
     }
+
+
+    
+
+
 
 
     /**
@@ -194,7 +262,6 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
      *
      * @param [type] $id, product id
      * @param [type] $field , product photo field
-     * @return void
      */
     public function productDelete($id,$field)
     {
@@ -209,6 +276,16 @@ use App\Traits\Backend\Stock\Logical\StockChangingTrait;
 
 }
  
+
+
+
+
+
+
+
+
+
+
 
 
 
