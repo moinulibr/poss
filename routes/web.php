@@ -291,6 +291,29 @@ Route::group(['middleware' => ['auth']], function ()
 
 
 
+
+
+    /*
+    |----------------------------------------
+    |   Sell  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
+    Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Pos'],function(){
+        Route::get('list','PosController@index')->name('index');
+        Route::get('create','PosController@create')->name('create');
+        Route::get('show/single/product/details','PosController@singleProductDetails')->name('show.single.product.details');
+        Route::post('store','PosController@store')->name('store');
+
+        Route::get('show','PosController@show')->name('show');
+        
+        Route::get('edit','PosController@edit')->name('edit');
+        Route::post('update','PosController@update')->name('update');
+    
+        Route::get('delete','PosController@delete')->name('delete');
+        
+    });
+
+
    
 
 });//end auth middleware

@@ -254,6 +254,28 @@ class Product extends Model
                 ->where('prices.branch_id',authBranch_hh());
         }
 
+        /**
+         * only regular product prices where status is active
+         * this method uses in the :  pos - product list
+         */
+        public function onlyRegularProductPricesWithPriceWhereStatusIsActive()
+        {
+            return $this->hasMany(ProductPrice::class,'product_id','id')
+                ->select("product_prices.id","product_prices.price_id","product_prices.price",
+                "product_prices.price_name",
+                "prices.id as pId","prices.name as pName",'prices.label',"prices.status as pStatus",
+                "prices.css_style","prices.class"
+                )
+                ->join("prices","prices.id","=","product_prices.price_id")
+                ->where('product_prices.branch_id',authBranch_hh())
+                ->where('product_prices.status',1)
+                ->where('product_prices.stock_id',regularStockId_hh())// status 1 = regular stock
+                ->where('product_prices.price_id',regularSellId_hh())
+                ->where('prices.status',1)
+                ->orderBy('prices.custom_serial','ASC')
+                ->where('prices.branch_id',authBranch_hh());
+        }
+
 
         /**
          * this method is used in

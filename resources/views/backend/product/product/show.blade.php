@@ -8,6 +8,7 @@
                 Product  
                 <span class="font-weight-light">Information</span>
                 <br />
+                
                 {{-- <small class="text-muted">Add New Reference</small> --}}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>

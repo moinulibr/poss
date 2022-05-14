@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="dashboards_corona.html" class="sidenav-link">
+                        <a href="{{route('admin.sell.regular.pos.create')}}" class="sidenav-link">
                         <div>Sale Create</div>
                         <div class="pl-1 ml-auto">
                             {{-- <div class="badge badge-danger">New</div> --}}
