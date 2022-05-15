@@ -36,11 +36,30 @@ class PosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function displayProductList(Request $request)
     {
-        //
+        $query = Product::query();
+        if($request->product_id){
+            $query->where('id',$request->product_id);
+        }
+        if($request->category_id){
+            $query->where('category_id',$request->category_id);
+        }
+        if($request->custom_search){
+            $query->where('name','like',"%".$request->custom_search."%");
+            $query->orWhere('custom_code','like',"%".$request->custom_search."%");
+            $query->orWhere('company_code','like',"%".$request->custom_search."%");
+            $query->orWhere('sku','like',"%".$request->custom_search."%");
+        }
+        $data['products']       = $query->select('name','id','photo')
+                                ->latest()
+                                ->paginate(15);
+        $view = view('backend.sell.pos.ajax-response.landing.product-list.product_list',$data)->render();
+        return response()->json([
+            'status'    => true,
+            'html'      => $view,
+        ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -63,9 +82,12 @@ class PosController extends Controller
                                 ->whereNull('deleted_at')
                                 ->orderBy('custom_serial','ASC')
                                 ->get();
-        $data['products']       = Product::latest()->get();
-        return view('backend.sell.pos.create_pos',$data);
-        return view('backend.sell.pos.create',$data);
+        $data['allproducts']    = Product::select('name','id')->latest()->get();
+        $data['products']       = Product::select('name','id','photo')
+                                ->latest()
+                                ->paginate(15);
+        return view('backend.sell.pos.landing.create_pos',$data);
+        return view('backend.sell.pos.zdesign.design_single_product',$data);
     }
 
     /**
@@ -91,12 +113,15 @@ class PosController extends Controller
                                 ->orderBy('custom_serial','ASC')
                                 ->get();
         $data['product']       = Product::find($request->id);
-        $view = view('backend.sell.pos.create',$data)->render();
+        $view = view('backend.sell.pos.ajax-response.single-product.single_product',$data)->render();
+        $stock = view('backend.sell.pos.ajax-response.single-product.include.product_stock',$data)->render();
         return response()->json([
-            'status' => true,
-            'html'  => $view
+            'status'    => true,
+            'html'      => $view,
+            'stock'     => $stock,
         ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.

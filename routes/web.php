@@ -299,7 +299,7 @@ Route::group(['middleware' => ['auth']], function ()
     |---------------------------------------
     */
     Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Pos'],function(){
-        Route::get('list','PosController@index')->name('index');
+        Route::get('display/product/list','PosController@displayProductList')->name('display.product.list');
         Route::get('create','PosController@create')->name('create');
         Route::get('show/single/product/details','PosController@singleProductDetails')->name('show.single.product.details');
         Route::post('store','PosController@store')->name('store');

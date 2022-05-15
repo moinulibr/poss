@@ -109,7 +109,7 @@ class ProductController extends Controller
                                 ->get();
 
         return view('backend.product.product.create',$data);
-        return view('backend.pos.create',$data);
+        return view('backend.sell.pos.single_product',$data);
         //return view('backend.product.product.old_create',$data);
     }
 

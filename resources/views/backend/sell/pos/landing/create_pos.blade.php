@@ -69,11 +69,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <body id="tc_body" class="header-fixed header-mobile-fixed subheader-enabled aside-enabled aside-fixed">
         <!-- Paste this code after body tag -->
-        <div class="se-pre-con">
+        {{-- <div class="se-pre-con">
             <div class="pre-loader">
                 <img class="img-fluid" src="{{asset('backend/pos')}}/assets/images/loadergif.gif" alt="loading" />
             </div>
-        </div>
+        </div> --}}
         <!-- pos header -->
 
         <header class="pos-header bg-white">
@@ -922,9 +922,23 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="row" style="margin-top: 10px;">
                                     <div class="col-md-12">
                                         <div class="selectmain">
-                                            <select class="arabic-select select2 bag-primary" style="width:100%">
-                                                <option value="1">All Categories</option>
-                                                <option value="2">Accessories</option>
+                                            <select  name="category_id"  class="category_id arabic-select select2 bag-primary" style="width:100%">
+                                                <option value="">All Categories</option>
+                                                @foreach ($categories as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-md-12">
+                                        <div class="selectmain">
+                                            <select  name="product_id" class="product_id arabic-select select2 bag-primary" style="width:100%">
+                                                <option value="">All Product</option>
+                                                @foreach ($allproducts as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -932,264 +946,25 @@ License: You must have a valid license purchased only from themeforest(the above
                                <!--  <div class="selectmain mt-2">
                                     <input type="text" placeholder="Search.." style="width: 100%;border: 1px solid #e9ecef;padding: 1%;" />
                                 </div> -->
-                                <div class="form-group row mt-3 mb-0">
+                                <div class="form-group row mt-3 mb-0" style="padding-bottom: 15px;">
                                     <div class="col-md-12" style="padding-bottom:5px;">
                                         <fieldset class="form-group mb-0 d-flex barcodeselection">
-                                            <input type="text" class="form-control border-dark" id="basicInput1" autofocus placeholder="product name / as code / company code / sku"/>
+                                            <input name="custom_search" type="text" class="custom_search form-control border-dark" id="basicInput1" autofocus placeholder="product name / as code / company code / sku"/>
                                         </fieldset>
                                     </div>
-                                    <!-- <div class="col-md-12"> -->
-                                        <!-- <label>Select Product</label> -->
-                                        <!-- <fieldset class="form-group mb-0 d-flex barcodeselection">
-                                            <select class="form-control" id="exampleFormControlSelect1" style="width: 35%;">
-                                                <option>Name</option>
-                                                <option>SKU</option>
-                                                <option>AS Code</option>
-                                            </select>
-                                            <input type="text" class="form-control border-dark" id="basicInput1" placeholder="" />
-                                        </fieldset>
-                                    </div> -->
-                                    <!-- <div class="col-md-1">
-                                        <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#choosecustomer"></span>
-                                    </div> -->
                                 </div> 
                                 
                             </div>
-                            <style>
-                                .hovereffect {
-                                    width: 100%;
-                                    height: 100%;
-                                    float: left;
-                                    overflow: hidden;
-                                    position: relative;
-                                    text-align: center;
-                                    cursor: pointer;
-                                }
-                                .hovereffect .overlay {
-                                    width: 100%;
-                                    position: absolute;
-                                    overflow: hidden;
-                                    left: 0;
-                                    top: 70px;
-                                    bottom: 0;
-                                    padding: 5px;
-                                    height: 4.75em;
-                                    background: #79fac4;
-                                    color: #3c4a50;
-                                    -webkit-transition: -webkit-transform 0.35s;
-                                    transition: transform 0.35s;
-                                    -webkit-transform: translate3d(0, 100%, 0);
-                                    transform: translate3d(0, 100%, 0);
-                                    visibility: hidden;
-                                }
-                                .hovereffect h4 {
-                                    color: #fff;
-                                    text-align: center;
-                                    position: relative;
-                                    font-size: 10px;
-                                    padding: 5px;
-                                    background: rgba(0, 0, 0, 0.6);
-                                    margin: 0px;
-                                    display: inline-block;
-                                }
-                                .hovereffect h4,
-                                .hovereffect p.icon-links a {
-                                    -webkit-transition: -webkit-transform 0.35s;
-                                    transition: transform 0.35s;
-                                    -webkit-transform: translate3d(0, 200%, 0);
-                                    transform: translate3d(0, 200%, 0);
-                                    visibility: visible;
-                                }
-                                .hovereffect:hover .overlay,
-                                .hovereffect:hover h4,
-                                .hovereffect:hover p.icon-links a {
-                                    -webkit-transform: translate3d(0, 0, 0);
-                                    transform: translate3d(0, 0, 0);
-                                }
 
-                                .hovereffect:hover h4 {
-                                    -webkit-transition-delay: 0.05s;
-                                    transition-delay: 0.05s;
-                                }
-                            </style>
+                            
                             <div class="card-body product-items" style="background-color: #efefef;">
-                                <div class="row" style="margin-top:20px;">
-                                    @foreach ($products as $item)    
-                                        <div class="col-lg-4 col-md-4 col-sm-4 col-6" style="border-bottom:5px solid #ffffff;border-right:2px solid #ffffff;border-left:2px solid #ffffff;border-top:5px solid #ffffff;margin-bottom: 10px;padding-top: 10px;">
-                                            <div class="productDetails productCard hovereffect"  data-id="{{$item->id}}"> {{--data-toggle="modal" data-target="#product-details"--}}
-                                                <div class="productThumb" style="border:5px solid #6e6d6d;">
-                                                    @if($item->photo)
-                                                        <img  src="{{ asset(productImageViewLocation_hh().$item->id.".".$item->photo) }}" alt=""class="img-fluid"  style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
-                                                        @else
-                                                        <img  src="{{ asset(defaultProductImageUrl_hh()) }}" alt="" class="img-fluid"  style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
-                                                    @endif
-                                                    {{-- <img class="img-fluid" src="assets/images/carousel/element-banner2-right.jpg" alt="ix" /> --}}
-                                                    <div class="overlay">
-                                                        <h4>
-                                                            @foreach ($item->onlyRegularProductPricesWithPriceWhereStatusIsActive as $prices)
-                                                                
-                                                            Price: Tk {{ $prices->price }} <br />
-                                                            @endforeach
-                                                            Stock: {{ $item->available_base_stock ?? 0 }}
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                                <div class="productContent" style="margin-top:0px;">
-                                                    <a href="#" class="productDetails" data-id="{{$item->id}}">
-                                                        @php
-                                                            $product = $item->name;
-                                                            if(strlen($item->name) > 30)
-                                                            {
-                                                                $len = substr($item->name,0,30);
-                                                                if(str_word_count($len) > 1)
-                                                                {
-                                                                    $product = implode(" ",(explode(' ',$len,-1)));
-                                                                }else{
-                                                                    $product = $len;
-                                                                }
-                                                                $product = $product ."...";
-                                                            }
-                                                        @endphp
-                                                        {{$product}}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                <!----display all product list--->
+                                <div class="display-all-product-list">
+                                    @include('backend.sell.pos.ajax-response.landing.product-list.product_list')
                                 </div>
+                                <!----display all product list--->
                             </div>
 
-                            <div class="product-details">
-                                <div class="modal fade text-left" id="product-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel13" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h3 class="modal-title" id="myModalLabel13">Men Polo Shirt (M) -MPS[2545-P]</h3>
-                                                <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                                                    <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            fill-rule="evenodd"
-                                                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                                                        ></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <table class="table table-bordered">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <label class="text-body">Price Category</label>
-                                                                    <fieldset class="form-group mb-3">
-                                                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0" name="state">
-                                                                            <option value="AL">Regular price</option>
-                                                                        </select>
-                                                                    </fieldset>
-                                                                </td>
-                                                                <td>
-                                                                    <label class="text-body">Sale Unit</label>
-                                                                    <fieldset class="form-group mb-3">
-                                                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0" name="state">
-                                                                            <option value="AL">Fit</option>
-                                                                        </select>
-                                                                    </fieldset>
-                                                                </td>
-                                                                <td>
-                                                                    <label class="text-body">Price</label>
-                                                                    <fieldset class="form-group mb-3">
-                                                                        <input type="number" name="number" class="form-control" placeholder="00.00" />
-                                                                    </fieldset>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <label class="text-body">Sale From Stock</label>
-                                                                    <fieldset class="form-group mb-3">
-                                                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0" name="state">
-                                                                            <option value="AL">Showroom</option>
-                                                                        </select>
-                                                                    </fieldset>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                                                        <label class="form-check-label" for="exampleRadios1">
-                                                                            Sale Price: Tk 70.00
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                                                        <label class="form-check-label" for="exampleRadios1">
-                                                                            Whole Sale Price: Tk 65.00
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                                                        <label class="form-check-label" for="exampleRadios1">
-                                                                            Purchase Price: Tk 70.00
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                                                                        <label class="form-check-label" for="exampleRadios1">
-                                                                            MRP Price: Tk 70.00
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <label class="text-body">Quantity Amount (Pcs)</label>
-                                                                    <fieldset class="form-group mb-3">
-                                                                        <input type="number" name="number" class="form-control" placeholder="0" />
-                                                                    </fieldset>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <label class="text-body">Available Stock</label><br />
-                                                                    <label class="text-body">Showroom: -10.67 Fit</label>
-                                                                </td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                                                        <label class="form-check-label" for="inlineRadio1">Percentage(%)</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                                                        <label class="form-check-label" for="inlineRadio2">Fixed</label>
-                                                                    </div>
-                                                                    <fieldset class="form-group mb-3">
-                                                                        <input type="number" name="number" class="form-control" placeholder="0" />
-                                                                        (70.00) (0)
-                                                                    </fieldset>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <td>Total</td>
-                                                                <td>1 Fit</td>
-                                                                <td>70.00</td>
-                                                            </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1">IMEI/Serial/Chassis/Engine Number</label>
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                                    </div>
-                                                    <div class="form-group row justify-content-end mb-0">
-                                                        <div class="col-md-12 text-right">
-                                                            <a href="#" class="btn btn-outline-secondary">Cancel</a>
-                                                            <a href="#" class="btn btn-primary">Add To Cart</a>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div><!-----col-4------>
 					
@@ -1197,6 +972,34 @@ License: You must have a valid license purchased only from themeforest(the above
                 
             </div>
         </div>
+
+    <!-- Button trigger modal -->
+    {{-- 
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+            </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div> 
+    --}}
 
         <div class="modal fade text-left" id="payment-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel11" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
@@ -1806,12 +1609,15 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
   
 
-    <!-------add Product Grade Modal------> 
-    <div class="modal fade" id="showProductDetailModal"  aria-modal="true"></div>
-    <input type="hidden" class="showProductDetailsModalRoute" value="{{ route('admin.sell.regular.pos.show.single.product.details') }}">
-    <!-------add Product Grade Modal------> 
+        <!-------add Product Grade Modal------> 
+        <div class="modal fade" id="showProductDetailModal"  aria-modal="true"></div>
+        <input type="hidden" class="showProductDetailsModalRoute" value="{{ route('admin.sell.regular.pos.show.single.product.details') }}">
+        <!-------add Product Grade Modal------> 
 
-    
+        <!-------display product list------> 
+        <input type="hidden" class="displayProductListUrl" value="{{ route('admin.sell.regular.pos.display.product.list') }}">
+        <!-------display product list------> 
+
 
         <script src="{{asset('backend/pos')}}/assets/js/plugin.bundle.min.js"></script>
         <script src="{{asset('backend/pos')}}/assets/js/bootstrap.bundle.min.js"></script>
@@ -1849,39 +1655,25 @@ License: You must have a valid license purchased only from themeforest(the above
             });
         </script>
 
-                    
-        
-        <!-- AJAX Js-->
-        <script src="{{asset('backend/links/assets')}}/js/main.jquery-3.3.1.min.js"></script>
+                        
+            
+            
 
-        <!-- Latest compiled JavaScript -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        {{-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
         <!-- AJAX Js-->
         <script>
-                $.ajaxSetup({
+                jQuery.ajaxSetup({
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                     }
                 });
         </script>
         
-        <script>
-            //-----------------------------------------------------------------------
-                $(document).on('click','.productDetails',function(e){
-                    e.preventDefault();
-                    var url = $('.showProductDetailsModalRoute').val();
-                    var id = $(this).data('id');
-                    $.ajax({
-                        url:url,
-                        data:{id:id},
-                        success:function(response){
-                            $('#showProductDetailModal').html(response.html).modal('show');
-                        }
-                    });
-                });
-            //-----------------------------------------------------------------------
-        </script>
+        @stack('pos-js')
+
+        <script src="{{asset('custom_js/backend')}}/sell/pos/landing/product-list.js"></script>
+        <script src="{{asset('custom_js/backend')}}/sell/pos/single-product/stock-with-price.js"></script>
+
+
 
 
     </body>
