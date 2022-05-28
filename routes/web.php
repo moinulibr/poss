@@ -302,6 +302,9 @@ Route::group(['middleware' => ['auth']], function ()
         Route::get('display/product/list','PosController@displayProductList')->name('display.product.list');
         Route::get('create','PosController@create')->name('create');
         Route::get('show/single/product/details','PosController@singleProductDetails')->name('show.single.product.details');
+        
+        Route::get('display/single/price/list/by/product/stock/id','PosController@displaySinglePriceListByProductStockId')->name('display.sigle.price.list.by.product.stock.id');
+        
         Route::post('store','PosController@store')->name('store');
 
         Route::get('show','PosController@show')->name('show');

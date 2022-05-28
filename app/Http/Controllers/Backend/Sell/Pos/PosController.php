@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Sell\Pos;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Customer\Customer;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
@@ -28,6 +29,7 @@ use App\Models\Backend\ProductAttribute\Category;
 use App\Models\Backend\ProductAttribute\SubCategory;
 use App\Traits\Backend\Product\Logical\ProductTrait;
 use App\Models\Backend\ProductAttribute\ProductGrade;
+use App\Models\Backend\Reference\Reference;
 use App\Traits\Backend\Product\Request\ProductValidationTrait;
 class PosController extends Controller
 {
@@ -51,7 +53,7 @@ class PosController extends Controller
             $query->orWhere('company_code','like',"%".$request->custom_search."%");
             $query->orWhere('sku','like',"%".$request->custom_search."%");
         }
-        $data['products']       = $query->select('name','id','photo')
+        $data['products']       = $query->select('name','id','photo','available_base_stock')
                                 ->latest()
                                 ->paginate(15);
         $view = view('backend.sell.pos.ajax-response.landing.product-list.product_list',$data)->render();
@@ -67,8 +69,7 @@ class PosController extends Controller
      */
     public function create()
     {
-        $data['categories']     = Category::latest()->get();
-        $data['brands']         = Brand::latest()->get();
+        /* $data['brands']         = Brand::latest()->get();
         $data['colors']         = Color::latest()->get();
         $data['suppliers']      = Supplier::latest()->get();
         $data['productGrades']  = ProductGrade::latest()->get();
@@ -76,14 +77,19 @@ class PosController extends Controller
         $data['units']          = Unit::latest()->get();
 
         $data['warehouses']     = Warehouse::latest()->get();
-
         $data['prices']         = Price::where('status',1)
                                 ->where('branch_id',authBranch_hh())
                                 ->whereNull('deleted_at')
                                 ->orderBy('custom_serial','ASC')
-                                ->get();
+                                ->get(); */
+
+
+        $data['customers']      = Customer::latest()->get();
+        $data['references']     = Reference::latest()->get();
+
+        $data['categories']     = Category::latest()->get();
         $data['allproducts']    = Product::select('name','id')->latest()->get();
-        $data['products']       = Product::select('name','id','photo')
+        $data['products']       = Product::select('name','id','photo','available_base_stock')
                                 ->latest()
                                 ->paginate(15);
         return view('backend.sell.pos.landing.create_pos',$data);
@@ -97,27 +103,50 @@ class PosController extends Controller
      */
     public function singleProductDetails(Request $request)
     {
-        $data['categories']     = Category::latest()->get();
-        $data['brands']         = Brand::latest()->get();
-        $data['colors']         = Color::latest()->get();
-        $data['suppliers']      = Supplier::latest()->get();
-        $data['productGrades']  = ProductGrade::latest()->get();
-        $data['supplierGroups'] = SupplierGroup::latest()->get();
-        $data['units']          = Unit::latest()->get();
+        $data['product']        = Product::find($request->id);
+        $unitBaseId             = Unit::find($data['product']->unit_id)->base_unit_id;
+        $data['units']          = Unit::where('base_unit_id',$unitBaseId)->latest()->get();
+        
+        //default price id 
+        $data['defaultPriceId'] = 1;
+        //default stock 
+        $defaultStock = 1 ;
+        $dafault = ProductStock::select("product_stocks.id","stocks.id as sId")
+                ->join("stocks","stocks.id","=","product_stocks.stock_id")
+                ->where('product_stocks.product_id',$request->id)
+                ->where('product_stocks.branch_id',authBranch_hh())
+                ->where('stocks.id',defaultSelectedProductStockId_hh())//default stock id
+                ->where('product_stocks.status',1)
+                ->where('stocks.status',1)
+                ->orderBy('stocks.custom_serial','ASC')
+                ->where('stocks.branch_id',authBranch_hh())
+                ->first(); 
+        $data['defaultProductStockId'] = $dafault ? $dafault->id : 1;
+        //default stock 
 
-        $data['warehouses']     = Warehouse::latest()->get();
+        //default product stocks price
+        $product                = $data['product'];
+        $data['productStock']   = $product->productStockWithActivePriceByProductStockIdNORWhereStatusIsActiveWhenCreateSale($dafault->id);
+        //default product stocks price
 
-        $data['prices']         = Price::where('status',1)
-                                ->where('branch_id',authBranch_hh())
-                                ->whereNull('deleted_at')
-                                ->orderBy('custom_serial','ASC')
-                                ->get();
-        $data['product']       = Product::find($request->id);
-        $view = view('backend.sell.pos.ajax-response.single-product.single_product',$data)->render();
-        $stock = view('backend.sell.pos.ajax-response.single-product.include.product_stock',$data)->render();
+        $view   = view('backend.sell.pos.ajax-response.single-product.single_product',$data)->render();
+        $stock  = view('backend.sell.pos.ajax-response.single-product.include.product_stock',$data)->render();
         return response()->json([
             'status'    => true,
             'html'      => $view,
+            'stock'     => $stock,
+        ]);
+    }
+
+
+    public function displaySinglePriceListByProductStockId(Request $request)
+    {
+        $product                = Product::find($request->product_id);
+        $data['productStock']   = $product->productStockWithActivePriceByProductStockIdNORWhereStatusIsActiveWhenCreateSale($request->product_stock_id);
+
+        $stock = view('backend.sell.pos.ajax-response.single-product.include.product_stock_price',$data)->render();
+        return response()->json([
+            'status'    => true,
             'stock'     => $stock,
         ]);
     }
@@ -131,7 +160,7 @@ class PosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

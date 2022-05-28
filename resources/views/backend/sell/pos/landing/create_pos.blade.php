@@ -85,7 +85,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <a href="{{route('home')}}" style="text-decoration: none;">WELCOME</a>
                             </h3>
                             <h3 class="card-label mb-0">
-                                Smith Joones
+                                <a href="{{route('home')}}" style="text-decoration: none;">
+                                    {{ config('app.name') }} 
+                                </a>
                             </h3>
                         </div>
                     </div>
@@ -256,6 +258,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </label>
                                         <select class="arabic-select" style="width: 100%;">
                                             <option value="1">walk in customer</option>
+                                            @foreach ($customers as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div><!----------Customer---------->
 
@@ -286,8 +291,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </span>
                                         </label>
                                         <select class="arabic-select" style="width: 100%;">
-                                            <option value="1">Men's</option>
-                                            <option value="2">Accessories</option>
+                                            <option value="">Select Reference</option>
+                                            @foreach ($references as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div><!----------reference---------->
                                 </div>

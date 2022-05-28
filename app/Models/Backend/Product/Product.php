@@ -318,7 +318,36 @@ class Product extends Model
     | sell / pos
     |
     */
+        public function productStocksNORWhereStatusIsActiveWhenCreateSale()
+        {
+            return ProductStock::select("product_stocks.*",
+            "stocks.id as sId","stocks.name as sName",'stocks.label',"stocks.status"
+            )
+            ->join("stocks","stocks.id","=","product_stocks.stock_id")
+            ->where('product_stocks.product_id',$this->id)
+            ->where('product_stocks.branch_id',authBranch_hh())
+            ->where('product_stocks.status',1)
+            ->where('stocks.status',1)
+            ->orderBy('stocks.custom_serial','ASC')
+            ->where('stocks.branch_id',authBranch_hh())
+            ->get();
+        }
 
+        public function productStockWithActivePriceByProductStockIdNORWhereStatusIsActiveWhenCreateSale($product_stock_id)
+        {
+            return ProductStock::select("product_stocks.*",
+            "stocks.id as sId","stocks.name as sName",'stocks.label',"stocks.status"
+            )
+            ->join("stocks","stocks.id","=","product_stocks.stock_id")
+            ->where('product_stocks.product_id',$this->id)
+            ->where('product_stocks.id',$product_stock_id)
+            ->where('product_stocks.branch_id',authBranch_hh())
+            ->where('product_stocks.status',1)
+            ->where('stocks.status',1)
+            ->orderBy('stocks.custom_serial','ASC')
+            ->where('stocks.branch_id',authBranch_hh())
+            ->first();
+        }
 
         
 
