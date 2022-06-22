@@ -48,7 +48,6 @@ trait PricingTrait
                 $price->stock_id    = $stockProduct->stock_id;
                 $price->product_stock_id = $stockProduct->id;
                 $price->price       = $pprice;
-                $price->price_name  = $priceLabel?$priceLabel->name:"";
                 $price->status      = 1;
                 $price->created_by  = $this->authId_FPT;
                 $price->save();
@@ -56,7 +55,7 @@ trait PricingTrait
         }
         return true;
         // branch_id, product_id , price_id, stock_id
-        // product_stock_id, price ,price_name ,status, 
+        // product_stock_id, price ,status, 
     }
 
 

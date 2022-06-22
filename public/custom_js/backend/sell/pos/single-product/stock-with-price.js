@@ -1,81 +1,105 @@
-
-    //input field protected .. only for numeric
-    jQuery(document).on('keyup keypress','.inputFieldValidatedOnlyNumeric',function(e){
-        if (String.fromCharCode(e.keyCode).match(/[^0-9\.]/g)) return false;
-    });
-
-
-
-    jQuery(document).on('click','.productDetails',function(e){
-        e.preventDefault();
-        var url = jQuery('.showProductDetailsModalRoute').val();
-        var id  = jQuery(this).data('id');
-        jQuery.ajax({
-            url:url,
-            data:{id:id},
-            beforeSend:function(){
-                jQuery('.processing_on').fadeIn();
-            },
-            success:function(response){
-                if(response.status == true)
-                {
-                    jQuery('#showProductDetailModal').html(response.html).modal('show');
-                    jQuery('.display-product-stock-with-price-section').html(response.stock);
-                    defaultSelectedProductStockSellingPriceAndQuantityCalculation();
-                }
-            },
-             complete:function(){
-                jQuery('.processing_on').fadeOut();
-            },
-        });
-    });
-
-
-
-
-   //hover mouseover effect
-    jQuery(document).on('mouseover','.productStockHover,.selectedProductStockRow',function(e){
-        e.preventDefault();
-        var id = jQuery(this).data('id');
-        jQuery(this).css({
-            'cursor' : 'pointer'
-        });
-        jQuery('.productStockHover').css({
-            'color':'black',
-            'background-colo':'none'
-        });
-        jQuery('.selectedProductStockRow').css({
-            'color':'black',
-            'background-colo':'#ffffff'
+    /*
+    |--------------------------------------------------------
+    | input field protected .. only for numeric
+    |--------------------------------------------------------
+    */
+        jQuery(document).on('keyup keypress','.inputFieldValidatedOnlyNumeric',function(e){
+            if (String.fromCharCode(e.keyCode).match(/[^0-9\.]/g)) return false;
         });
 
-        var selectedId = jQuery('.selectedProductStockId').val();
-        if(selectedId != id){
-            jQuery('.selectedProductStockRow_'+id).css({
-                'color':'white',
-                'background-color':'#b0d5b0'
+
+    /*
+    |----------------------------------------------------------------
+    | display single product details for showing and adding to cart
+    |----------------------------------------------------------------
+    */
+        jQuery(document).on('click','.productDetails',function(e){
+            e.preventDefault();
+            var url = jQuery('.showProductDetailsModalRoute').val();
+            var id  = jQuery(this).data('id');
+            jQuery.ajax({
+                url:url,
+                data:{id:id},
+                beforeSend:function(){
+                    jQuery('.processing_on').fadeIn();
+                },
+                success:function(response){
+                    if(response.status == true)
+                    {
+                        jQuery('#showProductDetailModal').html(response.html).modal('show');
+                        jQuery('.display-product-stock-with-price-section').html(response.stock);
+                        defaultSelectedProductStockSellingPriceAndQuantityCalculation();
+                    }
+                },
+                complete:function(){
+                    jQuery('.processing_on').fadeOut();
+                },
             });
-        }
-    });
-
-    //hover end- mouseout 
-    jQuery(document).on('mouseout','.productStockHover,.selectedProductStockRow',function(e){
-        e.preventDefault();
-        var id = jQuery(this).data('id');
-        jQuery('.productStockHovereffect_'+id).css({
-            'color':'black',
-            'background-color':'none'
         });
-       
-        var selectedId = jQuery('.selectedProductStockId').val();
-        if(selectedId != id){
-            jQuery('.selectedProductStockRow_'+id).css({
+    /*
+    |----------------------------------------------------------------
+    | display single product details for showing and adding to cart
+    |----------------------------------------------------------------
+    */
+
+
+
+
+
+
+    /*
+    |----------------------------------------------------------------
+    | hover mouseover effect
+    |----------------------------------------------------------------
+    */
+        //hover : display sotck list with price 
+        jQuery(document).on('mouseover','.productStockHover,.selectedProductStockRow',function(e){
+            e.preventDefault();
+            var id = jQuery(this).data('id');
+            jQuery(this).css({
+                'cursor' : 'pointer'
+            });
+            jQuery('.productStockHover').css({
                 'color':'black',
-                'background-color':'#ffffff'
+                'background-colo':'none'
             });
-        }
-    });
+            jQuery('.selectedProductStockRow').css({
+                'color':'black',
+                'background-colo':'#ffffff'
+            });
 
+            var selectedId = jQuery('.selectedProductStockId').val();
+            if(selectedId != id){
+                jQuery('.selectedProductStockRow_'+id).css({
+                    'color':'white',
+                    'background-color':'#b0d5b0'
+                });
+            }
+        });
+
+        //hover end- mouseout 
+        //hover : display sotck list with price 
+        jQuery(document).on('mouseout','.productStockHover,.selectedProductStockRow',function(e){
+            e.preventDefault();
+            var id = jQuery(this).data('id');
+            jQuery('.productStockHovereffect_'+id).css({
+                'color':'black',
+                'background-color':'none'
+            });
+        
+            var selectedId = jQuery('.selectedProductStockId').val();
+            if(selectedId != id){
+                jQuery('.selectedProductStockRow_'+id).css({
+                    'color':'black',
+                    'background-color':'#ffffff'
+                });
+            }
+        });
+    /*
+    |----------------------------------------------------------------
+    | hover mouseover effect : END
+    |----------------------------------------------------------------
+    */
     
    //selected effect
    jQuery(document).on('click','.selectedProductStock ,.selectedProductStockRow',function(e){
@@ -131,7 +155,7 @@
     }
 
 
-
+    //making:- selected selling price by product stock id by ajax
     function makingSelecedSellingPriceByProductStockId(productStockId)
     {   
         //selected price id
@@ -180,7 +204,6 @@
         });
         
         
-
         jQuery('.check_when_selected').hide();
         jQuery('.uncheck_when_not_selected').show();
         jQuery('.check_when_selected_'+priceId).show();  
@@ -207,10 +230,13 @@
             selling_from_purchase_price
             selling_from_sell_price
             selling_from_mrp_price
-        */
-        //jQuery(".selling_from_price_id_"+priceId).prop("checked",true);//good working
-        //jQuery('input[type="radio"][name="selling_price"][id="selling_from_price_id_'+priceId+'"]').prop('checked', true);//good working
-        //jQuery('input[type="radio"][name="selling_price"][id="selling_from_price_id_'+priceId+'"]').attr('checked', 'checked');//good working
+            //jQuery(".selling_from_price_id_"+priceId).prop("checked",true);//good working
+            //jQuery('input[type="radio"][name="selling_price"][id="selling_from_price_id_'+priceId+'"]').prop('checked', true);//good working
+            //jQuery('input[type="radio"][name="selling_price"][id="selling_from_price_id_'+priceId+'"]').attr('checked', 'checked');//good working
+            
+            //jQuery(".selling_from_price_id_"+priceId).attr('checked', 'checked');
+            //jQuery('input[type="radio"][name="selling_price"][id="selling_from_price_id_'+priceId+'"]').prop('checked', true);
+        */ 
     }
 
 
@@ -220,8 +246,6 @@
         var productPriceId  = jQuery(this).data('selling_from_product_price_id');
         var price           = jQuery(this).data('price_'+priceId);
 
-        //jQuery(".selling_from_price_id_"+priceId).attr('checked', 'checked');
-        //jQuery('input[type="radio"][name="selling_price"][id="selling_from_price_id_'+priceId+'"]').prop('checked', true);
         jQuery('.selectedPriceId').val(priceId);
         jQuery('.selectedSellingPrice').val(priceId);
         jQuery('.selectingSellingPriceAction').val(1);
@@ -265,7 +289,7 @@
     });
 
 
-    
+    //default selected:- product stock, selling price, Quantity
     function defaultSelectedProductStockSellingPriceAndQuantityCalculation()
     {
         var productStockId = jQuery('.defaultProductStockId').val();
@@ -280,23 +304,42 @@
     }
 
 
+
+
+    //final calculation according to selected price and final selling price
+    //selling quantity, discount, 
     function finalCalculationAccordingToSelectedPriceAndFinalSellPrice()
     {
+        //setting selling price according to selected price
         settingSellingPriceAccordingToSelectedSellingPrice();
+
+        //getting selling price from selected selling price
         gettingSellingPriceFromSelectedSellingPrice();
+
+        //making selling price
         makingSellingPrice();
+
+        //making selling quantity
         makingSellingQuantity();
 
         //for discount validation
         discountAmountLessThemPurchaseAmount();
         
+        //making selling amount without discount
         makingSellingAmountWithoutDiscount();
+
+        //making selling discount
         makingSellingDiscount();
+
+        //enable disabled add to cart button
         enabledDisabledAddToCartButton();
 
 
     }
 
+
+
+    //selling selling price according to selected selling price
     function settingSellingPriceAccordingToSelectedSellingPrice()
     {
         var selectedPriceId = gettingSelectedPriceIdAccordingToDefaultPriceId();
@@ -304,6 +347,7 @@
         jQuery('.selectedSellingPrice').val(price);
     }
 
+    //
     function gettingSellingPriceFromSelectedSellingPrice()
     {
         var selectedPriceId = gettingSelectedPriceIdAccordingToDefaultPriceId();
@@ -337,6 +381,11 @@
     
     jQuery(document).on('blur','.final_sell_price',function(e){
         e.preventDefault();
+        finallySellingPrice();
+    });
+
+    function finallySellingPrice()
+    {
         var purchasePrice           = nanCheck(parseFloat(jQuery('.selling_from_purchase_price').val()));
         var selectedSellingPrice    = nanCheck(parseFloat(jQuery('.selectedSellingPrice').val()));
         var finalSellingPrice       = nanCheck(parseFloat(jQuery('.final_sell_price').val()));
@@ -349,94 +398,298 @@
         }else{
             makingFinalPrice = finalSellingPrice;
         }
-        if(makingFinalPrice < purchasePrice)
+        
+        var sellApplicableOrNot = jQuery('.sellApplicableOrNotWhenSellingPriceIsLessThanPurchasePrice').val();
+        if(makingFinalPrice < purchasePrice && sellApplicableOrNot == 1)
         {
-            jQuery('.final_sell_price_err').text('Minimum Amount '+ purchasePrice);
-            makingFinalPrice = purchasePrice;
-        }else{
+            //visible alert message
+            visiblePermissionSellingPriceAlertMessage();
+        }
+        else if(makingFinalPrice >= purchasePrice )
+        {
             makingFinalPrice = finalSellingPrice;
         }
+        else{
+            makingFinalPrice = purchasePrice;
+        }
         jQuery('.final_sell_price').val(makingFinalPrice);
+        //finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
         return makingFinalPrice;
-    });
-
-
-    function makingSellingQuantity()
-    {
-        var finalSellingQuantity    = jQuery('.final_sell_quantity').val();
-        if(
-            (finalSellingQuantity === 'undefined' || finalSellingQuantity === null || finalSellingQuantity.length === 0)
-        )
-        {   
-            jQuery('.final_sell_quantity').val(1);
-            finalSellingQuantity = 1;
-        }
-        return  finalSellingQuantity;
-    } 
-
-    function makingSellingAmountWithoutDiscount()
-    {
-        var finalSellingPrice       = nanCheck(jQuery('.final_sell_price').val());
-        var finalSellingQuantity    = nanCheck(jQuery('.final_sell_quantity').val());
-        var totalAmountWithDiscount = ((finalSellingPrice * finalSellingQuantity).toFixed(2));
-        return totalAmountWithDiscount;
     }
+  
 
-    function makingSellingDiscount()
-    {
-        var discountType        = jQuery('input[name="discount_type"]:checked').val();
-        var discountAmount      = nanCheck(jQuery('.discount_amount').val());
-
-        //discount amount always less them purchaseAmount
-        var totalDiscout = makingDiscountAmountAccordingToDiscountType(discountType,discountAmount);
-
-        jQuery('.total_discount_amount_text').text(totalDiscout);
-        jQuery('.total_discount_amount_value').val(totalDiscout);
-
-        var totalAmountWithoutDiscount  = nanCheck(makingSellingAmountWithoutDiscount());
-        jQuery('.total_amount_before_discount_text').text(totalAmountWithoutDiscount);
-        jQuery('.total_amount_before_discount_value').val(totalAmountWithoutDiscount);
-
-        var finalSellingAmount          = nanCheck((totalAmountWithoutDiscount - totalDiscout).toFixed(2));
-        jQuery('.selling_final_amount_text').text(finalSellingAmount);
-        jQuery('.selling_final_amount_value').val(finalSellingAmount);
-    }
-
-    function makingDiscountAmountAccordingToDiscountType(discountType,discountAmount)
-    {
-        var totalAmountWithoutDiscount = makingSellingAmountWithoutDiscount();
-        var discount = 0;
-        if(discountType == 'fixed')
+    /*
+    |-----------------------------------------------------------------------
+    | Selling permission applicable and alert message
+    |-----------------------------------------------------------------------
+    */
+        //not using this yet now
+        function defaultSellingPricePermission()
         {
-            discount = discountAmount;
+            var permission  = 0;
+            selectingFinalSellingPriceBySellingPermission(permission);
+            hiddenPermissionSellingPriceAlertMessage();
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
         }
-        else if(discountType == 'parcentage') {
-            discount = (((totalAmountWithoutDiscount * discountAmount) / 100).toFixed(2));
-        }
-        return discount;
-    }
-
-    function discountAmountLessThemPurchaseAmount()
-    {
-        var purchasePrice           = nanCheck(jQuery('.selling_from_purchase_price').val());
-        var finalSellingQuantity    = nanCheck(jQuery('.final_sell_quantity').val());
-
-        var totalAmountByPurchasePrice = purchasePrice * finalSellingQuantity;
-
-        var discountType        = jQuery('input[name="discount_type"]:checked').val();
-        var discountAmount      = nanCheck(jQuery('.discount_amount').val());
-
-        //discount amount always less them purchaseAmount
-        var totalDiscout    = makingDiscountAmountAccordingToDiscountType(discountType,discountAmount);
-        var totalFinal      = finalSellingQuantity - totalDiscout;
-        if((totalDiscout > totalAmountByPurchasePrice))
+        //not using this yet now
+        function selectedSellingPricePermission()
         {
-            jQuery('.discount_amount_err').text('Invalid Less Amount');
-            jQuery('.discount_amount').val(0);
-        }else{
-            jQuery('.discount_amount').val(discountAmount);
+            var permission  = 1;
+            selectingFinalSellingPriceBySellingPermission(permission);
+            hiddenPermissionSellingPriceAlertMessage();
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
         }
+        
+        //using this properly
+        jQuery(document).on('click','.sellingPermissionApplicable',function(){
+            var permission  = jQuery(this).data('permission');
+            selectingFinalSellingPriceBySellingPermission(permission);
+            hiddenPermissionSellingPriceAlertMessage();
+            //finallySellingPrice();
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+        });
+        
+        function selectingFinalSellingPriceBySellingPermission(permission)
+        {
+            var purchasePrice           = nanCheck(parseFloat(jQuery('.selling_from_purchase_price').val()));
+            var selectedSellingPrice    = nanCheck(parseFloat(jQuery('.selectedSellingPrice').val()));
+            var finalSellingPrice       = nanCheck(parseFloat(jQuery('.final_sell_price').val()));
+            var makingFinalPrice        = selectedSellingPrice;
+            if(
+                (finalSellingPrice === 'undefined' || finalSellingPrice === null || finalSellingPrice.length === 0)
+            )
+            {   
+                makingFinalPrice = selectedSellingPrice;
+            }else{
+                makingFinalPrice = finalSellingPrice;
+            }
+            if(permission == 1)
+            {
+                //yes, want to sell less than purchase price
+                jQuery('.final_sell_price').val(makingFinalPrice)
+            }else{
+                //no, don't want to sell less than purchase price
+                jQuery('.final_sell_price').val(purchasePrice)
+            }
+        }
+        function visiblePermissionSellingPriceAlertMessage()
+        {
+            disabledToCartButton();
+            jQuery('#sellingPriceBaseLayer').css({'visibility':'visible'});
+            jQuery('#sellingPriceErrorMessageLayer').css({'visibility':'visible'});
+        } 
+        function hiddenPermissionSellingPriceAlertMessage()
+        {
+            jQuery('#sellingPriceBaseLayer').css({'visibility':'hidden'});
+            jQuery('#sellingPriceErrorMessageLayer').css({'visibility':'hidden'});
+        }
+    /*
+    |-----------------------------------------------------------------------
+    | Selling permission applicable : END
+    |-----------------------------------------------------------------------
+    */
+
+
+    /*
+    |-----------------------------------------------------------------------
+    | Selling Quantity
+    |-----------------------------------------------------------------------
+    */
+        function makingSellingQuantity()
+        {
+            var finalSellingQuantity    = jQuery('.final_sell_quantity').val();
+            if(
+                (finalSellingQuantity === 'undefined' || finalSellingQuantity === null || finalSellingQuantity.length === 0)
+            )
+            {   
+                jQuery('.final_sell_quantity').val(1);
+                finalSellingQuantity = 1;
+            }
+            return  finalSellingQuantity;
+        } 
+    /*
+    |-----------------------------------------------------------------------
+    | Selling Quantity
+    |-----------------------------------------------------------------------
+    */
+
+
+    
+
+    /*
+    |-----------------------------------------------------------------------
+    | Selling Discount
+    |-----------------------------------------------------------------------
+    */
+        jQuery(document).on('keyup blur','.discount_amount',function(){
+            jQuery('.discountPermissionApplicableSelected').val(0);
+            discountAmountLessThemPurchaseAmount();
+        });
+        function makingSellingAmountWithoutDiscount()
+        {
+            var finalSellingPrice       = nanCheck(jQuery('.final_sell_price').val());
+            var finalSellingQuantity    = nanCheck(jQuery('.final_sell_quantity').val());
+            var totalAmountWithDiscount = ((finalSellingPrice * finalSellingQuantity).toFixed(2));
+            return totalAmountWithDiscount;
+        }
+
+        function makingSellingDiscount()
+        {
+            var discountType        = jQuery('input[name="discount_type"]:checked').val();
+            var discountAmount      = nanCheck(jQuery('.discount_amount').val());
+
+            //discount amount always less them purchaseAmount
+            var totalDiscout = makingDiscountAmountAccordingToDiscountType(discountType,discountAmount);
+
+            jQuery('.total_discount_amount_text').text(totalDiscout);
+            jQuery('.total_discount_amount_value').val(totalDiscout);
+
+            var totalAmountWithoutDiscount  = nanCheck(makingSellingAmountWithoutDiscount());
+            jQuery('.total_amount_before_discount_text').text(totalAmountWithoutDiscount);
+            jQuery('.total_amount_before_discount_value').val(totalAmountWithoutDiscount);
+
+            var finalSellingAmount          = nanCheck((totalAmountWithoutDiscount - totalDiscout).toFixed(2));
+            jQuery('.selling_final_amount_text').text(finalSellingAmount);
+            jQuery('.selling_final_amount_value').val(finalSellingAmount);
+        }
+
+        function makingDiscountAmountAccordingToDiscountType(discountType,discountAmount)
+        {
+            var totalAmountWithoutDiscount = makingSellingAmountWithoutDiscount();
+            var discount = 0;
+            if(discountType == 'fixed')
+            {
+                discount = discountAmount;
+            }
+            else if(discountType == 'parcentage') {
+                discount = (((totalAmountWithoutDiscount * discountAmount) / 100).toFixed(2));
+            }
+            return discount;
+        }
+
+        function discountAmountLessThemPurchaseAmount()
+        {
+            var purchasePrice           = nanCheck(jQuery('.selling_from_purchase_price').val());
+            var finalSellingQuantity    = nanCheck(jQuery('.final_sell_quantity').val());
+            var finalSellingPrice       = nanCheck(jQuery('.final_sell_price').val());
+            var totalSellingAmount      = ((finalSellingPrice * finalSellingQuantity).toFixed(2));
+
+            var totalAmountByPurchasePrice = purchasePrice * finalSellingQuantity;
+
+            var discountType        = jQuery('input[name="discount_type"]:checked').val();
+            var discountAmount      = nanCheck(jQuery('.discount_amount').val());
+
+            //discount amount always less them purchaseAmount
+            var totalDiscout    = makingDiscountAmountAccordingToDiscountType(discountType,discountAmount);
+            // from setting : if discount amount is greater than total purchase price is 1
+            //if selling price is less than purchase price
+            //if selling price greatar than purchase price, and check total
+                //purchase price * quantity is greater than total discount amount
+            //
+            var selectedPermission = jQuery('.discountPermissionApplicableSelected').val();
+
+            var sellApplicableOrNot = jQuery('.sellApplicableOrNotWhenTotalDiscountAmountIsGreaterThanTotalPurchasePrice').val();
+            if(((totalSellingAmount <= totalDiscout) || (totalDiscout >= totalAmountByPurchasePrice)) &&
+                sellApplicableOrNot == 1
+            )
+            {
+                if(selectedPermission == 0)
+                {
+                    //visible alert message
+                    visiblePermissionDiscountSellingPriceAlertMessage();
+                }else{
+                    hiddenPermissionDiscountSellingPriceAlertMessage();
+                }
+            }
+            else if(totalDiscout < totalAmountByPurchasePrice )
+            {
+                jQuery('.discount_amount').val(discountAmount);
+            }
+            else{
+                jQuery('.discount_amount').val(discountAmount);
+            }
+        }
+
+    /*
+    |-----------------------------------------------------------------------
+    | Selling Discount
+    |-----------------------------------------------------------------------
+    */
+   
+    /*
+    |-----------------------------------------------------------------------
+    | Selling discount permission applicable and alert message
+    |-----------------------------------------------------------------------
+    */
+        //not using this yet now
+        function defaultSellingPriceDiscountPermission()
+        {
+            var permission  = 0;
+            selectingFinalSellingPriceBySellingDiscountPermission(permission);
+            hiddenPermissionDiscountSellingPriceAlertMessage();
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+        }
+        //not using this yet now
+        function selectedSellingPricePermission()
+        {
+            var permission  = 1;
+            selectingFinalSellingPriceBySellingDiscountPermission(permission);
+            hiddenPermissionDiscountSellingPriceAlertMessage();
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+        }
+        
+        //using this properly
+        jQuery(document).on('click','.discountPermissionApplicable',function(){
+            var permission  = jQuery(this).data('permission');
+            jQuery('.discountPermissionApplicableSelected').val(permission);
+            selectingFinalSellingPriceBySellingDiscountPermission(permission);
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+        });
+        function selectingFinalSellingPriceBySellingDiscountPermission(permission)
+        {
+            var discountAmount      = nanCheck(jQuery('.discount_amount').val());
+            if(permission == 1)
+            {
+                //yes, want to sell less than purchase price
+                jQuery('.discount_amount').val(discountAmount)
+            }else{
+                //no, don't want to sell less than purchase price
+                jQuery('.discount_amount').val(0)
+            }
+            hiddenPermissionDiscountSellingPriceAlertMessage();
+        }
+        function visiblePermissionDiscountSellingPriceAlertMessage()
+        {
+            disabledToCartButton();
+            jQuery('#sellingPriceBaseLayerWhenDiscount').css({'visibility':'visible'});
+            jQuery('#sellingPriceErrorMessageLayerWhenDiscount').css({'visibility':'visible'});
+        } 
+        function hiddenPermissionDiscountSellingPriceAlertMessage()
+        {
+            jQuery('#sellingPriceBaseLayerWhenDiscount').css({'visibility':'hidden'});
+            jQuery('#sellingPriceErrorMessageLayerWhenDiscount').css({'visibility':'hidden'});
+        }
+    /*
+    |-----------------------------------------------------------------------
+    | Selling discount permission applicable : END
+    |-----------------------------------------------------------------------
+    */
+
+
+
+
+    //jQuery('.sellApplicableOrNotWhenStockIsLessThanZero').val();
+
+
+    //when selling amount is less then purchase amount
+    
+
+    //when discount amount is more then purchase amount
+    function alertMessageForInvalidDiscount()
+    {
+
     }
+
     
     function nanCheck(value)
     {
@@ -449,14 +702,77 @@
         }
     }
 
-
-    function enabledDisabledAddToCartButton()
-    {        
-        var finalSellingAmount = nanCheck(jQuery('.selling_final_amount_value').val());
-        if(finalSellingAmount > 0)
-        {
+    /*
+    |-----------------------------------------------------------------------
+    | enabled disabled addToCart Button
+    |-----------------------------------------------------------------------
+    */
+        function enabledDisabledAddToCartButton()
+        {        
+            var finalSellingAmount = nanCheck(jQuery('.selling_final_amount_value').val());
+            if(finalSellingAmount > 0)
+            {
+                jQuery('.add_to_cart_button').removeAttr('disabled');
+            }else{
+                jQuery('.add_to_cart_button').attr('disabled','disabled');
+            }
+        }
+        
+        function enabledToCartButton()
+        {        
             jQuery('.add_to_cart_button').removeAttr('disabled');
-        }else{
+        }
+        
+        function disabledToCartButton()
+        {        
             jQuery('.add_to_cart_button').attr('disabled','disabled');
         }
-    }
+    /*
+    |-----------------------------------------------------------------------
+    | enabled disabled addToCart Button
+    |-----------------------------------------------------------------------
+    */
+
+
+
+
+
+
+
+
+
+
+    /*
+        swal({
+                title: "Are you sure?",
+                text: "Selling price is less then purchase price",
+                type: "error",
+                showCancelButton: true,
+                dangerMode: true,
+                cancelButtonClass: '#DD6B55',
+                confirmButtonColor: '#dc3545',
+                confirmButtonText: 'Yes!',
+            });
+        swal({
+            title: "Are you sure?",
+            text: "You entered invlid discount amount",
+            type: "error",
+            showCancelButton: true,
+            dangerMode: true,
+            cancelButtonClass: '#DD6B55',
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: 'Yes!',
+        },function (result) {
+            if (result) {
+                var action = current_object.attr('data-action');
+                var token = jQuery('meta[name="csrf-token"]').attr('content');
+                var id = current_object.attr('data-id');
+
+                $('body').html("<form class='form-inline remove-form' method='post' action='"+action+"'></form>");
+                $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
+                $('body').find('.remove-form').append('<input name="_token" type="hidden" value="'+token+'">');
+                $('body').find('.remove-form').append('<input name="id" type="hidden" value="'+id+'">');
+                $('body').find('.remove-form').submit();
+            } 
+        }); 
+    */

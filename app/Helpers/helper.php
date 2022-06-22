@@ -86,3 +86,26 @@ use Illuminate\Support\Facades\Auth;
         $unit = Unit::find($unitId);
         return $stockQuantity / $unit->calculation_result;
     }
+
+
+    //sell applicable when selling price is less than purchase price
+    function sellApplicableOrNotWhensellingPriceIsLessThanPurchasePrice_hh()
+    {
+        return 1;
+        // 1 = yes sell, when selling price is less than purchase price
+        // 0 = not sell, when selling price is less than purchase price
+    } 
+
+    // sell applicable when stock is less than zero
+    function sellApplicableOrNotWhenStockIsLessThanZero_hh()
+    {
+        return 1;
+        // 1 = not sell, when product stock is less than zero (stock will be never minus)
+        // 0 = yes sell, when product stock is less than zero (stock will be never minus)
+    }
+    function sellApplicableOrNotWhenTotalDiscountAmountIsGreaterThanTotalPurchasePrice_hh()
+    {
+        return 1;
+        // 1 = yes sell, when total discount amout is less than total purchase price
+        // 0 = not sell, when total discount amout is less than total purchase price
+    }

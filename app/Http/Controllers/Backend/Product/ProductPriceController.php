@@ -97,8 +97,6 @@ class ProductPriceController extends Controller
                     $npp->stock_id      = $stockId;
                     $npp->product_stock_id = $exitProuctStockId ? $exitProuctStockId : $newProductStockId;
                     $npp->price         = $request->input('p_'.$priceId."_s_".$stockId);
-                    $pname = Price::find($priceId);
-                    $npp->price_name    = $pname?$pname->name:NULL;
                     $npp->status        = 1;
                     $npp->save();
                 }

@@ -30,6 +30,13 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{asset('backend/pos')}}/assets/css/multiple-select.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="{{asset('backend/pos')}}/assets/css/daterangepicker.css" />
 
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+
+
         <link rel="shortcut icon" href="{{asset('backend/pos/')}}/assets/media/logos/favicon.html" />
         <style>
             .h-90{
@@ -82,7 +89,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="greeting-text">
                             <h3 class="card-label mb-0 font-weight-bold text-primary">
-                                <a href="{{route('home')}}" style="text-decoration: none;">WELCOME</a>
+                                <a href="{{route('home')}}" style="text-decoration: none;">WELCOME To</a>
                             </h3>
                             <h3 class="card-label mb-0">
                                 <a href="{{route('home')}}" style="text-decoration: none;">
@@ -944,7 +951,23 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <select  name="product_id" class="product_id arabic-select select2 bag-primary" style="width:100%">
                                                 <option value="">All Product</option>
                                                 @foreach ($allproducts as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                <option value="{{$item->id}}">
+                                                    @php
+                                                        $product = $item->name;
+                                                        if(strlen($item->name) > 70)
+                                                        {
+                                                            $len = substr($item->name,0,70);
+                                                            if(str_word_count($len) > 1)
+                                                            {
+                                                                $product = implode(" ",(explode(' ',$len,-1)));
+                                                            }else{
+                                                                $product = $len;
+                                                            }
+                                                            $product = $product ."...";
+                                                        }
+                                                    @endphp
+                                                    {{$product}}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -1681,7 +1704,55 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{asset('custom_js/backend')}}/sell/pos/single-product/stock-with-price.js"></script>
 
 
-
+        <script type="text/javascript">
+            /* swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "error",
+                    showCancelButton: true,
+                    dangerMode: true,
+                    cancelButtonClass: '#DD6B55',
+                    confirmButtonColor: '#dc3545',
+                    confirmButtonText: 'Delete!',
+                },function (result) { */
+                    /* if (result) {
+                        var action = current_object.attr('data-action');
+                        var token = jQuery('meta[name="csrf-token"]').attr('content');
+                        var id = current_object.attr('data-id');
+    
+                        $('body').html("<form class='form-inline remove-form' method='post' action='"+action+"'></form>");
+                        $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
+                        $('body').find('.remove-form').append('<input name="_token" type="hidden" value="'+token+'">');
+                        $('body').find('.remove-form').append('<input name="id" type="hidden" value="'+id+'">');
+                        $('body').find('.remove-form').submit();
+                    } */
+                //});
+            /* $("body").on("click",".remove-user",function(){
+                var current_object = $(this);
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "error",
+                    showCancelButton: true,
+                    dangerMode: true,
+                    cancelButtonClass: '#DD6B55',
+                    confirmButtonColor: '#dc3545',
+                    confirmButtonText: 'Delete!',
+                },function (result) {
+                    if (result) {
+                        var action = current_object.attr('data-action');
+                        var token = jQuery('meta[name="csrf-token"]').attr('content');
+                        var id = current_object.attr('data-id');
+    
+                        $('body').html("<form class='form-inline remove-form' method='post' action='"+action+"'></form>");
+                        $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
+                        $('body').find('.remove-form').append('<input name="_token" type="hidden" value="'+token+'">');
+                        $('body').find('.remove-form').append('<input name="id" type="hidden" value="'+id+'">');
+                        $('body').find('.remove-form').submit();
+                    }
+                });
+            }); */
+        </script>
 
     </body>
     <!--end::Body-->

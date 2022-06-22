@@ -1,8 +1,9 @@
 
 
     <div style="background-color:#64b764;color:#fbfbfb;margin-top:5px;padding:5px;text-align:center">
-        <span for="">Selling from : </span>
-        <span>{{$productStock->label}}</span>
+        <span for="" style="color:yellow;">Selling from : </span>
+        <strong style="font-size: 16px;">{{$productStock->label}}</strong>
+        <input type="hidden" class="available_base_stock_for_this_selling_stock" value="{{$productStock->available_base_stock}}">
     </div>
 
     <div style="padding-top: 6px; margin-top:10px;">

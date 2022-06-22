@@ -159,7 +159,6 @@ class Product extends Model
         {
             $activePriceAndProductPrice = ProductPrice::select("product_prices.id","product_prices.price_id",
                 "product_prices.stock_id","product_prices.product_id","product_prices.price","product_prices.product_stock_id",
-                "product_prices.price_name",
                 "prices.id as pId","prices.name as pName",'prices.label',"prices.status as pStatus"
                 )
                 ->join("prices","prices.id","=","product_prices.price_id")
@@ -220,7 +219,6 @@ class Product extends Model
             return $this->hasMany(ProductPrice::class,'product_id','id')
                 ->select("product_prices.id","product_prices.price_id","product_prices.price",
                 //"product_prices.stock_id","product_prices.product_id","product_prices.price","product_prices.product_stock_id",
-                "product_prices.price_name",
                 "prices.id as pId","prices.name as pName",'prices.label',"prices.status as pStatus"
                 )
                 ->join("prices","prices.id","=","product_prices.price_id")
@@ -241,7 +239,6 @@ class Product extends Model
             return $this->hasMany(ProductPrice::class,'product_id','id')
                 ->select("product_prices.id","product_prices.price_id","product_prices.price",
                 //"product_prices.stock_id","product_prices.product_id","product_prices.price","product_prices.product_stock_id",
-                "product_prices.price_name",
                 "prices.id as pId","prices.name as pName",'prices.label',"prices.status as pStatus",
                 "prices.css_style","prices.class"
                 )
@@ -262,7 +259,6 @@ class Product extends Model
         {
             return $this->hasMany(ProductPrice::class,'product_id','id')
                 ->select("product_prices.id","product_prices.price_id","product_prices.price",
-                "product_prices.price_name",
                 "prices.id as pId","prices.name as pName",'prices.label',"prices.status as pStatus",
                 "prices.css_style","prices.class"
                 )

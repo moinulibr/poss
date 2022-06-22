@@ -11,7 +11,7 @@
               
 
 
-                    <div class="modal-body " style="background-color:#222121;"><!-- #e2f7f6; modal body-->
+                    <div class="modal-body " style="background-color:#ede7e7;"><!-- #e2f7f6; modal body-->
                         
                         <div class="form-group">
                             <div class="col-md-12 processing" style="text-align:center;display:none;color:white !important;">
@@ -126,6 +126,10 @@
                                                     <input type="hidden" class="selectedSellingPrice" >
                                                     <input type="hidden" class="selectingSellingPriceAction" value="0">
 
+                                                    <input type="hidden" class="sellApplicableOrNotWhenSellingPriceIsLessThanPurchasePrice" value="{{sellApplicableOrNotWhensellingPriceIsLessThanPurchasePrice_hh()}}">
+                                                    <input type="hidden" class="sellApplicableOrNotWhenStockIsLessThanZero" value="{{sellApplicableOrNotWhenStockIsLessThanZero_hh()}}">
+                                                    <input type="hidden" class="sellApplicableOrNotWhenTotalDiscountAmountIsGreaterThanTotalPurchasePrice" value="{{sellApplicableOrNotWhenTotalDiscountAmountIsGreaterThanTotalPurchasePrice_hh()}}">
+
                                                     <div class="selling_from_stock_name_and_selling_product_stock_price_list">
                                                         @include('backend.sell.pos.ajax-response.single-product.include.product_stock_price')
                                                     </div>
@@ -136,17 +140,163 @@
                                             <!---col-md-7-->
                                             <!---selling from: stock--->
 
+
+                                            <!---selling price custom alert message css--->
+                                            <style>
+                                                #sellingPriceBaseLayer{
+                                                    position: absolute;
+                                                    top: 0;
+                                                    right: 0;  
+                                                    bottom: 0;
+                                                    left: 0;
+                                                    margin: auto;
+                                                    margin-top: 0;
+                                                    margin-bottom: 10px;
+                                                    /*width: 981px;
+                                                    height: 610px;*/
+                                                    background : ;
+                                                    z-index: 0;
+                                                    visibility: hidden;
+                                                    color:red;
+                                                }
+                                    
+                                                #sellingPriceErrorMessageLayer {
+                                                  position: absolute;
+                                                  top: 0;
+                                                  right: 0;
+                                                  bottom: 0;
+                                                  left: 0;
+                                                  /* margin: 70px 140px 175px 140px; */
+                                                  padding : 30px;
+                                                  margin-left: 40px;
+                                                  /*width: 700px;
+                                                  height: 400px;*/
+                                                  background-color: rgb(244, 244, 85);
+                                                  visibility: hidden;
+                                                  border: 1px solid black;
+                                                  z-index: 99999999999;
+                                                }
+                                                .sellingPricePermissionLayer{
+                                                    margin-top: 20px;
+                                                    text-align:center;
+                                                    width: 100%;
+                                                    height: auto;
+                                                }
+                                                .sellingPricePermissionLayerYes{
+                                                     padding:2px;
+                                                     width: 45%;
+                                                     float: left;
+                                                     background-color: #0c8327;
+                                                     cursor:pointer;
+                                                     color:#ffff;
+                                                 }
+                                                 .sellingPricePermissionLayerNo{
+                                                     padding:2px;
+                                                     width: 45%;
+                                                     float: right;
+                                                     background-color: red;
+                                                     cursor:pointer;
+                                                     color:#ffff;
+                                                }
+                                            </style>
+                                            <!---selling price custom alert message css--->
+                                            
+                                            <!---Discount :- selling price custom alert message css--->
+                                            <style>
+                                                #sellingPriceBaseLayerWhenDiscount{
+                                                    position: absolute;
+                                                    top: 0;
+                                                    right: 0;  
+                                                    bottom: 0;
+                                                    left: 0;
+                                                    margin: auto;
+                                                    margin-top: 0;
+                                                    margin-bottom: 10px;
+                                                    /*width: 981px;
+                                                    height: 610px;*/
+                                                    background : ;
+                                                    z-index: 0;
+                                                    visibility: hidden;
+                                                    color:#f7f7ff;
+                                                }
+                                    
+                                                #sellingPriceErrorMessageLayerWhenDiscount{
+                                                  position: absolute;
+                                                  top: 0;
+                                                  right: 0;
+                                                  bottom: 0;
+                                                  left: 0;
+                                                  /* margin: 70px 140px 175px 140px; */
+                                                  padding : 30px;
+                                                  margin-left: 40px;
+                                                  /*width: 700px;
+                                                  height: 400px;*/
+                                                  background-color: black;
+                                                  visibility: hidden;
+                                                  border: 1px solid black;
+                                                  z-index: 99999999999;
+                                                }
+                                                .sellingPricePermissionLayerWhenDiscount{
+                                                    margin-top: 20px;
+                                                    text-align:center;
+                                                    width: 100%;
+                                                    height: auto;
+                                                }
+                                                .sellingPricePermissionLayerYesWhenDiscount{
+                                                     padding:2px;
+                                                     width: 45%;
+                                                     float: left;
+                                                     background-color: #0c8327;
+                                                     cursor:pointer;
+                                                     color:#ffff;
+                                                 }
+                                                 .sellingPricePermissionLayerNoWhenDiscount{
+                                                     padding:2px;
+                                                     width: 45%;
+                                                     float: right;
+                                                     background-color: red;
+                                                     cursor:pointer;
+                                                     color:#ffff;
+                                                }
+                                            </style>
+                                            <!---Discount :- selling price custom alert message css--->
+
                                             <!---selling price-quantity-discount--->
                                             <div class="col-md-5">
                                                 <div  style="background-color:#6a3d2b;color:#e9ff30;padding:5px;margin-bottom:8px;margin-top:5px;">
                                                     <div class="form-group" style="margin-bottom:1px;">
-                                                        <label class="form-label" style="color:#fcfcfd !important;">Selling Price</label>
+                                                        <label class="form-label" style="color:#fcfcfd !important;" onclick="showSellingPriceBaseLayer();">Selling Price</label>
                                                         <input type="text" name="final_sell_price"  class="form-control final_sell_price inputFieldValidatedOnlyNumeric" placeholder="Selling Price" style="font-size: 15px;background-color:#d0e7ef;color:#382a25;font-weight:700;" />
                                                         <strong class="final_sell_price_err color-red" style="color:#ffff;"></strong>
+                                                        <!---selling price custom alert message--->
+                                                        <div id="sellingPriceBaseLayer">
+                                                            <div id="sellingPriceErrorMessageLayer">
+                                                                Do you want to sell less than purchasae pirce?
+                                                                <br />
+                                                                <div class="sellingPricePermissionLayer">
+                                                                    <div class="sellingPricePermissionLayerYes" >
+                                                                        <strong class="sellingPermissionApplicable" data-permission="1" {{-- onclick="hideSellingPriceBaseLayer();" --}}>Yes</strong>
+                                                                    </div>
+                                                                    <div class="sellingPricePermissionLayerNo" >
+                                                                        <strong class="sellingPermissionApplicable" data-permission="0" {{-- onclick="hideSellingPriceBaseLayer();" --}}>No</strong>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- <script>
+                                                            function showSellingPriceBaseLayer() {  document.getElementById('sellingPriceBaseLayer').style.visibility='visible';
+                                                              document.getElementById('sellingPriceErrorMessageLayer').style.visibility='visible';
+                                                            }
+                                                            function hideSellingPriceBaseLayer() {
+                                                              document.getElementById('sellingPriceBaseLayer').style.visibility='hidden';
+                                                              document.getElementById('sellingPriceErrorMessageLayer').style.visibility='hidden';
+                                                            }
+                                                        </script> --}}
+                                                        <!---selling price custom alert message css--->
                                                         <div class="clearfix"></div>
                                                     </div>
                                                     <div class="form-group" style="margin-bottom:1px;">
-                                                        <label class="form-label"style="color:#e9ff30 !important;">Quantity</label>
+                                                        <label class="form-label"style="color:#e9ff30 !important;margin-bottom:-2px">Quantity</label>
                                                         <input type="text" name="final_sell_quantity"  class="form-control final_sell_quantity inputFieldValidatedOnlyNumeric" placeholder="Quantity" style="font-size: 15px;background-color:rgb(10, 9, 9);color:#e2f7f6;font-weight:700;" />
                                                         <strong class="final_sell_quantity_err color-red"></strong>
                                                         <div class="clearfix"></div>
@@ -156,7 +306,7 @@
 
                                                     <div class="form-group" style="margin-bottom:1px;margin-top:2px;">
                                                         <div style="background-color:#ff4a00;padding:1px;padding-top:0px;color:white;">
-                                                            <strong>Less Amount</strong>
+                                                            <strong onclick="showSellingPriceBaseLayerWhenDiscount();">Less Amount</strong>
                                                             <div style="background-color:#ededed;color:red;margin-bottom:1.5px;">
                                                                 <label class="switcher" style="padding-right: 7px;padding-left: 3px;">
                                                                         <input type="radio"  name="discount_type" class="switcher-input  discount_type" value="fixed" style="margin-top:5px;cursor: pointer;" />
@@ -196,6 +346,32 @@
                                                             </div>
                                                             <strong class="name_err color-red"></strong>
                                                             <div class="clearfix"></div>
+                                                                <!---selling price custom alert message--->
+                                                                <div id="sellingPriceBaseLayerWhenDiscount">
+                                                                    <div id="sellingPriceErrorMessageLayerWhenDiscount">
+                                                                        Do you want to sell less than purchasae pirce?
+                                                                        <br />
+                                                                        <div class="sellingPricePermissionLayerWhenDiscount">
+                                                                            <div class="sellingPricePermissionLayerYesWhenDiscount" >
+                                                                                <strong class="discountPermissionApplicable" data-permission="1"  {{-- onclick="hideSellingPriceBaseLayerWhenDiscount();" --}}>Yes</strong>
+                                                                            </div>
+                                                                            <div class="sellingPricePermissionLayerNoWhenDiscount" >
+                                                                                <strong class="discountPermissionApplicable" data-permission="2" {{-- onclick="hideSellingPriceBaseLayerWhenDiscount();" --}}>No</strong>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <input type="hidden" class="discountPermissionApplicableSelected" value="0">
+                                                                </div>
+                                                                {{-- <script>
+                                                                    function showSellingPriceBaseLayerWhenDiscount() {  document.getElementById('sellingPriceBaseLayerWhenDiscount').style.visibility='visible';
+                                                                    document.getElementById('sellingPriceErrorMessageLayerWhenDiscount').style.visibility='visible';
+                                                                    }
+                                                                    function hideSellingPriceBaseLayerWhenDiscount() {
+                                                                    document.getElementById('sellingPriceBaseLayerWhenDiscount').style.visibility='hidden';
+                                                                    document.getElementById('sellingPriceErrorMessageLayerWhenDiscount').style.visibility='hidden';
+                                                                    }
+                                                                </script> --}}
+                                                                <!---selling price custom alert message css--->
                                                         </div>
                                                     </div>
                                                 </div>

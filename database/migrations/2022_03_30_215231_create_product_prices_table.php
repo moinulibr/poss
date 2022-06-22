@@ -22,7 +22,6 @@ class CreateProductPricesTable extends Migration
                 $table->integer('stock_id')->nullable();
                 $table->integer('product_stock_id')->nullable();
                 $table->decimal('price',20,2)->nullable();
-                $table->string('price_name',100)->nullable();
                 $table->tinyInteger('status')->nullable();
                 $table->string('verified',25)->nullable();
                 $table->integer('verified_by')->nullable();
