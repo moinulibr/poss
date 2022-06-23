@@ -115,7 +115,7 @@
 
                                             <!---selling from: stock--->
                                             <div class=" col-md-7">
-                                                <div class="form-group" style="background-color:#252d3c;color:#e9ff30;padding:5px;margin-bottom:8px;margin-top:5px;">
+                                                <div class="form-group" style="background-color:#6a3d2b;color:#e9ff30;padding:5px;margin-bottom:8px;margin-top:5px;">
                                                     
                                                     <div style="text-align:center;background-color:#ff4a00;color:white;margin-top:1px;padding:5px;">
                                                         <span for="">Selling</span>
@@ -265,7 +265,7 @@
                                             <div class="col-md-5">
                                                 <div  style="background-color:#6a3d2b;color:#e9ff30;padding:5px;margin-bottom:8px;margin-top:5px;">
                                                     <div class="form-group" style="margin-bottom:1px;">
-                                                        <label class="form-label" style="color:#fcfcfd !important;" onclick="showSellingPriceBaseLayer();">Selling Price</label>
+                                                        <label class="form-label" style="color:#fcfcfd !important;">Selling Price</label>
                                                         <input type="text" name="final_sell_price"  class="form-control final_sell_price inputFieldValidatedOnlyNumeric" placeholder="Selling Price" style="font-size: 15px;background-color:#d0e7ef;color:#382a25;font-weight:700;" />
                                                         <strong class="final_sell_price_err color-red" style="color:#ffff;"></strong>
                                                         <!---selling price custom alert message--->
@@ -275,23 +275,14 @@
                                                                 <br />
                                                                 <div class="sellingPricePermissionLayer">
                                                                     <div class="sellingPricePermissionLayerYes" >
-                                                                        <strong class="sellingPermissionApplicable" data-permission="1" {{-- onclick="hideSellingPriceBaseLayer();" --}}>Yes</strong>
+                                                                        <strong class="sellingPermissionApplicable" data-permission="1">Yes</strong>
                                                                     </div>
                                                                     <div class="sellingPricePermissionLayerNo" >
-                                                                        <strong class="sellingPermissionApplicable" data-permission="0" {{-- onclick="hideSellingPriceBaseLayer();" --}}>No</strong>
+                                                                        <strong class="sellingPermissionApplicable" data-permission="0">No</strong>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {{-- <script>
-                                                            function showSellingPriceBaseLayer() {  document.getElementById('sellingPriceBaseLayer').style.visibility='visible';
-                                                              document.getElementById('sellingPriceErrorMessageLayer').style.visibility='visible';
-                                                            }
-                                                            function hideSellingPriceBaseLayer() {
-                                                              document.getElementById('sellingPriceBaseLayer').style.visibility='hidden';
-                                                              document.getElementById('sellingPriceErrorMessageLayer').style.visibility='hidden';
-                                                            }
-                                                        </script> --}}
                                                         <!---selling price custom alert message css--->
                                                         <div class="clearfix"></div>
                                                     </div>
@@ -306,7 +297,7 @@
 
                                                     <div class="form-group" style="margin-bottom:1px;margin-top:2px;">
                                                         <div style="background-color:#ff4a00;padding:1px;padding-top:0px;color:white;">
-                                                            <strong onclick="showSellingPriceBaseLayerWhenDiscount();">Less Amount</strong>
+                                                            <strong>Less Amount</strong>
                                                             <div style="background-color:#ededed;color:red;margin-bottom:1.5px;">
                                                                 <label class="switcher" style="padding-right: 7px;padding-left: 3px;">
                                                                         <input type="radio"  name="discount_type" class="switcher-input  discount_type" value="fixed" style="margin-top:5px;cursor: pointer;" />
@@ -353,24 +344,15 @@
                                                                         <br />
                                                                         <div class="sellingPricePermissionLayerWhenDiscount">
                                                                             <div class="sellingPricePermissionLayerYesWhenDiscount" >
-                                                                                <strong class="discountPermissionApplicable" data-permission="1"  {{-- onclick="hideSellingPriceBaseLayerWhenDiscount();" --}}>Yes</strong>
+                                                                                <strong class="discountPermissionApplicable" data-permission="1">Yes</strong>
                                                                             </div>
                                                                             <div class="sellingPricePermissionLayerNoWhenDiscount" >
-                                                                                <strong class="discountPermissionApplicable" data-permission="2" {{-- onclick="hideSellingPriceBaseLayerWhenDiscount();" --}}>No</strong>
+                                                                                <strong class="discountPermissionApplicable" data-permission="2">No</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <input type="hidden" class="discountPermissionApplicableSelected" value="0">
                                                                 </div>
-                                                                {{-- <script>
-                                                                    function showSellingPriceBaseLayerWhenDiscount() {  document.getElementById('sellingPriceBaseLayerWhenDiscount').style.visibility='visible';
-                                                                    document.getElementById('sellingPriceErrorMessageLayerWhenDiscount').style.visibility='visible';
-                                                                    }
-                                                                    function hideSellingPriceBaseLayerWhenDiscount() {
-                                                                    document.getElementById('sellingPriceBaseLayerWhenDiscount').style.visibility='hidden';
-                                                                    document.getElementById('sellingPriceErrorMessageLayerWhenDiscount').style.visibility='hidden';
-                                                                    }
-                                                                </script> --}}
                                                                 <!---selling price custom alert message css--->
                                                         </div>
                                                     </div>
@@ -463,6 +445,35 @@
 
 
 
+
+
+
+
+            <!---selling price custom alert message--->
+            {{-- <div id="sellingPriceBaseLayer">
+                <div id="sellingPriceErrorMessageLayer">
+                    Do you want to sell less than purchasae pirce?
+                    <br />
+                    <div class="sellingPricePermissionLayer">
+                        <div class="sellingPricePermissionLayerYes" >
+                            <strong class="sellingPermissionApplicable" data-permission="1" onclick="hideSellingPriceBaseLayer();">Yes</strong>
+                        </div>
+                        <div class="sellingPricePermissionLayerNo" >
+                            <strong class="sellingPermissionApplicable" data-permission="0" onclick="hideSellingPriceBaseLayer();">No</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function showSellingPriceBaseLayer() {  document.getElementById('sellingPriceBaseLayer').style.visibility='visible';
+                  document.getElementById('sellingPriceErrorMessageLayer').style.visibility='visible';
+                }
+                function hideSellingPriceBaseLayer() {
+                  document.getElementById('sellingPriceBaseLayer').style.visibility='hidden';
+                  document.getElementById('sellingPriceErrorMessageLayer').style.visibility='hidden';
+                }
+            </script> --}}
+            <!---selling price custom alert message css--->
 
 
 

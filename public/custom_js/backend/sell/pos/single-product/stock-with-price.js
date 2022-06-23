@@ -339,7 +339,7 @@
 
 
 
-    //selling selling price according to selected selling price
+    //selling price according to selected selling price
     function settingSellingPriceAccordingToSelectedSellingPrice()
     {
         var selectedPriceId = gettingSelectedPriceIdAccordingToDefaultPriceId();
@@ -382,6 +382,7 @@
     jQuery(document).on('blur','.final_sell_price',function(e){
         e.preventDefault();
         finallySellingPrice();
+        jQuery('.discountPermissionApplicableSelected').val(0);
     });
 
     function finallySellingPrice()
@@ -581,35 +582,60 @@
 
             //discount amount always less them purchaseAmount
             var totalDiscout    = makingDiscountAmountAccordingToDiscountType(discountType,discountAmount);
-            // from setting : if discount amount is greater than total purchase price is 1
+           
+            var selectedPermission = jQuery('.discountPermissionApplicableSelected').val();
+
+            //sell applicable or not when total discount amount is greater than total purchase amount
+            var sellApplicableOrNot = jQuery('.sellApplicableOrNotWhenTotalDiscountAmountIsGreaterThanTotalPurchasePrice').val();
+            if(sellApplicableOrNot == 1)
+            {
+                if((finalSellingPrice < purchasePrice) && (selectedPermission == 0))
+                {
+                    visiblePermissionDiscountSellingPriceAlertMessage();
+                } 
+                else if((totalSellingAmount < totalAmountByPurchasePrice) && (selectedPermission == 0))
+                {
+                    visiblePermissionDiscountSellingPriceAlertMessage();
+                } 
+                else if(finalSellingPrice > purchasePrice && (selectedPermission == 0) &&
+                    (totalSellingAmount < totalDiscout)
+                )
+                {
+                    visiblePermissionDiscountSellingPriceAlertMessage();
+                }
+                else if(finalSellingPrice < purchasePrice && (selectedPermission == 0) &&
+                    (totalSellingAmount < totalDiscout)
+                )
+                {
+                    visiblePermissionDiscountSellingPriceAlertMessage();
+                }
+                 else if(finalSellingPrice > purchasePrice && (selectedPermission == 0) &&
+                    ((totalSellingAmount > totalDiscout) && (totalAmountByPurchasePrice < totalDiscout))
+                )
+                {
+                    visiblePermissionDiscountSellingPriceAlertMessage();
+                }
+                else{
+                    hiddenPermissionDiscountSellingPriceAlertMessage(); 
+                }
+            }
+            //when sellapplicable is 0 == not want to selling price is grater than total discount amount
+            else{
+                if(((totalAmountByPurchasePrice < totalDiscout) || (totalSellingAmount < totalAmountByPurchasePrice))
+                )
+                {
+                    jQuery('.discount_amount').val(0);
+                }
+                else{
+                    jQuery('.discount_amount').val(discountAmount);
+                }
+                jQuery('.discountPermissionApplicableSelected').val(1);
+            }
+            //from setting : if discount amount is greater than total purchase price is 1
             //if selling price is less than purchase price
             //if selling price greatar than purchase price, and check total
                 //purchase price * quantity is greater than total discount amount
-            //
-            var selectedPermission = jQuery('.discountPermissionApplicableSelected').val();
-
-            var sellApplicableOrNot = jQuery('.sellApplicableOrNotWhenTotalDiscountAmountIsGreaterThanTotalPurchasePrice').val();
-            if(((totalSellingAmount <= totalDiscout) || (totalDiscout >= totalAmountByPurchasePrice)) &&
-                sellApplicableOrNot == 1
-            )
-            {
-                if(selectedPermission == 0)
-                {
-                    //visible alert message
-                    visiblePermissionDiscountSellingPriceAlertMessage();
-                }else{
-                    hiddenPermissionDiscountSellingPriceAlertMessage();
-                }
-            }
-            else if(totalDiscout < totalAmountByPurchasePrice )
-            {
-                jQuery('.discount_amount').val(discountAmount);
-            }
-            else{
-                jQuery('.discount_amount').val(discountAmount);
-            }
         }
-
     /*
     |-----------------------------------------------------------------------
     | Selling Discount
@@ -681,14 +707,8 @@
     //jQuery('.sellApplicableOrNotWhenStockIsLessThanZero').val();
 
 
-    //when selling amount is less then purchase amount
-    
 
-    //when discount amount is more then purchase amount
-    function alertMessageForInvalidDiscount()
-    {
 
-    }
 
     
     function nanCheck(value)
