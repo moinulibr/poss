@@ -1,7 +1,7 @@
-<div>
+
     <div class="modal-dialog modal-lg" >
-        <form action="#" method="POST" class=" modal-content">
-            @csrf
+        <div class="modal-content">
+           
             <div class="modal-header" style="background-color:#0ba0cd;"> <!---#e2f7f6;-->
                 <h5 class="modal-title">&nbsp;</h5>
                 <button type="button" style="color:red;" class="close" data-dismiss="modal" aria-label="Close">×</button>
@@ -118,5 +118,5 @@
                 </strong>
                 {{-- <input type="submit" style="padding:6px" class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-sm" role="status" value="Add This Quantity"> --}}
             </div>
-        </form>
+        </div>
     </div>

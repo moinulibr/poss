@@ -357,10 +357,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="row">
                                         <style>
                                             .btnFullWidth{
-                                                width: 100%;padding: 2%;                                            }
+                                                width: 100%;padding: 2%;                                            
+                                            }
                                         </style>
                                         <div class="col-3" style="border-right: 1px solid #e9ecef;">
-                                            <a href="#" class="btn btn-danger btnFullWidth white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
+                                            <a href="#" class="btn btn-danger btnFullWidth white removeOrEmptyAllItemFromCreateSellCartList" style="margin-top: 1%;">
                                                 Cancel
                                             </a>
                                             <a href="#" class="btn btn-dark btnFullWidth white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
@@ -1329,6 +1330,22 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-------display added to product list------> 
         <input type="hidden" class="displaySaleCreateAddedToCartProductListUrl" value="{{ route('admin.sell.regular.pos.display.sale.created.added.to.cart.product.list') }}">
         <!-------display added to product list------> 
+
+        <!-------remove single item from added to sell cart list------> 
+        <div class="modal fade" id="removeSingleItemFromSellAddedToCartModal"  aria-modal="true"></div>
+        <input type="hidden" class="removeConfirmationRequiredSingleItemFromSellAddedToCartListUrl" value="{{ route('admin.sell.regular.pos.remove.confirmation.required.single.item.from.sell.added.to.cart.list') }}">
+        <input type="hidden" class="removeSingleItemFromSellAddedToCartListUrl" value="{{ route('admin.sell.regular.pos.remove.single.item.from.sell.added.to.cart.list') }}">
+        <!-------remove single item from added to sell cart list------> 
+
+        <!-------remove all item from added to sell cart list------> 
+        <div class="modal fade" id="removeAllItemFromSellAddedToCartModal"  aria-modal="true"></div>
+        <input type="hidden" class="removeConfirmationRequiredAllItemFromSellAddedToCartListUrl" value="{{ route('admin.sell.regular.pos.remove.confirmation.required.all.item.from.sell.added.to.cart.list') }}">
+        <input type="hidden" class="removeAllItemFromSellAddedToCartListUrl" value="{{ route('admin.sell.regular.pos.remove.all.item.from.sell.added.to.cart.list') }}">
+        <!-------remove all item from added to sell cart list------> 
+
+        <!-------change quantity from added to sell cart list------> 
+        <input type="hidden" class="changeQuantityFromSellAddedToCartListUrl" value="{{ route('admin.sell.regular.pos.change.quantity.from.sell.added.to.cart.list') }}">
+        <!-------change quantity from added to sell cart list------> 
 
 
         <script src="{{asset('backend/pos')}}/assets/js/plugin.bundle.min.js"></script>

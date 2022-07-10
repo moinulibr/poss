@@ -1,5 +1,6 @@
 
             <div class="modal-dialog modal-xl" >
+
                 <form action="{{route('admin.sell.regular.pos.store')}}" method="POST" class="addToSaleCart modal-content">
                     @csrf
                     <div class="modal-header" style="background-color:#f9f5f4;"> <!---#e2f7f6;-->
@@ -8,7 +9,7 @@
                     </div>
 
 
-              
+            
 
 
                     <div class="modal-body " style="background-color:#ede7e7;"><!-- #e2f7f6; modal body-->
@@ -20,9 +21,9 @@
                                 </span>
                             </div>
                         </div>
-                       
+                    
 
-                         
+                        
                         <div class="row" style="background-color:#fbfbfb;;margin-bottom:10px;text-align:center;">
                             <div class="col-md-12" style="padding:5px;">
                                 <h4 style="color: forestgreen;">
@@ -104,7 +105,7 @@
                                         </div>
                                         <!-----product stock with price section--->
 
-                                     
+                                    
                                     </div> <!--card-body-->
                                 </div>
                             </div> 
@@ -114,7 +115,7 @@
                                 <div class="card mb-4">
                                     {{-- <h6 class="card-header">Others Information <small>(Fixed Data)</small></h6> --}}
                                     <div class="card-body" style="padding-bottom: 7px">
-                                       
+                                    
                                         <div class="row">
 
                                             <!---selling from: stock--->
@@ -165,20 +166,20 @@
                                                 }
                                     
                                                 #sellingPriceErrorMessageLayer {
-                                                  position: absolute;
-                                                  top: 0;
-                                                  right: 0;
-                                                  bottom: 0;
-                                                  left: 0;
-                                                  /* margin: 70px 140px 175px 140px; */
-                                                  padding : 30px;
-                                                  margin-left: 40px;
-                                                  /*width: 700px;
-                                                  height: 400px;*/
-                                                  background-color: rgb(244, 244, 85);
-                                                  visibility: hidden;
-                                                  border: 1px solid black;
-                                                  z-index: 99999999999;
+                                                position: absolute;
+                                                top: 0;
+                                                right: 0;
+                                                bottom: 0;
+                                                left: 0;
+                                                /* margin: 70px 140px 175px 140px; */
+                                                padding : 30px;
+                                                margin-left: 40px;
+                                                /*width: 700px;
+                                                height: 400px;*/
+                                                background-color: rgb(244, 244, 85);
+                                                visibility: hidden;
+                                                border: 1px solid black;
+                                                z-index: 99999999999;
                                                 }
                                                 .sellingPricePermissionLayer{
                                                     margin-top: 20px;
@@ -187,20 +188,20 @@
                                                     height: auto;
                                                 }
                                                 .sellingPricePermissionLayerYes{
-                                                     padding:2px;
-                                                     width: 45%;
-                                                     float: left;
-                                                     background-color: #0c8327;
-                                                     cursor:pointer;
-                                                     color:#ffff;
-                                                 }
-                                                 .sellingPricePermissionLayerNo{
-                                                     padding:2px;
-                                                     width: 45%;
-                                                     float: right;
-                                                     background-color: red;
-                                                     cursor:pointer;
-                                                     color:#ffff;
+                                                    padding:2px;
+                                                    width: 45%;
+                                                    float: left;
+                                                    background-color: #0c8327;
+                                                    cursor:pointer;
+                                                    color:#ffff;
+                                                }
+                                                .sellingPricePermissionLayerNo{
+                                                    padding:2px;
+                                                    width: 45%;
+                                                    float: right;
+                                                    background-color: red;
+                                                    cursor:pointer;
+                                                    color:#ffff;
                                                 }
                                             </style>
                                             <!---selling price custom alert message css--->
@@ -225,20 +226,20 @@
                                                 }
                                     
                                                 #sellingPriceErrorMessageLayerWhenQuantity{
-                                                  position: absolute;
-                                                  top: 0;
-                                                  right: 0;
-                                                  bottom: 0;
-                                                  left: 0;
-                                                  /* margin: 70px 140px 175px 140px; */
-                                                  padding : 30px;
-                                                  margin-left: 40px;
-                                                  /*width: 700px;
-                                                  height: 400px;*/
-                                                  background-color: #0808a1;
-                                                  visibility: hidden;
-                                                  border: 1px solid #0e021a;
-                                                  z-index: 99999999999;
+                                                position: absolute;
+                                                top: 0;
+                                                right: 0;
+                                                bottom: 0;
+                                                left: 0;
+                                                /* margin: 70px 140px 175px 140px; */
+                                                padding : 30px;
+                                                margin-left: 40px;
+                                                /*width: 700px;
+                                                height: 400px;*/
+                                                background-color: #0808a1;
+                                                visibility: hidden;
+                                                border: 1px solid #0e021a;
+                                                z-index: 99999999999;
                                                 }
                                                 .sellingPricePermissionLayerWhenQuantity{
                                                     margin-top: 20px;
@@ -247,20 +248,20 @@
                                                     height: auto;
                                                 }
                                                 .sellingPricePermissionLayerYesWhenQuantity{
-                                                     padding:2px;
-                                                     width: 45%;
-                                                     float: left;
-                                                     background-color: #0c8327;
-                                                     cursor:pointer;
-                                                     color:#ffff;
-                                                 }
-                                                 .sellingPricePermissionLayerNoWhenQuantity{
-                                                     padding:2px;
-                                                     width: 45%;
-                                                     float: right;
-                                                     background-color: red;
-                                                     cursor:pointer;
-                                                     color:#ffff;
+                                                    padding:2px;
+                                                    width: 45%;
+                                                    float: left;
+                                                    background-color: #0c8327;
+                                                    cursor:pointer;
+                                                    color:#ffff;
+                                                }
+                                                .sellingPricePermissionLayerNoWhenQuantity{
+                                                    padding:2px;
+                                                    width: 45%;
+                                                    float: right;
+                                                    background-color: red;
+                                                    cursor:pointer;
+                                                    color:#ffff;
                                                 }
                                             </style>
                                             <!---Quantity :- selling price custom alert message css--->
@@ -285,20 +286,20 @@
                                                 }
                                     
                                                 #sellingPriceErrorMessageLayerWhenDiscount{
-                                                  position: absolute;
-                                                  top: 0;
-                                                  right: 0;
-                                                  bottom: 0;
-                                                  left: 0;
-                                                  /* margin: 70px 140px 175px 140px; */
-                                                  padding : 30px;
-                                                  margin-left: 40px;
-                                                  /*width: 700px;
-                                                  height: 400px;*/
-                                                  background-color: black;
-                                                  visibility: hidden;
-                                                  border: 1px solid black;
-                                                  z-index: 99999999999;
+                                                position: absolute;
+                                                top: 0;
+                                                right: 0;
+                                                bottom: 0;
+                                                left: 0;
+                                                /* margin: 70px 140px 175px 140px; */
+                                                padding : 30px;
+                                                margin-left: 40px;
+                                                /*width: 700px;
+                                                height: 400px;*/
+                                                background-color: black;
+                                                visibility: hidden;
+                                                border: 1px solid black;
+                                                z-index: 99999999999;
                                                 }
                                                 .sellingPricePermissionLayerWhenDiscount{
                                                     margin-top: 20px;
@@ -307,20 +308,20 @@
                                                     height: auto;
                                                 }
                                                 .sellingPricePermissionLayerYesWhenDiscount{
-                                                     padding:2px;
-                                                     width: 45%;
-                                                     float: left;
-                                                     background-color: #0c8327;
-                                                     cursor:pointer;
-                                                     color:#ffff;
-                                                 }
-                                                 .sellingPricePermissionLayerNoWhenDiscount{
-                                                     padding:2px;
-                                                     width: 45%;
-                                                     float: right;
-                                                     background-color: red;
-                                                     cursor:pointer;
-                                                     color:#ffff;
+                                                    padding:2px;
+                                                    width: 45%;
+                                                    float: left;
+                                                    background-color: #0c8327;
+                                                    cursor:pointer;
+                                                    color:#ffff;
+                                                }
+                                                .sellingPricePermissionLayerNoWhenDiscount{
+                                                    padding:2px;
+                                                    width: 45%;
+                                                    float: right;
+                                                    background-color: red;
+                                                    cursor:pointer;
+                                                    color:#ffff;
                                                 }
                                             </style>
                                             <!---Discount :- selling price custom alert message css--->
@@ -355,8 +356,8 @@
                                                         <input type="text" name="final_sell_quantity"  class="form-control final_sell_quantity inputFieldValidatedOnlyNumeric" placeholder="Quantity" style="font-size: 15px;background-color:rgb(10, 9, 9);color:#e2f7f6;font-weight:700;" />
                                                         <input type="hidden" value="1" class="initialDefaultQuantity">
                                                         <strong class="final_sell_quantity_err color-red"></strong>
-                                                         <!---selling quantity custom alert message--->
-                                                         <div id="sellingPriceBaseLayerWhenQuantity">
+                                                        <!---selling quantity custom alert message--->
+                                                        <div id="sellingPriceBaseLayerWhenQuantity">
                                                             <div id="sellingPriceErrorMessageLayerWhenQuantity">
                                                                 Do you want to sell more quantity from others stock?
                                                                 <br />

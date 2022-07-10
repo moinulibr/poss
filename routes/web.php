@@ -312,6 +312,16 @@ Route::group(['middleware' => ['auth']], function ()
         //display addted to product list
         Route::get('display/sale/create/added/to/cart/product/list','PosController@displaySaleCreateAddedToCartProductList')->name('display.sale.created.added.to.cart.product.list');
 
+        //remove single item from sell added to cart list
+        Route::get('remove/confirm-req/for/single/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForSingleItemFromSellAddedToCartList')->name('remove.confirmation.required.single.item.from.sell.added.to.cart.list');
+        Route::get('remove/single/item/from/sell/added/to/cart/list','PosController@removeSingleItemFromSellAddedToCartList')->name('remove.single.item.from.sell.added.to.cart.list');
+        
+        //remove all item from sell added to cart list
+        Route::get('remove/confirm-req/for/all/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForAllItemFromSellAddedToCartList')->name('remove.confirmation.required.all.item.from.sell.added.to.cart.list');
+        Route::get('remove/all/item/from/sell/added/to/cart/list','PosController@removeAllItemFromSellAddedToCartList')->name('remove.all.item.from.sell.added.to.cart.list');
+        //change quantity [plus or minus]
+        Route::get('change/quantity/from/added/to/cart/list','PosController@changeQuantity')->name('change.quantity.from.sell.added.to.cart.list');
+
         Route::get('show','PosController@show')->name('show');
         
         Route::get('edit','PosController@edit')->name('edit');

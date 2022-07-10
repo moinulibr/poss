@@ -179,7 +179,7 @@ class PosController extends Controller
     public function store(Request $request)
     {
         $this->requestAllCartData = $request;
-        $this->addingToCart();
+        $this->addingToCartWhenSellCreate();
         $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
         return response()->json([
             'status'    => true,
@@ -190,6 +190,62 @@ class PosController extends Controller
 
     public function displaySaleCreateAddedToCartProductList()
     {
+        $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
+        return response()->json([
+            'status'    => true,
+            'list'     => $list,
+        ]);
+    }
+
+
+    //remove single item confirmation modal
+    public function removeConfirmationRequiredForSingleItemFromSellAddedToCartList(Request $request)
+    {
+        $data['product_id'] = $request->product_id;
+        $html = view('backend.sell.pos.ajax-response.landing.remove-added-to-cart.remove_single_item',$data)->render();
+        return response()->json([
+            'status'    => true,
+            'html'     => $html,
+        ]);
+    }
+
+    public function removeSingleItemFromSellAddedToCartList(Request $request)
+    {
+        $this->requestAllCartData = $request;
+        $this->removeSingleItemFromSellCreateAddedToCartList();
+
+        $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
+        return response()->json([
+            'status'    => true,
+            'list'     => $list,
+        ]);
+    }
+
+    //remove all itme confirmation modal
+    public function removeConfirmationRequiredForAllItemFromSellAddedToCartList()
+    {
+        $html = view('backend.sell.pos.ajax-response.landing.remove-added-to-cart.remove_all_item')->render();
+        return response()->json([
+            'status'    => true,
+            'html'     => $html,
+        ]);
+    }
+
+    public function removeAllItemFromSellAddedToCartList()
+    {
+        $this->removeAllItemFromSellCreateAddedToCartList();
+        $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
+        return response()->json([
+            'status'    => true,
+            'list'     => $list,
+        ]);
+    }
+
+
+    public function changeQuantity(Request $request)
+    {
+        return $request;
+        $this->removeAllItemFromSellCreateAddedToCartList();
         $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
         return response()->json([
             'status'    => true,

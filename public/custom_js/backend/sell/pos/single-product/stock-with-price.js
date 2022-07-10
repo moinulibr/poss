@@ -756,6 +756,7 @@
             var moreQuantityFromOthersStock = jQuery('.moreQuantityFromOthersStock').val();
             if(((e.type)=='keyup'))
             {
+                hideOrDisabledOnlyAddMoreQuantityFromOthersStockRelatedPart();
                 jQuery('.initialDefaultQuantity').val(0);
                 jQuery('.moreQuantityFromOthersStock').val(0);
                 moreQuantityFromOthersStock = 0;
