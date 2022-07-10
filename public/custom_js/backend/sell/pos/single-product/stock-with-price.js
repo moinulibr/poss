@@ -106,6 +106,8 @@
         e.preventDefault();
         var id = jQuery(this).data('id');
         makingSelectedProductStockByProuductStockId(id);
+        visiblePermissionBasedOnSellingQuantity();
+        discountAmountLessThemPurchaseAmount();
         return true;
     });
 
@@ -491,29 +493,6 @@
     */
 
 
-    /*
-    |-----------------------------------------------------------------------
-    | Selling Quantity
-    |-----------------------------------------------------------------------
-    */
-        function makingSellingQuantity()
-        {
-            var finalSellingQuantity    = jQuery('.final_sell_quantity').val();
-            if(
-                (finalSellingQuantity === 'undefined' || finalSellingQuantity === null || finalSellingQuantity.length === 0)
-            )
-            {   
-                jQuery('.final_sell_quantity').val(1);
-                finalSellingQuantity = 1;
-            }
-            return  finalSellingQuantity;
-        } 
-    /*
-    |-----------------------------------------------------------------------
-    | Selling Quantity
-    |-----------------------------------------------------------------------
-    */
-
 
     
 
@@ -522,9 +501,32 @@
     | Selling Discount
     |-----------------------------------------------------------------------
     */
-        jQuery(document).on('keyup blur','.discount_amount',function(){
-            jQuery('.discountPermissionApplicableSelected').val(0);
-            discountAmountLessThemPurchaseAmount();
+        var ctrlDown = false,ctrlKey = 17,cmdKey = 91,vKey = 86,cKey = 67; xKey = 88;
+        jQuery(document).on('keyup blur change','.discount_amount , .discount_type',function(e){
+            
+            var action = 0;
+            if(jQuery(e.target).prop("name") == "discount_amount" && ((e.type)=='keyup'))
+            {
+                action = 1;
+            } 
+            else if(jQuery(e.target).prop("name") == "discount_amount" && ((e.type)=='blur' || (e.type)=='focusout'))
+            {
+                action = 1;
+            } 
+            else if(jQuery(e.target).prop("name") == "discount_type" && ((e.type)=='change'))
+            {
+                action = 1;
+            }
+            else{
+                action = 0;
+            }
+            //if(action == 0) return;
+            if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+            if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
+            if(action == 1) {
+                jQuery('.discountPermissionApplicableSelected').val(0);
+                discountAmountLessThemPurchaseAmount();
+            }
         });
         function makingSellingAmountWithoutDiscount()
         {
@@ -579,7 +581,17 @@
 
             var discountType        = jQuery('input[name="discount_type"]:checked').val();
             var discountAmount      = nanCheck(jQuery('.discount_amount').val());
-
+            
+            var discountAppliable   = 0;
+            if((discountType == 'fixed' || discountType == 'parcentage')
+                && (discountAmount > 0)
+            )
+            {
+                discountAppliable   = 1;
+            }else{
+                discountAppliable   = 0;
+            }
+            
             //discount amount always less them purchaseAmount
             var totalDiscout    = makingDiscountAmountAccordingToDiscountType(discountType,discountAmount);
            
@@ -589,27 +601,27 @@
             var sellApplicableOrNot = jQuery('.sellApplicableOrNotWhenTotalDiscountAmountIsGreaterThanTotalPurchasePrice').val();
             if(sellApplicableOrNot == 1)
             {
-                if((finalSellingPrice < purchasePrice) && (selectedPermission == 0))
+                if((finalSellingPrice < purchasePrice) && (selectedPermission == 0 && discountAppliable == 1))
                 {
                     visiblePermissionDiscountSellingPriceAlertMessage();
                 } 
-                else if((totalSellingAmount < totalAmountByPurchasePrice) && (selectedPermission == 0))
+                else if((totalSellingAmount < totalAmountByPurchasePrice) && (selectedPermission == 0 && discountAppliable == 1))
                 {
                     visiblePermissionDiscountSellingPriceAlertMessage();
                 } 
-                else if(finalSellingPrice > purchasePrice && (selectedPermission == 0) &&
+                else if(finalSellingPrice > purchasePrice && (selectedPermission == 0 && discountAppliable == 1) &&
                     (totalSellingAmount < totalDiscout)
                 )
                 {
                     visiblePermissionDiscountSellingPriceAlertMessage();
                 }
-                else if(finalSellingPrice < purchasePrice && (selectedPermission == 0) &&
+                else if(finalSellingPrice < purchasePrice && (selectedPermission == 0 && discountAppliable == 1) &&
                     (totalSellingAmount < totalDiscout)
                 )
                 {
                     visiblePermissionDiscountSellingPriceAlertMessage();
                 }
-                 else if(finalSellingPrice > purchasePrice && (selectedPermission == 0) &&
+                 else if(finalSellingPrice > purchasePrice && (selectedPermission == 0 && discountAppliable == 1) &&
                     ((totalSellingAmount > totalDiscout) && (totalAmountByPurchasePrice < totalDiscout))
                 )
                 {
@@ -641,7 +653,6 @@
     | Selling Discount
     |-----------------------------------------------------------------------
     */
-   
     /*
     |-----------------------------------------------------------------------
     | Selling discount permission applicable and alert message
@@ -704,13 +715,272 @@
 
 
 
-    //jQuery('.sellApplicableOrNotWhenStockIsLessThanZero').val();
+    /*
+    |-----------------------------------------------------------------------
+    | Selling Quantity start
+    |-----------------------------------------------------------------------
+    */
+        function makingSellingQuantity()
+        {
+            var finalSellingQuantity    = jQuery('.final_sell_quantity').val();
+            if(jQuery('.initialDefaultQuantity').val() == 1)
+            {
+                if(
+                    (finalSellingQuantity === 'undefined' || finalSellingQuantity === null || finalSellingQuantity.length === 0)
+                )
+                {   
+                    jQuery('.final_sell_quantity').val(1);
+                    finalSellingQuantity = 1;
+                }
+            }
+            return  finalSellingQuantity;
+        } 
+    /*
+    |-----------------------------------------------------------------------
+    | Selling Quantity
+    |-----------------------------------------------------------------------
+    */
+
+        /*
+        |-----------------------------------------------------------------------
+        | when Quantity change
+        |-----------------------------------------------------------------------
+        */
+        var ctrlDown = false,ctrlKey = 17,cmdKey = 91,vKey = 86,cKey = 67; xKey = 88;
+        jQuery(document).on('keyup blur','.final_sell_quantity',function(e){
+            e.preventDefault();
+            //jQuery('.initialDefaultQuantity').val(0);//initial quantity 0
+
+            var action = 0;
+            var delay  = 0;
+            var moreQuantityFromOthersStock = jQuery('.moreQuantityFromOthersStock').val();
+            if(((e.type)=='keyup'))
+            {
+                jQuery('.initialDefaultQuantity').val(0);
+                jQuery('.moreQuantityFromOthersStock').val(0);
+                moreQuantityFromOthersStock = 0;
+                action = 1;
+                delay  = 1;
+            } 
+            else if(((e.type) == 'blur') || ((e.type) == 'focusout'))
+            {
+                action = 1;
+                delay  = 0;
+                moreQuantityFromOthersStock = moreQuantityFromOthersStock;
+            } 
+            else{
+                action = 0;
+                moreQuantityFromOthersStock = moreQuantityFromOthersStock;
+            }
+        
+            //if(action == 0) return;
+            if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+            if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
+            
+            
+            if(delay == 1)
+            {
+                setTimeout(
+                    function() 
+                    {
+                        if(moreQuantityFromOthersStock == 0)
+                        {
+                            visiblePermissionBasedOnSellingQuantity();
+                        }
+                    }, 1000);
+            }else{
+                if(moreQuantityFromOthersStock == 0)
+                {
+                    visiblePermissionBasedOnSellingQuantity();
+                }
+            }
+        });
+
+        function visiblePermissionBasedOnSellingQuantity()
+        {
+            var sellApplicableOrNotWhenStockIsLessThanZero = jQuery('.sellApplicableOrNotWhenStockIsLessThanZero').val();
+            var sellingQuantity = jQuery('.final_sell_quantity').val();
+
+            var currentStock    = jQuery('.available_base_stock_for_this_selling_stock').val();
+        
+            if(currentStock < sellingQuantity )
+            {
+                visiblePermissionSellingQuantityAlertMessage();         
+            }else{
+                //jQuery('.final_sell_quantity').val(currentStock);
+            }
+        }
+
+        jQuery(document).on('click','.quantityPermissionApplicable',function(){
+            var permission  = jQuery(this).data('permission');
+            jQuery('.quantityPermissionApplicableSelected').val(permission);
+            selectingFinalSellingQuantityBySelectedQuantityPermission(permission);
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+        });
+        function selectingFinalSellingQuantityBySelectedQuantityPermission(permission)
+        {
+            var sellingQuantity             = jQuery('.final_sell_quantity').val();
+            var sellingPrice                = jQuery('.final_sell_price').val();
+            var primarySellingStock         = jQuery('.selectedProductStockId').val();
+            var moreQuantityFromOthersStock = jQuery('.moreQuantityFromOthersStock').val();
+            if(permission == 1 && moreQuantityFromOthersStock == 0)
+            {
+                quantitySelectedFromOthersStock(sellingQuantity,sellingPrice,primarySellingStock);
+            }else{
+                jQuery('.final_sell_quantity').val(sellingQuantity);
+                hideOrDisabledOnlyAddMoreQuantityFromOthersStockRelatedPart();
+            }
+            hiddenPermissionSellingQuantityAlertMessage();
+        }
+        function visiblePermissionSellingQuantityAlertMessage()
+        {
+            //disabledToCartButton();
+            jQuery('#sellingPriceBaseLayerWhenQuantity').css({'visibility':'visible'});
+            jQuery('#sellingPriceErrorMessageLayerWhenQuantity').css({'visibility':'visible'});
+        } 
+        function hiddenPermissionSellingQuantityAlertMessage()
+        {
+            jQuery('#sellingPriceBaseLayerWhenQuantity').css({'visibility':'hidden'});
+            jQuery('#sellingPriceErrorMessageLayerWhenQuantity').css({'visibility':'hidden'});
+        }
+
+        jQuery('#showProductDetailModal').css('overflow-y', 'auto');
+        function quantitySelectedFromOthersStock(sellingQuantity,sellingPrice,primarySellingStock)
+        {
+            var url         = jQuery('.displayQuantityWiseSingleProductByProductId').val();
+            var product_id  = jQuery('#main_product_id').val();
+            jQuery.ajax({
+                url:url,
+                data:{product_id:product_id,sellingQuantity:sellingQuantity,sellingPrice:sellingPrice,primarySellingStock:primarySellingStock},
+                beforeSend:function(){
+                    jQuery('.processing_on').fadeIn();
+                },
+                success:function(response){
+                    if(response.status == true)
+                    {
+                        jQuery('#showQuantityWiseProductStockModal').html(response.stock).modal('show');
+                        setTotalCurrentSellingQuantity();
+                    }
+                },
+                complete:function(){
+                    jQuery('.processing_on').fadeOut();
+                },
+            });
+        }
 
 
-
-
-
+        jQuery(document).on('keyup','.pressingCurrentSellingQuantity',function(){
+            var qty = nanCheck(parseFloat(jQuery(this).val()));
+            var id  = jQuery(this).data('id');
+            var currentStockQty = nanCheck(parseFloat(jQuery('.totalQuantityOfThisStockValue_'+id).val()));
+            if(qty > 0)
+            {
+                if(currentStockQty < qty)
+                {
+                    jQuery('.overStockErrorMessage_'+id).text("Over Stock");
+                }else{
+                    jQuery('.overStockErrorMessage_'+id).text("");
+                }
+                jQuery('.checkedCurrentSellingQuantity_'+id).prop('checked',true);
+            }else{
+                jQuery('.overStockErrorMessage_'+id).text("");
+                jQuery('.checkedCurrentSellingQuantity_'+id).prop('checked',false);
+            }
+            setTotalCurrentSellingQuantity();
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+        });
     
+        jQuery(document).on('change','.checkedCurrentSellingQuantity',function(){
+            var id  = jQuery(this).data('id');
+            if(jQuery(this).is(':checked')) {
+                //jQuery('.pressingCurrentSellingQuantity_'+id).val();
+            }else{
+                jQuery('.overStockErrorMessage_'+id).text("");
+                jQuery('.pressingCurrentSellingQuantity_'+id).val(0);
+            }
+            setTotalCurrentSellingQuantity();
+        });
+
+        function setTotalCurrentSellingQuantity()
+        {
+            var qty = totalSellingQuantityFromQuantityWiseMoreStock();
+            jQuery('.now_current_selling_quantity').text(qty);
+            jQuery('.final_sell_quantity').val(qty);
+        }
+        function totalSellingQuantityFromQuantityWiseMoreStock()
+        {
+            var total = 0;
+            jQuery(".pressingCurrentSellingQuantity").each(function() {
+                total += nanCheck(parseFloat(jQuery(this).val()));
+            });
+            return total;
+        }
+
+        /*
+        |-----------------------------------------------------------------------
+        | Set 
+        |-----------------------------------------------------------------------
+        */
+        jQuery(document).on('click','.addThisInMainSellingQuantityOfMoreQuantityFromOthersStock',function(e){
+            e.preventDefault();
+            var stockIdAndQuantity              = [];
+            stockIdAndQuantity['stock_id']      = [];
+            stockIdAndQuantity['qty']           = [];
+            stockIdAndQuantity['purchasePrice'] = [];
+            jQuery('input.checkedCurrentSellingQuantity[type=checkbox]').each(function () {
+                if(this.checked){
+                    var id              = jQuery(this).data('id');
+                    var purchaseamount  = jQuery(this).data('purchase-price');
+                    var quantity        = nanCheck(parseFloat(jQuery('.pressingCurrentSellingQuantity_'+id).val()));
+                    if(jQuery(this).data('id') && quantity > 0)
+                    {
+                        stockIdAndQuantity['stock_id'].push('<input type="hidden" name="product_stock_id[]" value="'+id+'">');
+                        stockIdAndQuantity['qty'].push('<input type="hidden" name="product_stock_quantity_'+id+'" value="'+quantity+'">');
+                        stockIdAndQuantity['purchasePrice'].push('<input type="hidden" name="product_stock_quantity_purchase_price_'+id+'" value="'+purchaseamount+'">');
+                    }
+                }
+            });
+            jQuery('.responseOfMoreQtySellingStockId').html(stockIdAndQuantity['stock_id']);
+            jQuery('.responseOfMoreStockSellingQuantity').html(stockIdAndQuantity['qty']);
+            jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html(stockIdAndQuantity['purchasePrice']);
+            jQuery('.moreQuantityFromOthersStock').val(1);
+            setTotalCurrentSellingQuantity();
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+            jQuery('#showQuantityWiseProductStockModal').modal('hide');
+        })
+
+        jQuery(document).on('click','.removeMoreQuantityFromOthersStock',function(e){
+            e.preventDefault();
+            cancelAddMoreQuantityFromOthersStock();
+        })
+
+
+        function cancelAddMoreQuantityFromOthersStock()
+        {
+            jQuery('.responseOfMoreStockSellingQuantity').html('');
+            jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
+            jQuery('.responseOfMoreQtySellingStockId').html('');
+            jQuery('.moreQuantityFromOthersStock').val(0);
+
+            jQuery('.checkedCurrentSellingQuantity').prop('checked',false);
+            var previousQty = jQuery('.previous_selling_quantity_value').val();
+            jQuery('.final_sell_quantity').val(previousQty);
+            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+        }
+
+        function hideOrDisabledOnlyAddMoreQuantityFromOthersStockRelatedPart()
+        {
+            jQuery('.responseOfMoreStockSellingQuantity').html('');
+            jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
+            jQuery('.responseOfMoreQtySellingStockId').html('');
+            jQuery('.moreQuantityFromOthersStock').val(0);
+        }
+    /*
+    |-----------------------------------------------------------------------
+    | Selling Quantity
+    |-----------------------------------------------------------------------
+    */
+
     function nanCheck(value)
     {
         if(isNaN(value))

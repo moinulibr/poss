@@ -1,6 +1,6 @@
 
             <div class="modal-dialog modal-xl" >
-                <form action="" method="POST" class="storeProductData modal-content">
+                <form action="{{route('admin.sell.regular.pos.store')}}" method="POST" class="addToSaleCart modal-content">
                     @csrf
                     <div class="modal-header" style="background-color:#f9f5f4;"> <!---#e2f7f6;-->
                         <h5 class="modal-title">&nbsp;</h5>
@@ -28,6 +28,9 @@
                                 <h4 style="color: forestgreen;">
                                     {{$product->name}}   
                                     <input type="hidden" id="main_product_id" class="product_id" name="product_id" value="{{$product->id}}">
+                                    <input type="hidden" name="product_name" value="{{$product->name}}">
+                                    <input type="hidden" name="warehouse_id" value="{{$product->warehouse_id}}">
+                                    <input type="hidden" name="warehouse_rack_id" value="{{$product->warehouse_rack_id}}">
                                 </h4>    
                             </div>              
                         </div>
@@ -47,6 +50,7 @@
                                                 </label>
                                                 <input type="text" disabled value="{{$product->units->short_name}}" class="form-control">
                                                 <input type="hidden" name="unit_id" value="{{$product->unit_id}}" class="form-control">
+                                                <input type="hidden" name="unit_name" value="{{$product->units->short_name}}">
                                                 {{-- 
                                                     <select class="form-control addedNewSupplier" name="unit_id" style="background-color:#d0e7ef;">
                                                         <option value=""  style="background-color:#d0e7ef;color:rgb(15, 15, 15);">Select Unit</option>
@@ -201,6 +205,66 @@
                                             </style>
                                             <!---selling price custom alert message css--->
                                             
+                                            <!---Quantity :- selling price custom alert message css--->
+                                            <style>
+                                                #sellingPriceBaseLayerWhenQuantity{
+                                                    position: absolute;
+                                                    top: 0;
+                                                    right: 0;  
+                                                    bottom: 0;
+                                                    left: 0;
+                                                    margin: auto;
+                                                    margin-top: 0;
+                                                    margin-bottom: 10px;
+                                                    /*width: 981px;
+                                                    height: 610px;*/
+                                                    background : ;
+                                                    z-index: 0;
+                                                    visibility: hidden;
+                                                    color:#ffff;
+                                                }
+                                    
+                                                #sellingPriceErrorMessageLayerWhenQuantity{
+                                                  position: absolute;
+                                                  top: 0;
+                                                  right: 0;
+                                                  bottom: 0;
+                                                  left: 0;
+                                                  /* margin: 70px 140px 175px 140px; */
+                                                  padding : 30px;
+                                                  margin-left: 40px;
+                                                  /*width: 700px;
+                                                  height: 400px;*/
+                                                  background-color: #0808a1;
+                                                  visibility: hidden;
+                                                  border: 1px solid #0e021a;
+                                                  z-index: 99999999999;
+                                                }
+                                                .sellingPricePermissionLayerWhenQuantity{
+                                                    margin-top: 20px;
+                                                    text-align:center;
+                                                    width: 100%;
+                                                    height: auto;
+                                                }
+                                                .sellingPricePermissionLayerYesWhenQuantity{
+                                                     padding:2px;
+                                                     width: 45%;
+                                                     float: left;
+                                                     background-color: #0c8327;
+                                                     cursor:pointer;
+                                                     color:#ffff;
+                                                 }
+                                                 .sellingPricePermissionLayerNoWhenQuantity{
+                                                     padding:2px;
+                                                     width: 45%;
+                                                     float: right;
+                                                     background-color: red;
+                                                     cursor:pointer;
+                                                     color:#ffff;
+                                                }
+                                            </style>
+                                            <!---Quantity :- selling price custom alert message css--->
+
                                             <!---Discount :- selling price custom alert message css--->
                                             <style>
                                                 #sellingPriceBaseLayerWhenDiscount{
@@ -289,7 +353,26 @@
                                                     <div class="form-group" style="margin-bottom:1px;">
                                                         <label class="form-label"style="color:#e9ff30 !important;margin-bottom:-2px">Quantity</label>
                                                         <input type="text" name="final_sell_quantity"  class="form-control final_sell_quantity inputFieldValidatedOnlyNumeric" placeholder="Quantity" style="font-size: 15px;background-color:rgb(10, 9, 9);color:#e2f7f6;font-weight:700;" />
+                                                        <input type="hidden" value="1" class="initialDefaultQuantity">
                                                         <strong class="final_sell_quantity_err color-red"></strong>
+                                                         <!---selling quantity custom alert message--->
+                                                         <div id="sellingPriceBaseLayerWhenQuantity">
+                                                            <div id="sellingPriceErrorMessageLayerWhenQuantity">
+                                                                Do you want to sell more quantity from others stock?
+                                                                <br />
+                                                                <div class="sellingPricePermissionLayerWhenQuantity">
+                                                                    <div class="sellingPricePermissionLayerYesWhenQuantity" >
+                                                                        <strong class="quantityPermissionApplicable" data-permission="1">Yes</strong>
+                                                                    </div>
+                                                                    <div class="sellingPricePermissionLayerNoWhenQuantity" >
+                                                                        <strong class="quantityPermissionApplicable" data-permission="2">No</strong>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" class="quantityPermissionApplicableSelected" value="0">
+                                                        </div>
+                                                        <input type="hidden" class="displayQuantityWiseSingleProductByProductId" value="{{route('admin.sell.regular.pos.display.quantity.wise.sigle.product.stock.by.product.id')}}">
+                                                        <!---selling quantity custom alert message css--->
                                                         <div class="clearfix"></div>
                                                     </div>
 
@@ -337,7 +420,7 @@
                                                             </div>
                                                             <strong class="name_err color-red"></strong>
                                                             <div class="clearfix"></div>
-                                                                <!---selling price custom alert message--->
+                                                                <!---selling discount price custom alert message--->
                                                                 <div id="sellingPriceBaseLayerWhenDiscount">
                                                                     <div id="sellingPriceErrorMessageLayerWhenDiscount">
                                                                         Do you want to sell less than purchasae pirce?
@@ -353,7 +436,7 @@
                                                                     </div>
                                                                     <input type="hidden" class="discountPermissionApplicableSelected" value="0">
                                                                 </div>
-                                                                <!---selling price custom alert message css--->
+                                                                <!---selling discount price custom alert message css--->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -386,16 +469,18 @@
                                 <!---Warranty Guarantee part--->
                                 <div class="row" style="margin-top:-15px;margin-right:1px;">
                                     <div class="col-md-4">
-                                        {{-- <span style="cursor:pointer;" class="singleShowModal" data-id="" href="javascript:void(0)">
-                                            @if(false)
-                                                <img src="{{ asset('storage/backend/product/product/'.$item->id.".".$item->photo) }}" alt="" width="40" height="40" style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
-                                                @else
-                                                <img src="{{ asset('storage/backend/default/product/5.png') }}" alt="" width="40" height="70" style="width:100%;padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
-                                            @endif
-                                        </span> --}}
+                                        {{-- 
+                                            <span style="cursor:pointer;" class="singleShowModal" data-id="" href="javascript:void(0)">
+                                                @if(false)
+                                                    <img src="{{ asset('storage/backend/product/product/'.$item->id.".".$item->photo) }}" alt="" width="40" height="40" style="padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
+                                                    @else
+                                                    <img src="{{ asset('storage/backend/default/product/5.png') }}" alt="" width="40" height="70" style="width:100%;padding:2px;border:1px solid #c7bbbb;background-color:#fbf8f8;border-radius:4px">
+                                                @endif
+                                            </span> 
+                                        --}}
                                         <div style="background-color:#f7f7ff;color:red;margin-bottom:1.5px;">
                                             <label class="switcher" style="padding-left:2px;padding-right:2px;margin-bottom:5px;padding-top:3px;">
-                                                <input type="radio"  name="w_g_type" class="switcher-input variant_position variant_position_0" data-variant_position="0" value="befor_name" />
+                                                <input type="radio"  name="w_g_type" class="switcher-input variant_position variant_position_0" data-variant_position="0" value="warranty" />
                                                 <strong class="switcher-indicator" style="cursor: pointer;backgound-color:#140505 !important">
                                                     <span class="switcher-yes"></span>
                                                     <span class="switcher-no"></span>
@@ -405,7 +490,7 @@
                                                 </strong>
                                             </label>
                                             <label class="switcher" style="padding-left:2px;padding-right:2px;margin-bottom: 5px;">
-                                                <input type="radio"  name="w_g_type" class="switcher-input variant_position variant_position_0" data-variant_position="0" value="befor_name" />
+                                                <input type="radio"  name="w_g_type" class="switcher-input variant_position variant_position_0" data-variant_position="0" value="guarantee" />
                                                 <strong class="switcher-indicator" style="cursor: pointer;backgound-color:#140505 !important">
                                                     <span class="switcher-yes"></span>
                                                     <span class="switcher-no"></span>
@@ -415,12 +500,12 @@
                                                 </strong>
                                             </label>
                                             <label for="" style="padding-left: 4px;margin-top: 2px;color: #3f4052;margin-bottom: -2px;border-top: 1px solid #d3cdd2cc">Duration <small style="margin-left:3px;">(day only)</small></label>
-                                            <input type="text" class="form-control" style="background-color: #6a3d2b;color:#ebebf1;font-size: 14px;font-weight: bold">
+                                            <input type="text" name="w_g_type_day" class="form-control" style="background-color: #6a3d2b;color:#ebebf1;font-size: 14px;font-weight: bold">
                                         </div>
                                     </div>
                                     <div class="col-md-8" style="background-color: #c7bbbb;padding-bottom:5px;">
                                         <label for="">IMEI/Serial/Chassis/Engine Number</label>
-                                        <textarea name="" id="" cols="5" rows="2" class="form-control" style="background-color:white;"></textarea>
+                                        <textarea name="identityNumber"  cols="5" rows="2" class="form-control" style="background-color:white;"></textarea>
                                     </div>
                                 </div>
                                 <!---Warranty Guarantee part--->
@@ -431,10 +516,14 @@
                         </div>
 
                         
-                        
-
                     </div>
                     <!--modal body-->
+
+                    <input type="hidden" class="moreQuantityFromOthersStock" name="more_quantity_from_others_product_stock" value="0">
+                    <div class="responseOfMoreQtySellingStockId"></div>
+                    <div class="responseOfMoreStockSellingQuantity"></div>
+                    <div class="responseOfMoreStockSellingQuantityPurchasePrice"></div>
+
                     <div class="modal-footer" style="background-color:#f9f5f4;">
                         <button type="button" style="color:white;" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary add_to_cart_button" role="status" value="Add To Cart">

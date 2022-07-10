@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\Backend\ProductAttribute\Unit;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Backend\Price\ProductPrice;
+use App\Models\Backend\ProductAttribute\Unit;
 
 
     function authBranch_hh()
@@ -30,6 +31,16 @@ use Illuminate\Support\Facades\Auth;
     function purchasePriceId_hh()
     {
         return 5;
+    }
+
+    //get only single price, by product id,product stock id, stock id, price id
+    function getProductPriceByProductStockIdProductIdStockIdPriceId_hh($productId,$productStockId,$stockId,$priceId)
+    {
+        $price = ProductPrice::where('product_id',$productId)->where('stock_id',$stockId)
+                    ->where('product_stock_id',$productStockId)
+                    ->where('price_id',$priceId)//purchase price 
+                    ->first();
+        return $price ? $price->price : 0 ;
     }
 
 
@@ -109,3 +120,12 @@ use Illuminate\Support\Facades\Auth;
         // 1 = yes sell, when total discount amout is less than total purchase price
         // 0 = not sell, when total discount amout is less than total purchase price
     }
+    
+    function displayMrpOrRegularSellPriceInTheCustomerInvoice_hh()
+    {
+        return 1;
+        // 0 = regular sell price
+        // 1 = mrp price
+    }
+
+

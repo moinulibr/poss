@@ -305,7 +305,12 @@ Route::group(['middleware' => ['auth']], function ()
         
         Route::get('display/single/price/list/by/product/stock/id','PosController@displaySinglePriceListByProductStockId')->name('display.sigle.price.list.by.product.stock.id');
         
+        //display product stock and price, when sell create. more than stock, from others stock
+        Route::get('display/quantity/wise/single/product/sotck/by/product/id','PosController@displayQuantityWiseSingleProductStockByProductId')->name('display.quantity.wise.sigle.product.stock.by.product.id');
+        
         Route::post('store','PosController@store')->name('store');
+        //display addted to product list
+        Route::get('display/sale/create/added/to/cart/product/list','PosController@displaySaleCreateAddedToCartProductList')->name('display.sale.created.added.to.cart.product.list');
 
         Route::get('show','PosController@show')->name('show');
         

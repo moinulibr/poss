@@ -3,7 +3,12 @@
     <div style="background-color:#64b764;color:#fbfbfb;margin-top:5px;padding:5px;text-align:center">
         <span for="" style="color:yellow;">Selling from : </span>
         <strong style="font-size: 16px;">{{$productStock->label}}</strong>
-        <input type="text" class="available_base_stock_for_this_selling_stock" value="{{$productStock->available_base_stock}}">
+        <br/>
+        <span style="text-align: center;background-color:rgb(8, 13, 48); padding:0px 3px;"class="">
+            <span style="font-size:12px;">Available Stock : </span>
+            {{$productStock->available_base_stock}}
+        </span>
+        <input type="hidden" class="available_base_stock_for_this_selling_stock" value="{{$productStock->available_base_stock}}">
     </div>
 
     <div style="padding-top: 6px; margin-top:10px;">

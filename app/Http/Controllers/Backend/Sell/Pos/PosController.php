@@ -31,8 +31,11 @@ use App\Traits\Backend\Product\Logical\ProductTrait;
 use App\Models\Backend\ProductAttribute\ProductGrade;
 use App\Models\Backend\Reference\Reference;
 use App\Traits\Backend\Product\Request\ProductValidationTrait;
+use App\Traits\Backend\Pos\Create\SellCreateAddToCart;
+
 class PosController extends Controller
 {
+    use SellCreateAddToCart;
     /**
      * Display a listing of the resource.
      *
@@ -150,6 +153,21 @@ class PosController extends Controller
             'stock'     => $stock,
         ]);
     }
+
+    //display product stock and price, when sell create. more than stock, from others stock
+    public function displayQuantityWiseSingleProductStockByProductId(Request $request)
+    {
+        $product                        = Product::find($request->product_id);
+        $data['sellingQuantity']        = $request->sellingQuantity;
+        $data['sellingPrice']           = $request->sellingPrice;
+        $data['primarySellingStock']    = $request->primarySellingStock;
+        $data['product'] = $product;
+        $stock = view('backend.sell.pos.ajax-response.single-product.include.quantity_wise_product_stock',$data)->render();
+        return response()->json([
+            'status'    => true,
+            'stock'     => $stock,
+        ]);
+    }
     
 
     /**
@@ -160,7 +178,23 @@ class PosController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $this->requestAllCartData = $request;
+        $this->addingToCart();
+        $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
+        return response()->json([
+            'status'    => true,
+            'list'     => $list,
+        ]);
+    }
+
+
+    public function displaySaleCreateAddedToCartProductList()
+    {
+        $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
+        return response()->json([
+            'status'    => true,
+            'list'     => $list,
+        ]);
     }
 
     /**

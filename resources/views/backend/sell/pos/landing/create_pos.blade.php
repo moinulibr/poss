@@ -322,336 +322,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                 -->
                                 <!-- search product--->
                             </div>
-                            <style>
-                                .select-product th {
-                                    border: 1px solid #ddd;
-                                }
-                                .sticky-head {
-                                    position: sticky;
-                                    top: 0;
-                                    background: white;
-                                    padding: 10px 0;
-                                }
-                            </style>
+                            
                             <!---------added to cart product list----------->
-                            <div class="card-body h-100">
-                                <div class="table-responsive table-datapos col-md-12" id="printableTable">
-                                    <table id="orderTable" class="display" style="width: 100%; font-family: Open Sans, Roboto, -apple-system, BlinkMacSystemFont,
-                                    Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th class="sticky-head" style="width: 3%;background-color: #f7f7f7;">Sl</th>
-                                                <th class="sticky-head" style="width: 35%;text-align:center;background-color: #f7f7f7;">Name</th>
-                                                <th class="sticky-head" style="width: 15%;text-align:center;background-color: #f7f7f7;">Unit</th>
-                                                <th class="sticky-head" style="width: 11%;text-align:center;background-color: #f7f7f7;">Unit <br/> Price</th>
-                                                <th class="sticky-head" style="width: 11%;text-align:center;background-color: #f7f7f7;">Quantity</th>
-                                                <th class="sticky-head" style="width: 11%;text-align:center;background-color: #f7f7f7;">Less <br/>Amount</th>
-                                                <th class="sticky-head" style="width: 11%;text-align:center;background-color: #f7f7f7;">Subtotal</th>
-                                                <th class="sticky-head" style="width: 3%;background-color: #f7f7f7;"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="border-bottom: 0.05px dashed #dddfe0;">
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">20.</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon Tiger Nixon </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">Unit Name</td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">1000.00</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
-                                                    <span class="quantityChange" data-change_type="minus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-minus-circle"></i>
-                                                    </span>
-                                        
-                                                    <span id="set-1">100</span>
-                                        
-                                                    <span class="quantityChange" data-change_type="plus" data-product_id="1" data-quantity="1" style="cursor:pointer">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                    </span>
-                                                    
-                                                    <br>
-                                                    <strong id="not_available_message_1" style="font-size:11px; color:red;"></strong>
-                                                </td>
-                                                <td style="text-align:center;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">000</td>
-                                                <td style="padding-top:1%;padding-bottom:1%;">
-                                                    <div class="card-toolbar text-right">
-                                                        <a href="#" class="confirm-delete" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="display_added_to_cart_list">
+                                @include('backend.sell.pos.ajax-response.landing.added-to-cart.list')
                             </div>
                             <!---------added to cart product list----------->
 
@@ -1639,14 +1313,22 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
   
 
-        <!-------add Product Grade Modal------> 
+        <!-------show single Product details  Modal------> 
         <div class="modal fade" id="showProductDetailModal"  aria-modal="true"></div>
         <input type="hidden" class="showProductDetailsModalRoute" value="{{ route('admin.sell.regular.pos.show.single.product.details') }}">
-        <!-------add Product Grade Modal------> 
+        <!-------show single Product details  Modal------> 
+
+        <!-------show Product quantity Modal------> 
+        <div class="modal fade" id="showQuantityWiseProductStockModal"  aria-modal="true"></div>
+        <!-------show Product quantity Modal------> 
 
         <!-------display product list------> 
         <input type="hidden" class="displayProductListUrl" value="{{ route('admin.sell.regular.pos.display.product.list') }}">
         <!-------display product list------> 
+        
+        <!-------display added to product list------> 
+        <input type="hidden" class="displaySaleCreateAddedToCartProductListUrl" value="{{ route('admin.sell.regular.pos.display.sale.created.added.to.cart.product.list') }}">
+        <!-------display added to product list------> 
 
 
         <script src="{{asset('backend/pos')}}/assets/js/plugin.bundle.min.js"></script>
@@ -1702,6 +1384,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <script src="{{asset('custom_js/backend')}}/sell/pos/landing/product-list.js"></script>
         <script src="{{asset('custom_js/backend')}}/sell/pos/single-product/stock-with-price.js"></script>
+        <script src="{{asset('custom_js/backend')}}/sell/pos/add-to-cart/add_to_cart.js"></script>
 
 
         <script type="text/javascript">

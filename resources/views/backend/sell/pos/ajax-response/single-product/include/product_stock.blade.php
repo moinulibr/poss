@@ -1,11 +1,11 @@
 
 <table class="table table-bordered" style="font-size: 14px;">
-    <thead style="background-color:rgb(66, 66, 66); color:#e9ff30">
+    <thead style="background-color:rgb(66, 66, 66); color:#e9ff30;text-align: center;">
         <tr>
-            <td>Stock Name</td>
-            <td>Stock</td>
+            <td style="padding: 0.85rem 0rem;">Stock Name</td>
+            <td style="padding: 0.85rem 0rem;">Stock</td>
             @foreach ($product->priceNORWhereStatusIsActive() as $ppric) 
-                <td style="font-size: 14px;">
+                <td style="font-size: 14px;padding: 0.85rem 0rem;">
                     <small>
                         {{$ppric->label}}
                     </small>
@@ -17,13 +17,13 @@
         <input type="hidden" class="defaultProductStockId " value="{{$defaultProductStockId}}">
         @foreach ($product->productStocksNORWhereStatusIsActiveWhenCreateSale() as $productStock)    
         <tr class="selectedProductStockRow selectedProductStockRow_{{$productStock->id}}" data-id="{{$productStock->id}}" style="background-color:#ffffff;">
-            <input type="hidden" class="selectedProductStockId selectedProductStockId_{{$productStock->id}}">
-            <td>
+            <input type="hidden" class="selectedProductStockId selectedProductStockId_{{$productStock->id}}" name="selling_main_product_stock_id">
+            <td style="padding: 0.75rem;">
                 <span class="selectedProductStock selectedProductStock_{{$productStock->id}}  productStockHover productStockHovereffect_{{$productStock->id}}" data-id="{{$productStock->id}}">
                     {{ $productStock->label }}
                 </span>
             </td>
-            <td style="background-color: #ededed;color: #0c0101;text-align: center">
+            <td style="padding: 0.75rem;background-color:#ededed;color: #0c0101;text-align: center">
                 <span class="selectedProductStock selectedProductStock_{{$productStock->id}} productStockHover productStockHovereffect_{{$productStock->id}}" data-id="{{$productStock->id}}">
                     {{-- {{ unitIdWiseUnitView_hh(
                         $productStock->available_stock,$productStock->available_base_stock,
@@ -33,7 +33,7 @@
                 </span>
             </td>
             @foreach ($productStock->productStockWiseProductPrices() as $pSPPrice) 
-            <td>
+            <td style="padding: 0.75rem;">
                 <span class="selectedProductStock selectedProductStock_{{$productStock->id}} productStockHover productStockHovereffect_{{$productStock->id}}" data-id="{{$productStock->id}}">
                     {{$pSPPrice->price}}
                 </span>
@@ -45,8 +45,27 @@
         <input type="hidden" class="product_id" name="product_id" value="{{$product->id}}">
         <input type="hidden" class="displaySinglePriceListByProductStockId" value="{{route('admin.sell.regular.pos.display.sigle.price.list.by.product.stock.id')}}">
         
-        
-        
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         
@@ -98,5 +117,3 @@
                 </span>
             </td>
         </tr> --}}
-    </tbody>
-</table>
