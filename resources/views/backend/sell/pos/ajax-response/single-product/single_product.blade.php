@@ -394,13 +394,13 @@
                                                                         </small>
                                                                 </label>
                                                                 <label class="switcher" style="padding-right: 7px;padding-left: 3px;">
-                                                                    <input type="radio"  name="discount_type" class="switcher-input  discount_type" value="parcentage" style="margin-top:5px;cursor: pointer;" />
+                                                                    <input type="radio"  name="discount_type" class="switcher-input  discount_type" value="percentage" style="margin-top:5px;cursor: pointer;" />
                                                                     <small class="switcher-indicator" style="cursor: pointer;backgound-color:#140505 !important">
                                                                         <span class="switcher-yes"></span>
                                                                         <span class="switcher-no"></span>
                                                                     </small>
                                                                     <small class="switcher-label" style="cursor:pointer;color:#020222;font-size:8px;">
-                                                                        Parcentage(%)
+                                                                        Percentage(%)
                                                                     </small>
                                                                 </label>
                                                             </div>

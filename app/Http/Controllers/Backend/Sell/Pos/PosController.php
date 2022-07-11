@@ -244,8 +244,8 @@ class PosController extends Controller
 
     public function changeQuantity(Request $request)
     {
-        return $request;
-        $this->removeAllItemFromSellCreateAddedToCartList();
+        $this->requestAllCartData = $request;
+        $this->whenChangingQuantityFromCartList();
         $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
         return response()->json([
             'status'    => true,

@@ -99,6 +99,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                <input type="hidden" class="primarySellingProductStockId" value="{{$primarySellingStock}}">
                             </tbody>
                         </table>    
 
@@ -113,7 +114,7 @@
                 <strong style="padding:6px;background:darkred;color:#ffff;" class="btn btn-primay removeMoreQuantityFromOthersStock btn-sm" role="status">
                     Remove Quantity
                 </strong>
-                <strong style="padding:6px" class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-sm" role="status">
+                <strong style="padding:6px;"  class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock addThisQuantityToMainQuantity btn-sm" role="status">
                     Add This Quantity
                 </strong>
                 {{-- <input type="submit" style="padding:6px" class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-sm" role="status" value="Add This Quantity"> --}}

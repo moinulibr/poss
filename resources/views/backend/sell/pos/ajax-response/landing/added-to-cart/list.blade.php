@@ -10,6 +10,9 @@
     }
 </style>
 <!---------added to cart product list----------->
+{{-- <div style="display: none;" class="processing">
+    <img src="{{asset('loading-img/loading.gif')}}" alt="" style="display: block;margin-left: auto;margin-right: auto;width: 5%;height: 40px;">
+</div> --}}
 <div class="card-body h-100">
     <div class="table-responsive table-datapos col-md-12" id="printableTable">
         <table id="orderTable" class="display" style="width: 100%; font-family: Open Sans, Roboto, -apple-system, BlinkMacSystemFont,

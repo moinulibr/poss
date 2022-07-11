@@ -564,7 +564,7 @@
             {
                 discount = discountAmount;
             }
-            else if(discountType == 'parcentage') {
+            else if(discountType == 'percentage') {
                 discount = (((totalAmountWithoutDiscount * discountAmount) / 100).toFixed(2));
             }
             return discount;
@@ -583,7 +583,7 @@
             var discountAmount      = nanCheck(jQuery('.discount_amount').val());
             
             var discountAppliable   = 0;
-            if((discountType == 'fixed' || discountType == 'parcentage')
+            if((discountType == 'fixed' || discountType == 'percentage')
                 && (discountAmount > 0)
             )
             {
@@ -835,7 +835,7 @@
         }
         function visiblePermissionSellingQuantityAlertMessage()
         {
-            //disabledToCartButton();
+            disabledToCartButton();
             jQuery('#sellingPriceBaseLayerWhenQuantity').css({'visibility':'visible'});
             jQuery('#sellingPriceErrorMessageLayerWhenQuantity').css({'visibility':'visible'});
         } 
@@ -871,9 +871,10 @@
 
 
         jQuery(document).on('keyup','.pressingCurrentSellingQuantity',function(){
-            var qty = nanCheck(parseFloat(jQuery(this).val()));
-            var id  = jQuery(this).data('id');
-            var currentStockQty = nanCheck(parseFloat(jQuery('.totalQuantityOfThisStockValue_'+id).val()));
+            var qty                             = nanCheck(parseFloat(jQuery(this).val()));
+            var id                              = jQuery(this).data('id');
+            var primarySellingProductStockId    = jQuery('.primarySellingProductStockId').val();
+            var currentStockQty                 = nanCheck(parseFloat(jQuery('.totalQuantityOfThisStockValue_'+id).val()));
             if(qty > 0)
             {
                 if(currentStockQty < qty)
@@ -887,17 +888,37 @@
                 jQuery('.overStockErrorMessage_'+id).text("");
                 jQuery('.checkedCurrentSellingQuantity_'+id).prop('checked',false);
             }
+
+            if(qty == 0 && id == primarySellingProductStockId)
+            {
+                disabledAddAllQuantityToTheMainQuanityt();
+            }
+            else if(qty > 0)
+            {
+                enableAddAllQuantityToTheMainQuanityt();
+            }
+            else{
+                enableAddAllQuantityToTheMainQuanityt();
+            }
             setTotalCurrentSellingQuantity();
             finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
         });
     
         jQuery(document).on('change','.checkedCurrentSellingQuantity',function(){
-            var id  = jQuery(this).data('id');
+            var primarySellingProductStockId    = jQuery('.primarySellingProductStockId').val();
+            var id                              = jQuery(this).data('id');
             if(jQuery(this).is(':checked')) {
                 //jQuery('.pressingCurrentSellingQuantity_'+id).val();
             }else{
                 jQuery('.overStockErrorMessage_'+id).text("");
                 jQuery('.pressingCurrentSellingQuantity_'+id).val(0);
+                
+                if(id == primarySellingProductStockId)
+                {
+                    disabledAddAllQuantityToTheMainQuanityt();
+                }else{
+                    enableAddAllQuantityToTheMainQuanityt();
+                }
             }
             setTotalCurrentSellingQuantity();
         });
@@ -917,6 +938,13 @@
             return total;
         }
 
+        function disabledAddAllQuantityToTheMainQuanityt(){
+            jQuery('.addThisQuantityToMainQuantity').removeClass('addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-dark');
+            jQuery('.addThisQuantityToMainQuantity').addClass('btn-danger');
+        } 
+        function enableAddAllQuantityToTheMainQuanityt(){
+            jQuery('.addThisQuantityToMainQuantity').addClass('addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-dark');
+        }
         /*
         |-----------------------------------------------------------------------
         | Set 

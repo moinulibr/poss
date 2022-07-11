@@ -130,8 +130,7 @@
             },
         });
     });
-    jQuery(document).on('click','.removeOrEmptyAllItemFromSellCartProductList',function(e){
-        e.preventDefault();
+    jQuery(document).on('click','.removeOrEmptyAllItemFromSellCartProductList',function(){
         var url = jQuery('.removeAllItemFromSellAddedToCartListUrl').val();
         jQuery.ajax({
             url:url,
@@ -142,8 +141,8 @@
             success:function(response){
                 if(response.status == true)
                 {
-                    jQuery('.display_added_to_cart_list').html(response.list);
                     jQuery('#removeAllItemFromSellAddedToCartModal').modal('hide');
+                    jQuery('.display_added_to_cart_list').html(response.list);
                 }
             },
             complete:function(){

@@ -8,24 +8,27 @@ namespace App\Traits\Backend\Pos\Create;
  */
 trait SellCreateAddToCart
 {
+    protected $requestAllCartData;
     protected $cartName;
     protected $product_id;
     protected $product_name;
-    protected $saleDetails;
-    protected $singleCartId;
 
     protected $changeType;
-    protected $available_status;
-
     protected $discountType;
     protected $discountValue;
     protected $discountAmount;
+    protected $totalSellingQuantity;
+    protected $mainProductStockQuantity;
+    protected $changingQuantity;
+
+
+    protected $saleDetails;
+    protected $singleCartId;
+    protected $available_status;
     protected $saleUnitPrice;
     protected $sale_unit_price;
     protected $sale_quantity;
     protected $sale_return_quantity;
-
-    protected $quantity;
 
     protected $identityNumber;
     protected $sale_from_stock_id;
@@ -36,33 +39,42 @@ trait SellCreateAddToCart
     protected $selling_unit_name;
     protected $price_cat_id;
 
-    protected $requestAllCartData;
+  
 
 
     protected function addingToCartWhenSellCreate()
     {
         //return $this->requestAllCartData;
         $this->cartName = "SellCreateAddToCart";
-        //return session([$this->cartName => []]);
-        //return $this->requestAllCartData['product_name'];
-        $cartName = [];
-        $cartName     = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
+        $cartName       = [];
+        $cartName       = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
 
         $this->product_id   = $this->requestAllCartData['product_id'];
         $this->product_name = $this->requestAllCartData['product_name'];
 
-        $othersStocks = [];
+        $otherProductStockQuantity      = 0;
+        $this->mainProductStockQuantity = 0;
+        $othersProductStocks = [];
         if($this->requestAllCartData['more_quantity_from_others_product_stock'] == 1)
         {
             if(count($this->requestAllCartData['product_stock_id']) > 0)
             {
-                foreach($this->requestAllCartData['product_stock_id'] as  $stockId)
+                foreach($this->requestAllCartData['product_stock_id'] as $productStockId)
                 {
-                    $othersStocks[$this->product_id]['others_product_stock_ids'][]               = $stockId;  
-                    $othersStocks[$this->product_id]['others_product_stock_qtys'][]              = $this->requestAllCartData['product_stock_quantity_'.$stockId] ;  
-                    $othersStocks[$this->product_id]['others_product_stock_purchase_prices'][]   = $this->requestAllCartData['product_stock_quantity_purchase_price_'.$stockId] ;  
+                    $othersProductStocks[$this->product_id]['others_product_stock_ids'][]               = $productStockId;  
+                    $othersProductStocks[$this->product_id]['others_product_stock_qtys'][]              = $this->requestAllCartData['product_stock_quantity_'.$productStockId] ;  
+                    $othersProductStocks[$this->product_id]['others_product_stock_purchase_prices'][]   = $this->requestAllCartData['product_stock_quantity_purchase_price_'.$productStockId] ;  
+                    
+                    if($productStockId != $this->requestAllCartData['selling_main_product_stock_id'])
+                    {
+                        $otherProductStockQuantity          += $this->requestAllCartData['product_stock_quantity_'.$productStockId];
+                    }else{
+                        $this->mainProductStockQuantity     += $this->requestAllCartData['product_stock_quantity_'.$productStockId];
+                    }
                 }
             }
+        }else{
+            $this->mainProductStockQuantity     = $this->requestAllCartData['final_sell_quantity'];
         }
         //{"36":{"others_product_stock_ids":["137","138","139","140"],"others_product_stock_qtys":["10","2","1","2"],"others_product_stock_purchase_prices":["10.00","9.00","11.00","9.00"]}}
 
@@ -87,7 +99,9 @@ trait SellCreateAddToCart
             'selling_final_amount'                      => $this->requestAllCartData['selling_final_amount'],
 
             'more_quantity_from_others_product_stock'   => $this->requestAllCartData['more_quantity_from_others_product_stock'],
-            'from_others_stocks'                        => $othersStocks,
+            'from_others_product_stocks'                => $othersProductStocks,
+            'total_qty_from_others_product_stock'       => $otherProductStockQuantity,
+            'total_qty_of_main_product_stock'           => $this->mainProductStockQuantity,
             'w_g_type'                                  => $this->requestAllCartData['w_g_type'],
             'w_g_type_day'                              => $this->requestAllCartData['w_g_type_day'],
             'identityNumber'                            => $this->requestAllCartData['identityNumber'],
@@ -155,6 +169,67 @@ trait SellCreateAddToCart
         session([$this->cartName => []]);
         return true;
     }
+
+    /*When changing quantity*/
+    public function whenChangingQuantityFromCartList()
+    {   
+        $this->cartName     = "SellCreateAddToCart";
+        $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
+        
+        $this->product_id       = $this->requestAllCartData['product_id'];
+        $this->changeType       = $this->requestAllCartData['change_type'];
+        $this->changingQuantity = $this->requestAllCartData['quantity'];
+        
+        $this->totalSellingQuantity             = $cartName[$this->product_id]['final_sell_quantity'];
+        $this->mainProductStockQuantity         = $cartName[$this->product_id]['total_qty_of_main_product_stock'];
+        
+        if(array_key_exists($this->product_id,$cartName))
+        {
+            $this->available_status   = NULL;
+            if($this->changeType == 'minus')
+            {
+                if((double) $cartName[$this->product_id]['total_qty_of_main_product_stock'] ==  1)
+                {
+                    //unset($cartName[$this->product_id]);
+                    //session([$this->cartName => $cartName]);
+                    //return true;
+                    $this->totalSellingQuantity     = $cartName[$this->product_id]['final_sell_quantity'];
+                    $this->mainProductStockQuantity = $cartName[$this->product_id]['total_qty_of_main_product_stock'];
+                }
+                else if((double) $cartName[$this->product_id]['total_qty_of_main_product_stock'] > 1)
+                {
+                    $this->totalSellingQuantity     = $cartName[$this->product_id]['final_sell_quantity'] - $this->changingQuantity;
+                    $this->mainProductStockQuantity = $cartName[$this->product_id]['total_qty_of_main_product_stock'] - $this->changingQuantity;
+                }
+            }
+            else if($this->changeType == 'plus')
+            {
+                $this->totalSellingQuantity     = $cartName[$this->product_id]['final_sell_quantity']   + $this->changingQuantity;
+                $this->mainProductStockQuantity = $cartName[$this->product_id]['total_qty_of_main_product_stock'] + $this->changingQuantity;
+            }
+
+            if($cartName[$this->product_id]['discount_type'] == "percentage" && $cartName[$this->product_id]['discount_amount'])
+            {
+                $totalDiscountAmount =  (($this->totalSellingQuantity *  $cartName[$this->product_id]['final_sell_price']) * ($cartName[$this->product_id]['discount_amount']) / 100);
+            }
+            else if($cartName[$this->product_id]['discount_type'] == "fixed" && $cartName[$this->product_id]['discount_amount'])
+            {
+                $totalDiscountAmount =  $cartName[$this->product_id]['discount_amount'] ;
+            }
+            else{
+                $totalDiscountAmount = 0 ;
+            }
+            $cartName[$this->product_id]['final_sell_quantity']                 =  $this->totalSellingQuantity;
+            $cartName[$this->product_id]['selling_final_amount']                =  number_format(($this->totalSellingQuantity *   $cartName[$this->product_id]['final_sell_price']) - $totalDiscountAmount,2,'.', '');
+            $cartName[$this->product_id]['total_qty_of_main_product_stock']     =  $this->mainProductStockQuantity;
+            $cartName[$this->product_id]['total_discount_amount']               =  $totalDiscountAmount;
+            $cartName[$this->product_id]['total_amount_before_discount']        =  number_format(($this->totalSellingQuantity *  $cartName[$this->product_id]['final_sell_price']),2,'.', '');;
+        }
+        session([$this->cartName => $cartName]);   
+        return true;
+    } /*When changing quantity*/
+
+
 
 
     
@@ -253,61 +328,7 @@ trait SellCreateAddToCart
 
 
 
-    /*When changing quantity*/
-    public function whenChangingQuantityFromCartList()
-    {   
-        $cartName               =   session()->has($this->cartName) ? session()->get($this->cartName)  : [];
-
-        if(array_key_exists($this->product_var_id,$cartName))
-        {
-            $this->available_status   = NULL;
-            if($this->changeType == 'minus')
-            {
-                if((double) $cartName[$this->product_var_id]['quantity'] ==  1)
-                {
-                    $this->quantity = 1;
-                }
-                else if((double) $cartName[$this->product_var_id]['quantity'] > 1)
-                {
-                    $this->quantity =  $cartName[$this->product_var_id]['quantity'] - 1;
-                }
-            }
-            else if($this->changeType == 'plus')
-            {
-                $stock_id = $cartName[$this->product_var_id]['sale_from_stock_id'];
-                $business_location_id   = 1;
-                $avlQty                 = checkPrimaryStockQtyByPVIDWithoutProductId_HH($stock_id,$business_location_id,$cartName[$this->saleDetails]['productVari_id']);
-                $availAbleQty           = $avlQty?$avlQty->available_stock :0;
-
-                $availableStock = availableStock_HH($cartName[$this->product_var_id]['sale_unit_id'],$availAbleQty);
-                $this->available_status   = 'not_available';
-                if($availableStock > $cartName[$this->product_var_id]['quantity'])
-                {
-                    $this->quantity     = $cartName[$this->product_var_id]['quantity'] + 1;
-                    $availableStock     = $availableStock - $this->quantity;
-                    $this->available_status   = 'available';
-                }else{
-                    $this->quantity     = $cartName[$this->product_var_id]['quantity'];
-                }
-            }
-
-            if($cartName[$this->product_var_id]['discountType'] == "percentage" && $cartName[$this->product_var_id]['discountValue'])
-            {
-                $totalDiscountAmount =  ($this->quantity *  $cartName[$this->product_var_id]['sale_price']) * ($cartName[$this->product_var_id]['discountValue']) /100;
-            }
-            else if($cartName[$this->product_var_id]['discountType'] == "fixed" && $cartName[$this->product_var_id]['discountValue'])
-            {
-                $totalDiscountAmount =  $cartName[$this->product_var_id]['discountValue'] ;
-            }
-            else{
-                $totalDiscountAmount = 0 ;
-            }
-            $cartName[$this->product_var_id]['quantity']    =  $this->quantity;
-            $cartName[$this->product_var_id]['sub_total']   =  number_format(($this->quantity *  $cartName[$this->product_var_id]['sale_price']) - $totalDiscountAmount,2,'.', '');
-        }
-        session([$this->cartName => $cartName]);   
-    } /*When changing quantity*/
-
+ 
         
 
     // Edit Cart
