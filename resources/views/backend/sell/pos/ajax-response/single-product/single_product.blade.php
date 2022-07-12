@@ -15,10 +15,13 @@
                     <div class="modal-body " style="background-color:#ede7e7;"><!-- #e2f7f6; modal body-->
                         
                         <div class="form-group">
-                            <div class="col-md-12 processing" style="text-align:center;display:none;color:white !important;">
-                                <span style="color:white !important;">
-                                    <span class="spinner-border spinner-border-sm" role="status" style="color:white !important;"></span>Processing...
-                                </span>
+                            <div class="col-md-12 processing" style="text-align:center;display:none;color:blue !important;">
+                                <!--<span style="color:white !important;">
+                                    <span class="spinner-border spinner-border-sm" role="status" style="color:blue !important;"></span>Processing...
+                                </span>-->
+                                <div style="display: none;" class="processing">
+                                    <img src="{{asset('loading-img/loading1.gif')}}" alt="" style="display: block;margin-left: auto;margin-right: auto;width: 5%;height: 50px;">
+                                </div>
                             </div>
                         </div>
                     

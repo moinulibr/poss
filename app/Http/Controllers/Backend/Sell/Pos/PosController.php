@@ -183,7 +183,9 @@ class PosController extends Controller
         $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
         return response()->json([
             'status'    => true,
-            'list'     => $list,
+            'list'      => $list,
+            'message'   => "This item is added in the cart",
+            'type'      => 'success'
         ]);
     }
 
@@ -218,6 +220,8 @@ class PosController extends Controller
         return response()->json([
             'status'    => true,
             'list'     => $list,
+            'message'   => "Delete this item from the cart",
+            'type'      => 'success'
         ]);
     }
 
@@ -238,6 +242,8 @@ class PosController extends Controller
         return response()->json([
             'status'    => true,
             'list'     => $list,
+            'message'   => "All item are deleted from the cart",
+            'type'      => 'success'
         ]);
     }
 
@@ -250,6 +256,8 @@ class PosController extends Controller
         return response()->json([
             'status'    => true,
             'list'     => $list,
+            'message'   => "Quantity is updated for this item",
+            'type'      => 'success'
         ]);
     }
 

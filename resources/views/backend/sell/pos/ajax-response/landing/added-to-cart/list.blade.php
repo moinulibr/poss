@@ -10,9 +10,6 @@
     }
 </style>
 <!---------added to cart product list----------->
-{{-- <div style="display: none;" class="processing">
-    <img src="{{asset('loading-img/loading.gif')}}" alt="" style="display: block;margin-left: auto;margin-right: auto;width: 5%;height: 40px;">
-</div> --}}
 <div class="card-body h-100">
     <div class="table-responsive table-datapos col-md-12" id="printableTable">
         <table id="orderTable" class="display" style="width: 100%; font-family: Open Sans, Roboto, -apple-system, BlinkMacSystemFont,
@@ -73,10 +70,11 @@
                     </td>
                     <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
                         {{$item['selling_final_amount'] ?? 00.00 }}
+                        <input type="hidden" class="selling_final_subtotal_amount_from_cartlist" value=" {{$item['selling_final_amount'] ?? 00.00 }}">
                     </td>
                     <td style="padding-top:1%;padding-bottom:1%;">
                         <div class="card-toolbar text-right">
-                            <a href="#" data-product_id="{{$item['product_id']}}" class="remove_this_item_from_sell_cart_list remove_this_item_from_sell_cart_list_{{$item['product_id']}} {{-- confirm-delete --}}" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" data-product_id="{{$item['product_id']}}" class="remove_this_item_from_sell_cart_list remove_this_item_from_sell_cart_list_{{$item['product_id']}}" title="Delete"><i style="color: red" class="fas fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -89,7 +87,7 @@
     </div>
 </div>
 <!---------added to cart product list----------->
-
+<input type="hidden" class="total_item_from_cartlist" value="{{ $totalProduct -1 }}">
 
 
 

@@ -378,161 +378,93 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 POS Print
                                             </a>
                                         </div>
-                                        <!-- <div class="col-3" style="border-right: 1px solid #e9ecef;">
-                                            <a href="#" class="btn btn-danger white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
-                                                Cancel
-                                            </a> 
-                                            <br/>
-                                            <a href="#" class="btn btn-info white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
-                                                Quotation
-                                            </a> 
-                                            <br/>
-                                            <a href="#" class="btn btn-primary white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
-                                                Payment
-                                            </a> 
-
-                                        </div> -->
 
                                         <div class="col-8">
                                             <table class="table right-table">
                                                 <tbody>
-                                                    <tr class="d-flex align-items-center justify-content-between">
-                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-dark"style="background-color:#f5f5f5;width:25%">
-                                                            <strong style="color:#8428e7">Total Items</strong>
+                                                    <tr class="d-flex align-items-center justify-content-between" style="width: 100%;">
+                                                        <th class="border-0" style="text-align: left !important;background-color:#f5f5f5;width:25%">
+                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
+                                                                <strong style="color:#9e53ee!important">
+                                                                    Total Items
+                                                                </strong> 
+                                                            </div>
                                                         </th>
-                                                        <td class="border-0 justify-content-end d-flex text-dark font-size-base" >
-                                                            <strong style="color:#8428e7">6</strong>
-                                                        </td> 
-                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-dark">
-                                                            <strong style="color:#9e53ee">Subtotal</strong>
+                                                        <td class="border-0 " style="width:25%;text-align: left !important;">
+                                                            <strong style="color:#8428e7">
+                                                                <span class="totalItemFromSellCartList">0</span>
+                                                            </strong>
+                                                        </td>
+                                                        <th class="border-0" style="width:25%;text-align: left !important;">
+                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark" style="color:#9e53ee">
+                                                                 <strong style="color:#9e53ee!important">
+                                                                Subtotal
+                                                                </strong> 
+                                                            </div>
                                                         </th>
-                                                        <td class="border-0 justify-content-end d-flex text-dark font-size-base">
-                                                            <strong style="color:#9e53ee">45655</strong>
+                                                        <td class="border-0  d-flex text-dark font-size-base" >
+                                                            <strong style="color:#9e53ee">
+                                                                <span class="subtotalFromSellCartList">0</span>
+                                                                <input type="hidden" class="subtotalFromSellCartListValue" name="invoice_subtotal_before_discount" value="">
+                                                            </strong>
                                                         </td>
                                                     </tr>
-                                                    <tr class="d-flex align-items-center justify-content-between">
-                                                        <th class="border-0" style="background-color:#f5f5f5;width:25%">
+
+                                                    <tr class="d-flex align-items-center justify-content-between" style="width: 100%;">
+                                                        <th class="border-0" style="text-align: left !important;background-color:#f5f5f5;width:25%">
                                                             <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
                                                                 Shipping Cost
                                                                 <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#shippingcost">
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        class="svg-sm"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                        version="1.1"
-                                                                        id="Layer_11"
-                                                                        x="0px"
-                                                                        y="0px"
-                                                                        width="512px"
-                                                                        height="512px"
-                                                                        viewBox="0 0 512 512"
-                                                                        enable-background="new 0 0 512 512"
-                                                                        xml:space="preserve"
-                                                                    >
-                                                                        <g>
-                                                                            <rect x="234.362" y="128" width="43.263" height="256"></rect>
-                                                                            <rect x="128" y="234.375" width="256" height="43.25"></rect>
-                                                                        </g>
-                                                                    </svg>
+                                                                    <i class="fa fa-plus"></i>
                                                                 </span>
                                                             </div>
                                                         </th>
-                                                        <td class="border-0 " style="width: 25%;text-align: center !important;">
+                                                        <td class="border-0 " style="width:25%;text-align: left !important;">
                                                             00
                                                         </td>
-                                                        <th class="border-0">
+                                                        <th class="border-0" style="width:25%;text-align: left !important;margin-left:0px;padding-left:0px">
                                                             <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                Less Amount (65%)
-                                                                <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#discountpop">
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        class="svg-sm"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                        version="1.1"
-                                                                        id="Layer_31"
-                                                                        x="0px"
-                                                                        y="0px"
-                                                                        width="512px"
-                                                                        height="512px"
-                                                                        viewBox="0 0 512 512"
-                                                                        enable-background="new 0 0 512 512"
-                                                                        xml:space="preserve"
-                                                                    >
-                                                                        <g>
-                                                                            <rect x="234.362" y="128" width="43.263" height="256"></rect>
-                                                                            <rect x="128" y="234.375" width="256" height="43.25"></rect>
-                                                                        </g>
-                                                                    </svg>
+                                                                Less Amount 
+                                                                <span class="invoiceDiscount" style="">
+                                                                    (<span class="invoiceDiscountAmount">0</span>
+                                                                    <span class="invoiceDiscountType" style="margin-left: -3px;"></span>)
+                                                                </span>
+                                                                <span class="badge badge-secondary white rounded-circle ml-2 invoiceDiscountApplyModal" data-toggle="modal" data-target="#discountpop" style="cursor: pointer">
+                                                                    <i class="fa fa-plus"></i>
                                                                 </span>
                                                             </div>
+                                                            @include('backend.sell.pos.landing.modal.discount_modal')
                                                         </th>
-                                                        <td class="border-0  d-flex text-dark font-size-base" >100</td>
+                                                        <td class="border-0  d-flex text-dark font-size-base" >
+                                                            <strong class="invoiceFinalTotalDiscountAmount">0</strong>
+                                                        </td>
                                                     </tr>
 
-                                                    <tr class="d-flex align-items-center justify-content-between">
-                                                        <th class="border-0" style="background-color:#f5f5f5;width:25%">
+                                                    <tr class="d-flex align-items-center justify-content-between" style="width: 100%;">
+                                                        <th class="border-0" style="background-color:#f5f5f5;width:25%;text-align:left !important">
                                                             <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                TAX (5%)
-                                                                <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#discountpop">
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        class="svg-sm"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                        version="1.1"
-                                                                        id="Layer_31"
-                                                                        x="0px"
-                                                                        y="0px"
-                                                                        width="512px"
-                                                                        height="512px"
-                                                                        viewBox="0 0 512 512"
-                                                                        enable-background="new 0 0 512 512"
-                                                                        xml:space="preserve"
-                                                                    >
-                                                                        <g>
-                                                                            <rect x="234.362" y="128" width="43.263" height="256"></rect>
-                                                                            <rect x="128" y="234.375" width="256" height="43.25"></rect>
-                                                                        </g>
-                                                                    </svg>
-                                                                </span>
-
+                                                                Vat (0%)
                                                             </div>
                                                         </th>
-                                                        <td class="border-0  d-flex text-dark font-size-base" style="text-align: right;">10</td>
+                                                        <td  class="border-0"  style="text-align: left !important;width:25%;">
+                                                            <strong>0.0</strong>
+                                                        </td>
                                                         
-                                                        <th class="border-0">
-                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                Vat (5%)
-                                                                <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#discountpop">
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        class="svg-sm"
-                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                        version="1.1"
-                                                                        id="Layer_31"
-                                                                        x="0px"
-                                                                        y="0px"
-                                                                        width="512px"
-                                                                        height="512px"
-                                                                        viewBox="0 0 512 512"
-                                                                        enable-background="new 0 0 512 512"
-                                                                        xml:space="preserve"
-                                                                    >
-                                                                        <g>
-                                                                            <rect x="234.362" y="128" width="43.263" height="256"></rect>
-                                                                            <rect x="128" y="234.375" width="256" height="43.25"></rect>
-                                                                        </g>
-                                                                    </svg>
-                                                                </span>
+                                                        <th class="border-0"  style="text-align: left !important;width:25%;">
+                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark" style="">
+                                                                Others Cost
+                                                                {{-- <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#discountpop">
+                                                                   <i class="fa fa-plus"></i>
+                                                                </span> --}}
                                                             </div>
                                                         </th>
-                                                        <td class="border-0 justify-content-end d-flex text-dark font-size-base">50</td>
+                                                        <td class="border-0 justify-content-end d-flex text-dark font-size-base">
+                                                            <strong>0.0</strong>
+                                                        </td>
                                                     </tr>
-                                                  
                                                   
                                                     <tr class="d-flex align-items-center justify-content-between item-price" style="background-color:#f5f5f5;">
-                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary">
-                                                            
-                                                        </th>
+                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary"></th>
                                                         <td class="border-0 justify-content-end d-flex text-primary font-size-base"></td>
                                                         <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary" style="color:#6010b3">
                                                             <strong style="color:#6010b3">Payable Amount </strong>
@@ -544,64 +476,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                    
+                                    </div>                                    
                                 </div>
-
-                                <div style="display: none;" class="d-flex .justify-content-bottom align-items-center flex-column">
-                                    <div style="display: none;">
-                                        <button type="submit" class="btn btn-outline-secondary mr-2" title="Delete">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <button type="submit" class="btn btn-danger mr-2 confirm-delete" title="Save">
-                                            <i class="fas fa-save"></i>
-                                        </button>
-                                        <button type="submit" class="btn btn-secondary white">
-                                            <i class="fas fa-folder"></i>
-                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-folder-fill svg-sm mr-2" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z"
-                                                />
-                                            </svg> -->
-                                        </button>
-                                        <a href="#" class="btn btn-primary white" data-toggle="modal" data-target="#payment-popup">
-                                            POS Print
-                                        </a> 
-                                        <a href="#" class="btn btn-info white" data-toggle="modal" data-target="#payment-popup">
-                                            Print
-                                        </a>
-                                        <!-- <a href="#" class="btn btn-outline-secondary">
-                                            Pay With Card
-                                        </a> -->
-                                    </div>
-                                </div>
-                                <!-- 
-                                    <div class="form-group row mb-0">
-                                        <div class="col-md-12 btn-submit d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-outline-secondary mr-2" title="Delete">
-                                                <i class="fas fa-trash-alt mr-2"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-danger mr-2 confirm-delete" title="Save">
-                                                <i class="fas fa-save mr-2"></i>
-                                            </button>
-                                            <button type="submit" class="btn btn-secondary white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-folder-fill svg-sm mr-2" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div> 
-                                -->
                             </div>
                             <!---------summery of added to cart product list----------->
                         </div>
-                        <!-- <div class="card card-custom gutter-b bg-white border-0">
-                            <div class="card-body">
-                                
-                            </div>
-                        </div> -->
+                        
                     </div><!-----col-8------>
 
                     <!-----col-4------>
@@ -672,646 +552,22 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         </div>
                     </div><!-----col-4------>
-					
                 </div><!-----row------>
-                
             </div>
         </div>
 
     <!-- Button trigger modal -->
-    {{-- 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-            </button>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                ...
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-            </div>
-        </div> 
-    --}}
 
-        <div class="modal fade text-left" id="payment-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel11" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel11">Payment</h3>
-                        <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                            <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                                ></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table right-table">
-                            <tbody>
-                                <tr class="d-flex align-items-center justify-content-between">
-                                    <th class="border-0 px-0 font-size-lg mb-0 font-size-bold text-primary">
-                                        Total Amount to Pay :
-                                    </th>
-                                    <td class="border-0 justify-content-end d-flex text-primary font-size-lg font-size-bold px-0 font-size-lg mb-0 font-size-bold text-primary">
-                                        $722
-                                    </td>
-                                </tr>
-                                <tr class="d-flex align-items-center justify-content-between">
-                                    <th class="border-0 px-0 font-size-lg mb-0 font-size-bold text-primary">
-                                        Payment Mode :
-                                    </th>
-                                    <td class="border-0 justify-content-end d-flex text-primary font-size-lg font-size-bold px-0 font-size-lg mb-0 font-size-bold text-primary">
-                                        Cash
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <form>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <label class="text-body">Received Amount</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="number" class="form-control" value="$1000" placeholder="Enter Amount " />
-                                    </fieldset>
-                                    <div class="p-3 bg-light-dark d-flex justify-content-between border-bottom">
-                                        <h5 class="font-size-bold mb-0">Amount to Return :</h5>
-                                        <h5 class="font-size-bold mb-0">-$20</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <label class="text-body">Note (If any)</label>
-                                    <fieldset class="form-label-group">
-                                        <textarea class="form-control fixed-size" id="horizontalTextarea" rows="5" placeholder="Enter Note"></textarea>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-end mb-0">
-                                <div class="col-md-6 text-right">
-                                    <a href="#" class="btn btn-primary">Submit</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade text-left" id="shippingpop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel12" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel12">Add Shipping Address</h3>
-                        <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                            <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                                ></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Country</label>
-                                    <fieldset class="form-group mb-3">
-                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                            <option value="AL">USA</option>
 
-                                            <option value="WY">UK</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">State</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter State " />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">City</label>
-                                    <fieldset class="form-group mb-3">
-                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                            <option value="AL">Bahreen</option>
-
-                                            <option value="WY">Dubai</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Postal Code</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="number" name="text" class="form-control" placeholder="Enter Postal code" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Address</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter Address" />
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Phone Number</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="number" name="text" class="form-control" placeholder="Enter Phone Number" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-end mb-0">
-                                <div class="col-md-6 text-right">
-                                    <a href="#" class="btn btn-primary">Add Address</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade text-left" id="choosecustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel13" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel13">Add Customer</h3>
-                        <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                            <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                                ></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Customer Group</label>
-                                    <fieldset class="form-group mb-3">
-                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                            <option value="AL">General</option>
-
-                                            <option value="WY">Partial</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Customer Name</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter Customer Name" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Company Name</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter Company Name" />
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Tax Number</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter Tax" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Email</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="email" name="text" class="form-control" placeholder="Enter Mail" />
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Phone Number</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="email" name="text" class="form-control" placeholder="Enter Phone Number" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Country</label>
-                                    <fieldset class="form-group mb-3">
-                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                            <option value="AL">USA</option>
-
-                                            <option value="WY">UK</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">State</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter State" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">City</label>
-                                    <fieldset class="form-group mb-3">
-                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                            <option value="AL">Dubai</option>
-
-                                            <option value="WY">Bahreen</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Postal Code</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter Postal Code" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Address</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter Address" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-end mb-0">
-                                <div class="col-md-6 text-right">
-                                    <a href="#" class="btn btn-primary">Add Customer</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade text-left" id="folderpop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel14" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel14">Draft Orders</h3>
-                        <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                            <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                                ></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="modal-body pos-ordermain">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="pos-order">
-                                    <h3 class="pos-order-title">Order 1</h3>
-                                    <div class="orderdetail-pos">
-                                        <p>
-                                            <strong>Customer Name</strong>
-                                            Sophia Hale
-                                        </p>
-                                        <p>
-                                            <strong>Address</strong>
-                                            9825 Johnsaon Dr.Columbo,MD21044
-                                        </p>
-                                        <p>
-                                            <strong>Payment Status</strong>
-                                            Pending
-                                        </p>
-                                        <p>
-                                            <strong>Total Items</strong>
-                                            10
-                                        </p>
-                                        <p>
-                                            <strong>Amount to Pay</strong>
-                                            $722
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="pos-order">
-                                    <h3 class="pos-order-title">Order 1</h3>
-                                    <div class="orderdetail-pos">
-                                        <p>
-                                            <strong>Customer Name</strong>
-                                            Sophia Hale
-                                        </p>
-                                        <p>
-                                            <strong>Address</strong>
-                                            9825 Johnsaon Dr.Columbo,MD21044
-                                        </p>
-                                        <p>
-                                            <strong>Payment Status</strong>
-                                            Pending
-                                        </p>
-                                        <p>
-                                            <strong>Total Items</strong>
-                                            10
-                                        </p>
-                                        <p>
-                                            <strong>Amount to Pay</strong>
-                                            $722
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="pos-order">
-                                    <h3 class="pos-order-title">Order 1</h3>
-                                    <div class="orderdetail-pos">
-                                        <p>
-                                            <strong>Customer Name</strong>
-                                            Sophia Hale
-                                        </p>
-                                        <p>
-                                            <strong>Address</strong>
-                                            9825 Johnsaon Dr.Columbo,MD21044
-                                        </p>
-                                        <p>
-                                            <strong>Payment Status</strong>
-                                            Pending
-                                        </p>
-                                        <p>
-                                            <strong>Total Items</strong>
-                                            10
-                                        </p>
-                                        <p>
-                                            <strong>Amount to Pay</strong>
-                                            $722
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="pos-order">
-                                    <h3 class="pos-order-title">Order 1</h3>
-                                    <div class="orderdetail-pos">
-                                        <p>
-                                            <strong>Customer Name</strong>
-                                            Sophia Hale
-                                        </p>
-                                        <p>
-                                            <strong>Address</strong>
-                                            9825 Johnsaon Dr.Columbo,MD21044
-                                        </p>
-                                        <p>
-                                            <strong>Payment Status</strong>
-                                            Pending
-                                        </p>
-                                        <p>
-                                            <strong>Total Items</strong>
-                                            10
-                                        </p>
-                                        <p>
-                                            <strong>Amount to Pay</strong>
-                                            $722
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="pos-order">
-                                    <h3 class="pos-order-title">Order 1</h3>
-                                    <div class="orderdetail-pos">
-                                        <p>
-                                            <strong>Customer Name</strong>
-                                            Sophia Hale
-                                        </p>
-                                        <p>
-                                            <strong>Address</strong>
-                                            9825 Johnsaon Dr.Columbo,MD21044
-                                        </p>
-                                        <p>
-                                            <strong>Payment Status</strong>
-                                            Pending
-                                        </p>
-                                        <p>
-                                            <strong>Total Items</strong>
-                                            10
-                                        </p>
-                                        <p>
-                                            <strong>Amount to Pay</strong>
-                                            $722
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="pos-order">
-                                    <h3 class="pos-order-title">Order 1</h3>
-                                    <div class="orderdetail-pos">
-                                        <p>
-                                            <strong>Customer Name</strong>
-                                            Sophia Hale
-                                        </p>
-                                        <p>
-                                            <strong>Address</strong>
-                                            9825 Johnsaon Dr.Columbo,MD21044
-                                        </p>
-                                        <p>
-                                            <strong>Payment Status</strong>
-                                            Pending
-                                        </p>
-                                        <p>
-                                            <strong>Total Items</strong>
-                                            10
-                                        </p>
-                                        <p>
-                                            <strong>Amount to Pay</strong>
-                                            $722
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="pos-order">
-                                    <h3 class="pos-order-title">Order 1</h3>
-                                    <div class="orderdetail-pos">
-                                        <p>
-                                            <strong>Customer Name</strong>
-                                            Sophia Hale
-                                        </p>
-                                        <p>
-                                            <strong>Address</strong>
-                                            9825 Johnsaon Dr.Columbo,MD21044
-                                        </p>
-                                        <p>
-                                            <strong>Payment Status</strong>
-                                            Pending
-                                        </p>
-                                        <p>
-                                            <strong>Total Items</strong>
-                                            10
-                                        </p>
-                                        <p>
-                                            <strong>Amount to Pay</strong>
-                                            $722
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="confirm-delete ml-3" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <div class="row">
-                            <div class="col-12">
-                                <a href="#" class="btn btn-primary">Submit</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade text-left" id="discountpop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel122" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel122">Add Discount</h3>
-                        <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                            <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                                ></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="text-body">Discount</label>
-                                <fieldset class="form-group mb-3 d-flex">
-                                    <input type="text" name="text" class="form-control bg-white" placeholder="Enter Discount" />
-                                    <a href="javascript:void(0)" class="btn-secondary btn ml-2 white pt-1 pb-1 d-flex align-items-center justify-content-center">Apply</a>
-                                </fieldset>
-                                <div class="p-3 bg-light-dark d-flex justify-content-between border-bottom">
-                                    <h5 class="font-size-bold mb-0">Discount Applied of:</h5>
-                                    <h5 class="font-size-bold mb-0">$20</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('backend.sell.pos.landing.modal.payment_modal')
+        @include('backend.sell.pos.landing.modal.shipping_modal')
+        @include('backend.sell.pos.landing.modal.shipping_cost_modal')
+        @include('backend.sell.pos.landing.modal.choose_customer_modal')
+        @include('backend.sell.pos.landing.modal.folder_modal')
        
-        <div class="modal fade text-left" id="shippingcost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1444" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="myModalLabel1444">Add Shipping Cost</h3>
-                        <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
-                            <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                                ></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Customer</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="text" name="text" class="form-control" placeholder="Enter Customer " value="David Jones" disabled />
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Shipping Address</label>
-                                    <fieldset class="form-group mb-3">
-                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                            <option value="AL">928 Johnsaon Dr Columbo,MD 21044</option>
 
-                                            <option value="WY">933 Johnsaon Dr Columbo,MD 21044</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="text-body">Shipping Charges</label>
-                                    <fieldset class="form-group mb-3">
-                                        <input type="number" name="text" class="form-control" placeholder="Enter Shipping Charges" />
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="text-body">Shipping Status</label>
-                                    <fieldset class="form-group mb-3">
-                                        <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                            <option value="AL">Packed</option>
+       
 
-                                            <option value="WY">Open</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <label class="text-body">Shipping Charges</label>
-                                    <fieldset class="form-label-group">
-                                        <textarea class="form-control fixed-size" rows="5" placeholder="Textarea"></textarea>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="form-group row justify-content-end mb-0">
-                                <div class="col-md-6 text-right">
-                                    <a href="#" class="btn btn-primary">Update Order</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
   
 
         <!-------show single Product details  Modal------> 
@@ -1354,6 +610,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{asset('backend/pos')}}/assets/js/multiple-select.min.js"></script>
         <script src="{{asset('backend/pos')}}/assets/js/sweetalert.js"></script>
         <script src="{{asset('backend/pos')}}/assets/js/sweetalert1.js"></script>
+
+        <!--notify js-->
+        <script src="{{asset('backend/links/assets')}}/js/notify.js"></script>
+
         <script src="{{asset('backend/pos')}}/assets/js/script.bundle.js"></script>
         <script>
             jQuery(function () {
@@ -1385,7 +645,9 @@ License: You must have a valid license purchased only from themeforest(the above
         </script>
 
                         
-            
+            {{-- <div style="display: none;" class="processing">
+                <img src="{{asset('loading-img/loading.gif')}}" alt="" style="display: block;margin-left: auto;margin-right: auto;width: 5%;height: 40px;">
+            </div> --}}
             
 
         <!-- AJAX Js-->
@@ -1457,3 +719,35 @@ License: You must have a valid license purchased only from themeforest(the above
     </body>
     <!--end::Body-->
 </html>
+
+
+
+
+ <!--not using this part-->
+ {{-- <div style="display: none;" class="d-flex .justify-content-bottom align-items-center flex-column">
+    <div style="display: none;">
+        <button type="submit" class="btn btn-outline-secondary mr-2" title="Delete">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+        <button type="submit" class="btn btn-danger mr-2 confirm-delete" title="Save">
+            <i class="fas fa-save"></i>
+        </button>
+        <button type="submit" class="btn btn-secondary white">
+            <i class="fas fa-folder"></i>
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-folder-fill svg-sm mr-2" viewBox="0 0 16 16">
+                <path
+                    d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z"
+                />
+            </svg> -->
+        </button>
+        <a href="#" class="btn btn-primary white" data-toggle="modal" data-target="#payment-popup">
+            POS Print
+        </a> 
+        <a href="#" class="btn btn-info white" data-toggle="modal" data-target="#payment-popup">
+            Print
+        </a>
+        <!-- <a href="#" class="btn btn-outline-secondary">
+            Pay With Card
+        </a> -->
+    </div>
+</div> --}}
