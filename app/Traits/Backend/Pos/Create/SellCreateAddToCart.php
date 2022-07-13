@@ -19,6 +19,9 @@ trait SellCreateAddToCart
     protected $discountAmount;
     protected $totalSellingQuantity;
     protected $mainProductStockQuantity;
+    protected $otherProductStockQuantityPurchasePrice;
+    protected $mainProductStockQuantityPurchasePrice;
+    protected $totalPurchasePriceOfAllQuantity;
     protected $changingQuantity;
 
 
@@ -45,15 +48,16 @@ trait SellCreateAddToCart
     protected function addingToCartWhenSellCreate()
     {
         //return $this->requestAllCartData;
-        $this->cartName = "SellCreateAddToCart";
-        $cartName       = [];
-        $cartName       = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
+        $this->cartName     = "SellCreateAddToCart";
+        $cartName           = [];
+        $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
 
         $this->product_id   = $this->requestAllCartData['product_id'];
         $this->product_name = $this->requestAllCartData['product_name'];
 
-        $otherProductStockQuantity      = 0;
-        $this->mainProductStockQuantity = 0;
+        $otherProductStockQuantity                      = 0;
+        $this->otherProductStockQuantityPurchasePrice   = 0;
+        $this->mainProductStockQuantity                 = 0;
         $othersProductStocks = [];
         if($this->requestAllCartData['more_quantity_from_others_product_stock'] == 1)
         {
@@ -67,16 +71,19 @@ trait SellCreateAddToCart
                     
                     if($productStockId != $this->requestAllCartData['selling_main_product_stock_id'])
                     {
-                        $otherProductStockQuantity          += $this->requestAllCartData['product_stock_quantity_'.$productStockId];
+                        $otherProductStockQuantity                      += $this->requestAllCartData['product_stock_quantity_'.$productStockId];
+                        $this->otherProductStockQuantityPurchasePrice   += ($this->requestAllCartData['product_stock_quantity_purchase_price_'.$productStockId] * $this->requestAllCartData['product_stock_quantity_'.$productStockId]);
                     }else{
                         $this->mainProductStockQuantity     += $this->requestAllCartData['product_stock_quantity_'.$productStockId];
                     }
                 }
             }
         }else{
-            $this->mainProductStockQuantity     = $this->requestAllCartData['final_sell_quantity'];
+            $this->mainProductStockQuantity         = $this->requestAllCartData['final_sell_quantity'];
         }
         //{"36":{"others_product_stock_ids":["137","138","139","140"],"others_product_stock_qtys":["10","2","1","2"],"others_product_stock_purchase_prices":["10.00","9.00","11.00","9.00"]}}
+        $this->mainProductStockQuantityPurchasePrice    = $this->mainProductStockQuantity * $this->requestAllCartData['purchase_price'];
+        $this->totalPurchasePriceOfAllQuantity          = $this->mainProductStockQuantityPurchasePrice + $this->otherProductStockQuantityPurchasePrice;
 
         $cartName[$this->product_id] = [
             'product_id'                                => $this->product_id,
@@ -97,6 +104,9 @@ trait SellCreateAddToCart
             'total_amount_before_discount'              => $this->requestAllCartData['total_amount_before_discount'],
             'total_discount_amount'                     => $this->requestAllCartData['total_discount_amount'],
             'selling_final_amount'                      => $this->requestAllCartData['selling_final_amount'],
+            'main_product_stock_quantity_purchase_price'=> $this->mainProductStockQuantityPurchasePrice,
+            'others_product_stock_quantity_purchase_price'=> $this->otherProductStockQuantityPurchasePrice,
+            'total_purchase_price_of_all_quantity'      => $this->totalPurchasePriceOfAllQuantity,
 
             'more_quantity_from_others_product_stock'   => $this->requestAllCartData['more_quantity_from_others_product_stock'],
             'from_others_product_stocks'                => $othersProductStocks,
@@ -105,20 +115,6 @@ trait SellCreateAddToCart
             'w_g_type'                                  => $this->requestAllCartData['w_g_type'],
             'w_g_type_day'                              => $this->requestAllCartData['w_g_type_day'],
             'identityNumber'                            => $this->requestAllCartData['identityNumber'],
-
-
-            /* ''              => number_format($this->sale_unit_price,2,'.', ''),
-            'purchase_price'            => number_format($this->purchase_price,2,'.', ''),
-            'discountType'              => $this->saleDetails->discount_type,
-            'discountValue'             => $this->saleDetails->discount_value,
-            'discountAmount'            => $this->saleDetails->discount_amount,
-            'sub_total'                 => number_format((($this->sale_quantity * $this->sale_unit_price) - $this->discountAmount()),2,'.',''),
-            'quantity'                  => $this->sale_quantity,
-            'sale_unit_id'              => $this->saleDetails->sale_unit_id,
-            'sale_from_stock_id'        => $this->saleDetails->sale_from_stock_id,
-            'selling_unit_name'         => $this->saleDetails->units?$this->saleDetails->units->short_name:NULL,
-            'sale_type_id'              => $this->saleDetails->sale_type_id,
-            'identityNumber'            => $this->saleDetails->saleWarrantyGrarantees?$this->saleDetails->saleWarrantyGrarantees->identity_number:NULL, */
         ];
         session([$this->cartName => $cartName]);
         return true;
@@ -173,8 +169,8 @@ trait SellCreateAddToCart
     /*When changing quantity*/
     public function whenChangingQuantityFromCartList()
     {   
-        $this->cartName     = "SellCreateAddToCart";
-        $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
+        $this->cartName         = "SellCreateAddToCart";
+        $cartName               = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
         
         $this->product_id       = $this->requestAllCartData['product_id'];
         $this->changeType       = $this->requestAllCartData['change_type'];
@@ -219,11 +215,20 @@ trait SellCreateAddToCart
             else{
                 $totalDiscountAmount = 0 ;
             }
-            $cartName[$this->product_id]['final_sell_quantity']                 =  $this->totalSellingQuantity;
-            $cartName[$this->product_id]['selling_final_amount']                =  number_format(($this->totalSellingQuantity *   $cartName[$this->product_id]['final_sell_price']) - $totalDiscountAmount,2,'.', '');
-            $cartName[$this->product_id]['total_qty_of_main_product_stock']     =  $this->mainProductStockQuantity;
-            $cartName[$this->product_id]['total_discount_amount']               =  $totalDiscountAmount;
-            $cartName[$this->product_id]['total_amount_before_discount']        =  number_format(($this->totalSellingQuantity *  $cartName[$this->product_id]['final_sell_price']),2,'.', '');;
+            $this->mainProductStockQuantityPurchasePrice    = $cartName[$this->product_id]['purchase_price'] * $this->mainProductStockQuantity;
+            $this->otherProductStockQuantityPurchasePrice   = $cartName[$this->product_id]['others_product_stock_quantity_purchase_price'];
+            $this->totalPurchasePriceOfAllQuantity          = $this->mainProductStockQuantityPurchasePrice + $this->otherProductStockQuantityPurchasePrice;
+
+            $cartName[$this->product_id]['main_product_stock_quantity_purchase_price']      = $this->mainProductStockQuantityPurchasePrice; 
+            $cartName[$this->product_id]['others_product_stock_quantity_purchase_price']    = $this->otherProductStockQuantityPurchasePrice;
+            $cartName[$this->product_id]['total_purchase_price_of_all_quantity']            = $this->totalPurchasePriceOfAllQuantity;
+            
+            $cartName[$this->product_id]['final_sell_quantity']                             =  $this->totalSellingQuantity;
+            $cartName[$this->product_id]['final_sell_quantity']                             =  $this->totalSellingQuantity;
+            $cartName[$this->product_id]['selling_final_amount']                            =  number_format(($this->totalSellingQuantity *   $cartName[$this->product_id]['final_sell_price']) - $totalDiscountAmount,2,'.', '');
+            $cartName[$this->product_id]['total_qty_of_main_product_stock']                 =  $this->mainProductStockQuantity;
+            $cartName[$this->product_id]['total_discount_amount']                           =  $totalDiscountAmount;
+            $cartName[$this->product_id]['total_amount_before_discount']                    =  number_format(($this->totalSellingQuantity *  $cartName[$this->product_id]['final_sell_price']),2,'.', '');;
         }
         session([$this->cartName => $cartName]);   
         return true;

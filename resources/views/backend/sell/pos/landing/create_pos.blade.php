@@ -406,6 +406,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             <strong style="color:#9e53ee">
                                                                 <span class="subtotalFromSellCartList">0</span>
                                                                 <input type="hidden" class="subtotalFromSellCartListValue" name="invoice_subtotal_before_discount" value="">
+                                                                <input type="hidden" class="totalPurchasePriceForThisInvoiceFromSellCartList" name="invoice_subtotal_before_discount" value="">
                                                             </strong>
                                                         </td>
                                                     </tr>

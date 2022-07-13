@@ -45,7 +45,7 @@
                         {{$item['final_sell_price']}}
                     </td>
                     <td style="text-align:center;padding-top:1%;padding-bottom:1%;">
-                        {{$item['unit_name']}}
+                        {{$item['unit_name']}}<br/>
                     </td>
                     <td style="text-align:center;padding-top:1%;padding-bottom:1%;">
                         {{ displayMrpOrRegularSellPriceInTheCustomerInvoice_hh() == 1 ? $item['mrp_price'] : $item['sell_price'] }}
@@ -71,6 +71,7 @@
                     <td style="text-align:center;background-color: #f5f5f5;padding-top:1%;padding-bottom:1%;">
                         {{$item['selling_final_amount'] ?? 00.00 }}
                         <input type="hidden" class="selling_final_subtotal_amount_from_cartlist" value=" {{$item['selling_final_amount'] ?? 00.00 }}">
+                        <input type="hidden" class="total_purchase_price_of_all_quantity_from_cartlist" value=" {{$item['total_purchase_price_of_all_quantity'] ?? 00.00 }}">
                     </td>
                     <td style="padding-top:1%;padding-bottom:1%;">
                         <div class="card-toolbar text-right">

@@ -154,11 +154,13 @@
             },
             complete:function(){
                 jQuery('.processing').fadeOut();
-                jQuery('#removeAllItemFromSellAddedToCartModal').modal('hide');
             },
         });
     });
-
+    jQuery(document).on('click','.cancelRemoveAllItemFromSaleCart',function(){
+        jQuery('#removeAllItemFromSellAddedToCartModal').modal('hide');
+    });
+    //remove/delete all item from sell cart product list
 
     //change quantity from added to cart list [plus or minus]
     jQuery(document).on('click','.quantityChange',function(e){
@@ -195,6 +197,7 @@
     {
         totalItemFromCartList();
         var subtotal = subtotalFromCartList();
+        totalPurchasePriceForThisInvoiceFromCartList();
         makingInvoiceDiscount();
         setInvoiceDiscount(); 
         var totalInvoiceDiscount                = nanCheck(parseFloat(jQuery('.invoiceFinalTotalDiscountAmount').text()));
@@ -214,6 +217,15 @@
         jQuery('.subtotalFromSellCartList').text(subtotalFromCartList);
         jQuery('.subtotalFromSellCartListValue').val(subtotalFromCartList);
         return subtotalFromCartList;
+    } 
+    function totalPurchasePriceForThisInvoiceFromCartList()
+    {
+        var totalPurchasePriceFromCartList = 0;
+        jQuery(".total_purchase_price_of_all_quantity_from_cartlist").each(function() {
+            totalPurchasePriceFromCartList += nanCheck(parseFloat(jQuery(this).val()));
+        });
+        jQuery('.totalPurchasePriceForThisInvoiceFromSellCartList').val(totalPurchasePriceFromCartList);
+        return totalPurchasePriceFromCartList;
     } 
     function totalItemFromCartList()
     {
@@ -252,9 +264,10 @@
 
     function makingInvoiceDiscount()
     {
-        var invoiceDiscountAmount       = jQuery('.invoice_discount_amount').val();
-        var invoiceDiscountType         = jQuery('.invoice_discount_type option:selected').val();
-        var subtotalFromSellCartList    = nanCheck(parseFloat(jQuery('.subtotalFromSellCartListValue').val())); 
+        var invoiceDiscountAmount               = jQuery('.invoice_discount_amount').val();
+        var invoiceDiscountType                 = jQuery('.invoice_discount_type option:selected').val();
+        var subtotalFromSellCartList            = nanCheck(parseFloat(jQuery('.subtotalFromSellCartListValue').val())); 
+        var totalPurchasePriceForThisInvoice    = nanCheck(parseFloat(jQuery('.totalPurchasePriceForThisInvoiceFromSellCartList').val())); 
         var totalInvoiceDiscountAmount  = 0; 
         if(invoiceDiscountType == 'fixed'){
             totalInvoiceDiscountAmount  = invoiceDiscountAmount;
@@ -264,9 +277,19 @@
         }else{
             totalInvoiceDiscountAmount  = 0; 
         }
+
+        if((subtotalFromSellCartList - totalInvoiceDiscountAmount) < totalPurchasePriceForThisInvoice)
+        {
+            alert('Not Allowed');
+            totalInvoiceDiscountAmount  = 0; 
+            
+        }else{
+            totalInvoiceDiscountAmount  = totalInvoiceDiscountAmount; 
+        }
         var invoiceSubtotalAfterDiscount = subtotalFromSellCartList - totalInvoiceDiscountAmount;
-        
+        var totalInvoiceProfit           = invoiceSubtotalAfterDiscount - totalPurchasePriceForThisInvoice;
         jQuery('.invoice_totoal_discount_amount').text(totalInvoiceDiscountAmount);
+        jQuery('.totalInvoiceProfit').text(totalInvoiceProfit);
         jQuery('.invoice_subtotal_after_discount').text(invoiceSubtotalAfterDiscount);
         setInvoiceDiscount(); 
     }

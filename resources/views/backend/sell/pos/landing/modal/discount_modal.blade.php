@@ -51,6 +51,7 @@
                             </div>
                             <a href="javascript:void(0)" class="invoice_discount_apply btn-secondary btn ml-2 white pt-1 pb-1 d-flex align-items-center justify-content-center">Apply</a>
                         </div>
+                        Total Profit: <span class="totalInvoiceProfit"></span>
                     </div>
                 </div>
             </div>
