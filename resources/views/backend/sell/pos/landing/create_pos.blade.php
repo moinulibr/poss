@@ -420,16 +420,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                         </th>
                                                         <td class="border-0 " style="width:25%;text-align: left !important;">
-                                                            00
+                                                           <strong class="invoiceFinalShippingCostAmount">0.0</strong>
                                                         </td>
                                                         <th class="border-0" style="width:25%;text-align: left !important;margin-left:0px;padding-left:0px">
                                                             <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                Less Amount 
-                                                                <span class="invoiceDiscount" style="">
+                                                                <span style="font-size: 11px;">Less Amount</span> 
+                                                                <span class="invoiceDiscount">
                                                                     (<span class="invoiceDiscountAmount">0</span>
                                                                     <span class="invoiceDiscountType" style="margin-left: -3px;"></span>)
                                                                 </span>
-                                                                <span class="badge badge-secondary white rounded-circle ml-2 invoiceDiscountApplyModal" data-toggle="modal" data-target="#discountpop" style="cursor: pointer">
+                                                                <span class="badge badge-secondary white rounded-circle ml-2 invoiceDiscountApplyModal" data-toggle="modal" data-target="#discountpop" style="cursor: pointer;">
                                                                     <i class="fa fa-plus"></i>
                                                                 </span>
                                                             </div>
@@ -447,7 +447,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                         </th>
                                                         <td  class="border-0"  style="text-align: left !important;width:25%;">
-                                                            <strong>0.0</strong>
+                                                            <strong  class="invoiceFinalTotalVatAmount">0.0</strong>
                                                         </td>
                                                         
                                                         <th class="border-0"  style="text-align: left !important;width:25%;">
@@ -459,18 +459,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                         </th>
                                                         <td class="border-0 justify-content-end d-flex text-dark font-size-base">
-                                                            <strong>0.0</strong>
+                                                            <strong  class="invoiceFinalTotalOtherCostAmount">0.0</strong>
                                                         </td>
                                                     </tr>
                                                   
-                                                    <tr class="d-flex align-items-center justify-content-between item-price" style="background-color:#f5f5f5;">
-                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary"></th>
-                                                        <td class="border-0 justify-content-end d-flex text-primary font-size-base"></td>
-                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary" style="color:#6010b3">
+                                                    <tr class="d-flex align-items-center justify-content-between item-price" style="background-color:#f5f5f5;width: 100%;">
+                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary" style="width: 25%;"></th>
+                                                        <td class="border-0 justify-content-end d-flex text-primary font-size-base" style="color:#6010b3;width: 25%;"></td>
+                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary" style="color:#6010b3;width: 25%;">
                                                             <strong style="color:#6010b3">Payable Amount </strong>
                                                         </th>
-                                                        <td class="border-0 justify-content-end d-flex text-primary font-size-base" >
-                                                            <strong style="color:#6010b3">6000</strong>
+                                                        <td class="border-0 justify-content-end d-flex text-primary font-size-base" style="background-color:#f5f5f5;width: 25%;">
+                                                            <strong style="color:#6010b3" class="netPayableInvoiceTotal">00.00</strong>
                                                         </td>
                                                     </tr>
                                                 </tbody>

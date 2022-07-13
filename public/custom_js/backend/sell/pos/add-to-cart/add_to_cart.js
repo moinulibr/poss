@@ -193,8 +193,16 @@
 
     function finalCalculationForThisInvoice()
     {
-        var subtotal = subtotalFromCartList();
         totalItemFromCartList();
+        var subtotal = subtotalFromCartList();
+        makingInvoiceDiscount();
+        setInvoiceDiscount(); 
+        var totalInvoiceDiscount                = nanCheck(parseFloat(jQuery('.invoiceFinalTotalDiscountAmount').text()));
+        var invoiceFinalTotalVatAmount          = nanCheck(parseFloat(jQuery('.invoiceFinalTotalVatAmount').text()));
+        var invoiceFinalTotalOtherCostAmount    = nanCheck(parseFloat(jQuery('.invoiceFinalTotalOtherCostAmount').text()));
+        var invoiceFinalShippingCostAmount      = nanCheck(parseFloat(jQuery('.invoiceFinalShippingCostAmount').text()));
+        var netInvoiceTotalAmount               = (subtotal - totalInvoiceDiscount)+invoiceFinalTotalVatAmount+invoiceFinalTotalOtherCostAmount+invoiceFinalShippingCostAmount;
+        jQuery('.netPayableInvoiceTotal').text(netInvoiceTotalAmount);
     }
 
     function subtotalFromCartList()
@@ -238,6 +246,8 @@
         if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
 
         makingInvoiceDiscount();
+        setInvoiceDiscount(); 
+        finalCalculationForThisInvoice();
     });
 
     function makingInvoiceDiscount()
@@ -258,12 +268,22 @@
         
         jQuery('.invoice_totoal_discount_amount').text(totalInvoiceDiscountAmount);
         jQuery('.invoice_subtotal_after_discount').text(invoiceSubtotalAfterDiscount);
+        setInvoiceDiscount(); 
     }
     jQuery(document).on('click','.invoiceDiscountApplyModal',function(){
         makingInvoiceDiscount();
     });  
     jQuery(document).on('click','.invoice_discount_apply',function(){
         makingInvoiceDiscount();
+        
+        setInvoiceDiscount(); 
+        
+        finalCalculationForThisInvoice();
+        jQuery('#discountpop').modal('hide');
+    });
+
+    function setInvoiceDiscount()
+    {
         var getInvoiceDiscountAmount    = jQuery('.invoice_discount_amount').val();
         var invoiceDiscountType         = jQuery('.invoice_discount_type option:selected').val();
         var totalDiscountAmount         = nanCheck(parseFloat(jQuery('.invoice_totoal_discount_amount').text()));
@@ -283,7 +303,4 @@
         jQuery('.invoiceDiscountAmount').text(setInvoiceDiscountAmount);
         jQuery('.invoiceDiscountType').text(setInvoiceDiscountType);
         jQuery('.invoiceFinalTotalDiscountAmount').text(totalDiscountAmount);
-        jQuery('.invoiceDiscountApplyModal').modal('hide');
-        jQuery('#discountpop').modal('hide');
-    });
-
+    }
