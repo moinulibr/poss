@@ -615,7 +615,11 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--notify js-->
         <script src="{{asset('backend/links/assets')}}/js/notify.js"></script>
 
-        <script src="{{asset('backend/pos')}}/assets/js/script.bundle.js"></script>
+        <!--not using this script.bundle.js file js-->
+        {{-- <script src="{{asset('backend/pos')}}/assets/js/script.bundle.js"></script> --}}
+        <!--not using this script.bundle.js file js-->
+        <script src="{{asset('backend/pos')}}/assets/js/time-calculator.js"></script>
+
         <script>
             jQuery(function () {
                 jQuery(".arabic-select").multipleSelect({
@@ -667,62 +671,68 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{asset('custom_js/backend')}}/sell/pos/add-to-cart/add_to_cart.js"></script>
 
 
-        <script type="text/javascript">
-            /* swal({
-                    title: "Are you sure?",
-                    text: "You will not be able to recover this imaginary file!",
-                    type: "error",
-                    showCancelButton: true,
-                    dangerMode: true,
-                    cancelButtonClass: '#DD6B55',
-                    confirmButtonColor: '#dc3545',
-                    confirmButtonText: 'Delete!',
-                },function (result) { */
-                    /* if (result) {
-                        var action = current_object.attr('data-action');
-                        var token = jQuery('meta[name="csrf-token"]').attr('content');
-                        var id = current_object.attr('data-id');
-    
-                        $('body').html("<form class='form-inline remove-form' method='post' action='"+action+"'></form>");
-                        $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
-                        $('body').find('.remove-form').append('<input name="_token" type="hidden" value="'+token+'">');
-                        $('body').find('.remove-form').append('<input name="id" type="hidden" value="'+id+'">');
-                        $('body').find('.remove-form').submit();
-                    } */
-                //});
-            /* $("body").on("click",".remove-user",function(){
-                var current_object = $(this);
-                swal({
-                    title: "Are you sure?",
-                    text: "You will not be able to recover this imaginary file!",
-                    type: "error",
-                    showCancelButton: true,
-                    dangerMode: true,
-                    cancelButtonClass: '#DD6B55',
-                    confirmButtonColor: '#dc3545',
-                    confirmButtonText: 'Delete!',
-                },function (result) {
-                    if (result) {
-                        var action = current_object.attr('data-action');
-                        var token = jQuery('meta[name="csrf-token"]').attr('content');
-                        var id = current_object.attr('data-id');
-    
-                        $('body').html("<form class='form-inline remove-form' method='post' action='"+action+"'></form>");
-                        $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
-                        $('body').find('.remove-form').append('<input name="_token" type="hidden" value="'+token+'">');
-                        $('body').find('.remove-form').append('<input name="id" type="hidden" value="'+id+'">');
-                        $('body').find('.remove-form').submit();
-                    }
-                });
-            }); */
-        </script>
-
     </body>
     <!--end::Body-->
 </html>
 
 
 
+
+
+
+
+
+
+
+{{-- <script type="text/javascript">
+    swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "error",
+            showCancelButton: true,
+            dangerMode: true,
+            cancelButtonClass: '#DD6B55',
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: 'Delete!',
+        },function (result) {
+            if (result) {
+                var action = current_object.attr('data-action');
+                var token = jQuery('meta[name="csrf-token"]').attr('content');
+                var id = current_object.attr('data-id');
+
+                $('body').html("<form class='form-inline remove-form' method='post' action='"+action+"'></form>");
+                $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
+                $('body').find('.remove-form').append('<input name="_token" type="hidden" value="'+token+'">');
+                $('body').find('.remove-form').append('<input name="id" type="hidden" value="'+id+'">');
+                $('body').find('.remove-form').submit();
+            }
+        });
+    $("body").on("click",".remove-user",function(){
+        var current_object = $(this);
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "error",
+            showCancelButton: true,
+            dangerMode: true,
+            cancelButtonClass: '#DD6B55',
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: 'Delete!',
+        },function (result) {
+            if (result) {
+                var action = current_object.attr('data-action');
+                var token = jQuery('meta[name="csrf-token"]').attr('content');
+                var id = current_object.attr('data-id');
+
+                $('body').html("<form class='form-inline remove-form' method='post' action='"+action+"'></form>");
+                $('body').find('.remove-form').append('<input name="_method" type="hidden" value="delete">');
+                $('body').find('.remove-form').append('<input name="_token" type="hidden" value="'+token+'">');
+                $('body').find('.remove-form').append('<input name="id" type="hidden" value="'+id+'">');
+                $('body').find('.remove-form').submit();
+            }
+        });
+    });
+</script> --}}
 
  <!--not using this part-->
  {{-- <div style="display: none;" class="d-flex .justify-content-bottom align-items-center flex-column">

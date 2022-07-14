@@ -74,7 +74,7 @@ jQuery(function() {
   jQuery('a[data-toggle="pill"]').on("click", function() {
     let newUrl;
     const hash = jQuery(this).attr("href");
-    console.log('check2' ,hash);
+    //console.log('check2' ,hash);
     if(hash == "#info-tab") {
       newUrl = url.split("#")[0];
     } else {
@@ -142,11 +142,11 @@ function checkedPoint() {
     jQuery(text).css("display", "block");
     jQuery(text2).css("display", "none");
     if (checkBox3.checked === true){
-      console.log("xvc")
+      //console.log("xvc")
       jQuery(text3).css("display", "block");
      
       if (checkBox4.checked === true){
-        console.log("xvc")
+        //console.log("xvc")
         jQuery(text4).css("display", "block");
         
       }
@@ -156,7 +156,7 @@ function checkedPoint() {
       }
     }
     else if(checkBox5.checked === true){
-      console.log("ttt")
+      //console.log("ttt")
       jQuery(text4).css("display", "none");
       jQuery(text3).css("display", "none");
     }
@@ -181,7 +181,7 @@ function checkedPoint() {
 
 }
 
-  
+ /*  
 jQuery(document).ready(function(){
   jQuery(".loadingmore").slice(0, 12).show();
   console.log( jQuery(".loadingmore").slice(0, 12).show().length);
@@ -202,11 +202,11 @@ jQuery(document).ready(function(){
   }
 });
 
-});
+}); */
 
 function printDiv2() {
   var id = jQuery('.tab-pane.show.active .table-responsive-sm').attr('id');
-    console.log(id);
+    //console.log(id);
    
   jQuery('table').css('text-align','left');
   jQuery('table  .no-sort').css('opacity','0');
@@ -217,7 +217,7 @@ function printDiv2() {
   jQuery('.dataTables_paginate').css('display','none');
  
   window.frames["print_frame"].document.body.innerHTML = document.getElementById(id).innerHTML;
-  console.log(document.getElementById(id).innerHTML);
+  //console.log(document.getElementById(id).innerHTML);
 
   window.frames["print_frame"].window.focus();
   window.frames["print_frame"].window.print();
@@ -284,7 +284,7 @@ jQuery('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
 ///////////////// selected module
 function myselect() {
   var sel = document.getElementById('slc');
-  console.log('value', sel.value)
+  //console.log('value', sel.value)
    /// show and hide div on the click by value basis
    jQuery(`#${sel.value}`).css("display", "block");
 
@@ -350,9 +350,9 @@ function mysizeSelect(){
   }
 }
   // var sel = document.getElementById('sizeSelect');
-   console.log('sizeSelect value', selectedSize)
-   console.log('sizeSelect selectedColor', selectedColor)
-   console.log('combos', combos)
+   //console.log('sizeSelect value', selectedSize)
+   //console.log('sizeSelect selectedColor', selectedColor)
+   //console.log('combos', combos)
 
    combos.forEach(function(elem){
     jQuery('#table-show').css('display', 'block')
@@ -370,14 +370,14 @@ jQuery('#remove-c').on("click", function(e){
 /////////////////////////////////////////////////
 
 jQuery('.thumbnail .detail-link').on('click', function(){	
-  console.log("aa")
+  //console.log("aa")
   jQuery(this).parent(".thumbnail").toggleClass("active");
 }); 
 jQuery('.selectall').on('click', function(){	
   jQuery('.thumbnail .detail-link').parent().addClass( "active");
 }); 
 jQuery('.unselectall').on('click', function(){	
-  console.log("aa")
+  //console.log("aa")
   jQuery('.thumbnail .detail-link').parent().removeClass( "active");
 }); 
 jQuery("#checkbox1").on('click', function(){	
@@ -484,7 +484,7 @@ jQuery(document).ready(function() {
 
   //sidebar menu active
   jQuery('#basic-input .nav-link').on("click", function(e){
-    console.log('ac');
+    //console.log('ac');
     
     jQuery('.nav-collapse').addClass('show');
   });
@@ -628,7 +628,7 @@ jQuery('.kt_notes_panel_close').on("click", function(e){
 
   // validation for form fields
 
-  jQuery( "#myform" ).validate({
+  /* jQuery( "#myform" ).validate({
     rules: {
       email: {
         required: true
@@ -637,17 +637,18 @@ jQuery('.kt_notes_panel_close').on("click", function(e){
         required: true
       }
     }
-  });
+  }); */
   
 });
+
 jQuery(document).on('click',function() {
   var sel22 = document.getElementById('typeselect');
-  console.log('value', sel22.value)
+  //console.log('value', sel22.value)
    /// show and hide div on the click by value basis
   //  var cliked = document.getElementById(sel.value);
    for ( var i = 1; i <= 7; i++){
      if(sel22.value == i){
-     console.log("aya rye" ,i);
+     //console.log("aya rye" ,i);
       jQuery(`#${i}`).css("display", "block");
       
      }else{
@@ -665,7 +666,7 @@ jQuery(document).ready(function() {
 
   jQuery('#myTable tbody').on( 'click', 'tr', function () {
       jQuery(this).toggleClass('selected');
-      console.log("fsdf")
+      //console.log("fsdf")
   } );
 
   jQuery('#button').click( function () {
@@ -676,11 +677,11 @@ jQuery(document).ready(function() {
 jQuery(document).ready(function() {
   jQuery(".pin-click").click(function(e) {
     var id = jQuery(this).attr('id');
-    console.log(id)
+    //console.log(id)
      var pin_not =    jQuery(`#${id} .pin-fixnot.dis-block`)
      var pin =    jQuery(`#${id} .pin.dis-block`)
-     console.log("hdjhsj", pin_not.length)
-     console.log("pin", pin.length)
+     //console.log("hdjhsj", pin_not.length)
+     //console.log("pin", pin.length)
     if(pin_not.length == 1){
       jQuery(`#${id} .pin-fixnot`).removeClass('dis-block');
       jQuery(`#${id} .pin-fixnot`).addClass('dis-none');
@@ -827,7 +828,7 @@ for (var i = 0; i < operator.length; i++) {
       input.innerHTML = newString;
     } else if (currentString.length == 0) {
       // if first key pressed is an opearator, don't do anything
-      console.log("enter a number first");
+      //console.log("enter a number first");
     } else {
       // else just add the operator pressed to the input
       input.innerHTML += e.target.innerHTML;
@@ -849,10 +850,10 @@ result.addEventListener("click", function() {
   // first we replace all the numbers and dot with empty string and then split
   var operators = inputString.replace(/[0-9]|\./g, "").split("");
 
-  console.log(inputString);
-  console.log(operators);
-  console.log(numbers);
-  console.log("----------------------------");
+  //console.log(inputString);
+  //console.log(operators);
+  //console.log(numbers);
+  //console.log("----------------------------");
 
   // now we are looping through the array and doing one operation at a time.
   // first divide, then multiply, then subtraction and then addition
@@ -903,7 +904,8 @@ jQuery(document).ready(function() {
   var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
   
   // Create an object newDate()
-  var newDate = new Date();
+  var asiaDhaka = new Date().toLocaleString([], { timeZone: "Asia/Dhaka" });
+  var newDate = new Date(asiaDhaka);
   // Retrieve the current date from the Date object
   newDate.setDate(newDate.getDate());
   // At the output of the day, date, month and year    
@@ -933,7 +935,7 @@ jQuery(document).ready(function() {
   }); 
 
 // for classic Editor
-ClassicEditor
+/* ClassicEditor
 .create( document.querySelector( '#editor' ),{
     toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ],
     alignment: {
@@ -951,24 +953,24 @@ ClassicEditor
     alignment: {
       options: [ 'left', 'right' ]
     }
-})
+}) */
 
-.catch( error => {
+/* .catch( error => {
     console.error( error );
-});
+}); */
 
-InlineEditor
-.create( document.querySelector( '#editor2' ) )
+//InlineEditor
+/* .create( document.querySelector( '#editor2' ) )
 .catch( error => {
     console.error( error );
 } );
-
+ */
 // for data tables
 jQuery(document).ready( function () {
 	jQuery('#myTable').DataTable();
 });
 
-
+/* 
 (function($){
   jQuery(window).on("load",function(){
     jQuery(".my-custom-scrollbar").mCustomScrollbar(
@@ -978,7 +980,7 @@ jQuery(document).ready( function () {
     );
   });
 })(jQuery);
-
+ */
 
 
 
@@ -986,14 +988,14 @@ jQuery(".nav-pills .nav-link").each(function(i){
   jQuery(this).click(function(e){
     jQuery(this).attr("href", jQuery('.tab-pane')[i].id);
     window.location.hash  = jQuery('.tab-pane')[i].id;
-    console.log( "abc", window.location.hash);
+    //console.log( "abc", window.location.hash);
   });
 });
 
 jQuery(".nav-pills .nav-link").click(function(e) {
   var active = this.href.slice(-5)
   , link = active.slice(1);
-  console.log(active, link)
+  //console.log(active, link)
   jQuery(".tab-content [id^=tab]").hide();
   jQuery(active).show();
   history.replaceState(null, link
