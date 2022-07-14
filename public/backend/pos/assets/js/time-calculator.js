@@ -143,13 +143,14 @@ paceOptions = {
     var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     
     // Create an object newDate()
-    var asiaDhaka = new Date().toLocaleString([], { timeZone: "Asia/Dhaka" });
-    var newDate = new Date(asiaDhaka);
+    var newDate = new Date();
+    //console.log(newDate.toLocaleString('en-US', { hour: 'numeric', hour12: true }));
     // Retrieve the current date from the Date object
     newDate.setDate(newDate.getDate());
     // At the output of the day, date, month and year    
     jQuery('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
     
+
     setInterval( function() {
         // Create an object newDate () and extract the second of the current time
         var seconds = new Date().getSeconds();
@@ -166,10 +167,24 @@ paceOptions = {
         
     setInterval( function() {
         // Create an object newDate () and extract the clock from the current time
-        var hours = new Date().getHours();
+        //var hours = new Date.getHours();
         // Add a leading zero to the value of hours
+        var hours = formatAMPM();
         jQuery("#hours").html(( hours < 10 ? "0" : "" ) + hours);
-        }, 1000);
+      }, 1000);
         
     }); 
-  
+
+    function formatAMPM() {
+      var hours   = new Date().getHours();
+      var minutes = new Date().getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      //var strTime = hours + ':' + minutes + ' ' + ampm;
+      var strTime = hours;
+      return strTime;
+    }
+    //console.log(formatAMPM(new Date));
+    //var asiaDhaka = new Date().toLocaleString([], { timeZone: "Asia/Dhaka" });

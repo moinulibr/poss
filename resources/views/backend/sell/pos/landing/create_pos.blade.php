@@ -241,27 +241,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="selectmain" style="width: 45%;">
                                         <label class="text-dark d-flex">
                                             Choose a Customer
-                                            <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#choosecustomer">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="svg-sm"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    version="1.1"
-                                                    id="Layer_122"
-                                                    x="0px"
-                                                    y="0px"
-                                                    width="512px"
-                                                    height="512px"
-                                                    viewBox="0 0 512 512"
-                                                    enable-background="new 0 0 512 512"
-                                                    xml:space="preserve"
-                                                >
-                                                    <g>
-                                                        <rect x="234.362" y="128" width="43.263" height="256"></rect>
-                                                        <rect x="128" y="234.375" width="256" height="43.25"></rect>
-                                                    </g>
-                                                </svg>
+                                            <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#choosecustomer" style="cursor: pointer">
+                                                <i class="fa fa-plus"></i>
                                             </span>
+
+                                            <span style="padding-left:2%;">
+                                                <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#shippingpop" style="cursor: pointer">
+                                                    <i class="fa fa-plus"></i>
+                                                </span>
+                                            </span>
+                                            <span style="padding-left:1px;">Shipping Address</span>
                                         </label>
                                         <select class="arabic-select" style="width: 100%;">
                                             <option value="1">walk in customer</option>
@@ -274,27 +263,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!----------reference---------->
                                     <div class="d-flex flex-column selectmain" style="width: 45%;">
                                         <label class="text-dark d-flex">
-                                            Reference / Shipping Address
-                                            <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#shippingpop">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="svg-sm"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    version="1.1"
-                                                    id="Layer_21"
-                                                    x="0px"
-                                                    y="0px"
-                                                    width="512px"
-                                                    height="512px"
-                                                    viewBox="0 0 512 512"
-                                                    enable-background="new 0 0 512 512"
-                                                    xml:space="preserve"
-                                                >
-                                                    <g>
-                                                        <rect x="234.362" y="128" width="43.263" height="256"></rect>
-                                                        <rect x="128" y="234.375" width="256" height="43.25"></rect>
-                                                    </g>
-                                                </svg>
+                                            Reference
+                                            <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#shippingpop" style="cursor: pointer">
+                                                <i class="fa fa-plus"></i>
                                             </span>
                                         </label>
                                         <select class="arabic-select" style="width: 100%;">
@@ -380,102 +351,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
 
                                         <div class="col-8">
-                                            <table class="table right-table">
-                                                <tbody>
-                                                    <tr class="d-flex align-items-center justify-content-between" style="width: 100%;">
-                                                        <th class="border-0" style="text-align: left !important;background-color:#f5f5f5;width:25%">
-                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                <strong style="color:#9e53ee!important">
-                                                                    Total Items
-                                                                </strong> 
-                                                            </div>
-                                                        </th>
-                                                        <td class="border-0 " style="width:25%;text-align: left !important;">
-                                                            <strong style="color:#8428e7">
-                                                                <span class="totalItemFromSellCartList">0</span>
-                                                            </strong>
-                                                        </td>
-                                                        <th class="border-0" style="width:25%;text-align: left !important;">
-                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark" style="color:#9e53ee">
-                                                                 <strong style="color:#9e53ee!important">
-                                                                Subtotal
-                                                                </strong> 
-                                                            </div>
-                                                        </th>
-                                                        <td class="border-0  d-flex text-dark font-size-base" >
-                                                            <strong style="color:#9e53ee">
-                                                                <span class="subtotalFromSellCartList">0</span>
-                                                                <input type="hidden" class="subtotalFromSellCartListValue" name="invoice_subtotal_before_discount" value="">
-                                                                <input type="hidden" class="totalPurchasePriceForThisInvoiceFromSellCartList" name="invoice_subtotal_before_discount" value="">
-                                                            </strong>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr class="d-flex align-items-center justify-content-between" style="width: 100%;">
-                                                        <th class="border-0" style="text-align: left !important;background-color:#f5f5f5;width:25%">
-                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                Shipping Cost
-                                                                <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#shippingcost">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </span>
-                                                            </div>
-                                                        </th>
-                                                        <td class="border-0 " style="width:25%;text-align: left !important;">
-                                                           <strong class="invoiceFinalShippingCostAmount">0.0</strong>
-                                                        </td>
-                                                        <th class="border-0" style="width:25%;text-align: left !important;margin-left:0px;padding-left:0px">
-                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                <span style="font-size: 11px;">Less Amount</span> 
-                                                                <span class="invoiceDiscount">
-                                                                    (<span class="invoiceDiscountAmount">0</span>
-                                                                    <span class="invoiceDiscountType" style="margin-left: -3px;"></span>)
-                                                                </span>
-                                                                <span class="badge badge-secondary white rounded-circle ml-2 invoiceDiscountApplyModal" data-toggle="modal" data-target="#discountpop" style="cursor: pointer;">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </span>
-                                                            </div>
-                                                            @include('backend.sell.pos.landing.modal.discount_modal')
-                                                        </th>
-                                                        <td class="border-0  d-flex text-dark font-size-base" >
-                                                            <strong class="invoiceFinalTotalDiscountAmount">0</strong>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr class="d-flex align-items-center justify-content-between" style="width: 100%;">
-                                                        <th class="border-0" style="background-color:#f5f5f5;width:25%;text-align:left !important">
-                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
-                                                                Vat (0%)
-                                                            </div>
-                                                        </th>
-                                                        <td  class="border-0"  style="text-align: left !important;width:25%;">
-                                                            <strong  class="invoiceFinalTotalVatAmount">0.0</strong>
-                                                        </td>
-                                                        
-                                                        <th class="border-0"  style="text-align: left !important;width:25%;">
-                                                            <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark" style="">
-                                                                Others Cost
-                                                                {{-- <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#discountpop">
-                                                                   <i class="fa fa-plus"></i>
-                                                                </span> --}}
-                                                            </div>
-                                                        </th>
-                                                        <td class="border-0 justify-content-end d-flex text-dark font-size-base">
-                                                            <strong  class="invoiceFinalTotalOtherCostAmount">0.0</strong>
-                                                        </td>
-                                                    </tr>
-                                                  
-                                                    <tr class="d-flex align-items-center justify-content-between item-price" style="background-color:#f5f5f5;width: 100%;">
-                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary" style="width: 25%;"></th>
-                                                        <td class="border-0 justify-content-end d-flex text-primary font-size-base" style="color:#6010b3;width: 25%;"></td>
-                                                        <th class="border-0 font-size-h5 mb-0 font-size-bold text-primary" style="color:#6010b3;width: 25%;">
-                                                            <strong style="color:#6010b3">Payable Amount </strong>
-                                                        </th>
-                                                        <td class="border-0 justify-content-end d-flex text-primary font-size-base" style="background-color:#f5f5f5;width: 25%;">
-                                                            <strong style="color:#6010b3" class="netPayableInvoiceTotal">00.00</strong>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="displayInvoiceFinalSellCalculation">
+                                                @include('backend.sell.pos.ajax-response.landing.invoice-final-calculation.invoice_final_calculation_summery')
+                                            </div>
                                         </div>
                                     </div>                                    
                                 </div>
@@ -585,8 +463,12 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-------display product list------> 
         
         <!-------display added to product list------> 
-        <input type="hidden" class="displaySaleCreateAddedToCartProductListUrl" value="{{ route('admin.sell.regular.pos.display.sale.created.added.to.cart.product.list') }}">
+        <input type="hidden" class="displaySellCreateAddedToCartProductListUrl" value="{{ route('admin.sell.regular.pos.display.sell.created.added.to.cart.product.list') }}">
         <!-------display added to product list------> 
+        
+        <!-------display invoice final calculation summery------> 
+        <input type="hidden" class="displayInvoiceFinalSellCalculationCartProductListUrl" value="{{ route('admin.sell.regular.pos.display.sell.final.invoice.calculation.summery') }}">
+        <!-------display invoice final calculation summery------> 
 
         <!-------remove single item from added to sell cart list------> 
         <div class="modal fade" id="removeSingleItemFromSellAddedToCartModal"  aria-modal="true"></div>

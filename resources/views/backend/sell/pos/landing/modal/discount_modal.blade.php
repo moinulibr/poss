@@ -23,10 +23,11 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <label class="text-body">Discount Amount</label>
+                        <label class="text-body">Discount Amount </label>
                         <fieldset class="form-group mb-3 d-flex">
                             <input type="text" name="invoice_discount_amount" class="invoice_discount_amount form-control bg-white inputFieldValidatedOnlyNumeric" placeholder="Enter Discount" />
                         </fieldset>
+                        <span class="invoice_discount_amount_error_message" style="color:red;margin: auto 40%;"></span>
                     </div>
                     <div class="col-12">
                         <label class="text-body">Discount Type</label>
@@ -40,6 +41,7 @@
                                 <strong class="invoice_totoal_discount_amount">0</strong>
                             </span>
                         </fieldset>
+                        <span class="invoice_discount_amount_error_message" style="color:red;margin: auto 40%;"></span>
                     </div>
                    
                     <div class="col-12">

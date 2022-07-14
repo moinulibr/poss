@@ -1,10 +1,11 @@
 
     jQuery(document).ready(function(){
         displaySaleCreateAddedToCartProductList();
+        displayInvoiceFinalSellCalculationSummery();
     });
    function displaySaleCreateAddedToCartProductList()
    {
-       var url = jQuery('.displaySaleCreateAddedToCartProductListUrl').val();
+       var url = jQuery('.displaySellCreateAddedToCartProductListUrl').val();
        jQuery.ajax({
            url:url,
            //data:{},
@@ -258,7 +259,7 @@
         if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
 
         makingInvoiceDiscount();
-        setInvoiceDiscount(); 
+        //setInvoiceDiscount(); 
         finalCalculationForThisInvoice();
     });
 
@@ -277,14 +278,17 @@
         }else{
             totalInvoiceDiscountAmount  = 0; 
         }
-
+        jQuery('.invoice_totoal_discount_amount').css({'color':'black','background-color':'white','padding':'0px 30%'});
+        jQuery('.invoice_discount_amount_error_message').text('');
         if((subtotalFromSellCartList - totalInvoiceDiscountAmount) < totalPurchasePriceForThisInvoice)
         {
-            alert('Not Allowed');
+            jQuery('.invoice_discount_amount_error_message').text('-Not Allowed');
+            jQuery('.invoice_totoal_discount_amount').css({'color':'white','background-color':'red','padding':'0px 30%'});
             totalInvoiceDiscountAmount  = 0; 
-            
         }else{
             totalInvoiceDiscountAmount  = totalInvoiceDiscountAmount; 
+            jQuery('.invoice_discount_amount_error_message').text('');
+            jQuery('.invoice_totoal_discount_amount').css({'color':'black','background-color':'white','padding':'0px 30%'});
         }
         var invoiceSubtotalAfterDiscount = subtotalFromSellCartList - totalInvoiceDiscountAmount;
         var totalInvoiceProfit           = invoiceSubtotalAfterDiscount - totalPurchasePriceForThisInvoice;
@@ -299,7 +303,7 @@
     jQuery(document).on('click','.invoice_discount_apply',function(){
         makingInvoiceDiscount();
         
-        setInvoiceDiscount(); 
+        //setInvoiceDiscount(); 
         
         finalCalculationForThisInvoice();
         jQuery('#discountpop').modal('hide');
@@ -326,4 +330,28 @@
         jQuery('.invoiceDiscountAmount').text(setInvoiceDiscountAmount);
         jQuery('.invoiceDiscountType').text(setInvoiceDiscountType);
         jQuery('.invoiceFinalTotalDiscountAmount').text(totalDiscountAmount);
+    }
+
+
+
+    function displayInvoiceFinalSellCalculationSummery()
+    {
+        var url = jQuery('.displayInvoiceFinalSellCalculationCartProductListUrl').val();
+        jQuery.ajax({
+            url:url,
+            //data:{},
+            beforeSend:function(){
+                jQuery('.processing').fadeIn();
+            },
+            success:function(response){
+                if(response.status == true)
+                {
+                    jQuery('.displayInvoiceFinalSellCalculation').html(response.list);
+                    finalCalculationForThisInvoice();
+                }
+            },
+            complete:function(){
+                jQuery('.processing').fadeOut();
+            },
+        });
     }

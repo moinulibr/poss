@@ -168,6 +168,7 @@ class PosController extends Controller
             'stock'     => $stock,
         ]);
     }
+  
     
 
     /**
@@ -189,8 +190,8 @@ class PosController extends Controller
         ]);
     }
 
-
-    public function displaySaleCreateAddedToCartProductList()
+    //display sell created added to cart product list
+    public function displaySellCreateAddedToCartProductList()
     {
         $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
         return response()->json([
@@ -198,6 +199,22 @@ class PosController extends Controller
             'list'     => $list,
         ]);
     }
+
+    //display final invoice sell calculation
+    public function displayInvoiceFinalSellCalculation(Request $request)
+    {
+        /* $product                        = Product::find($request->product_id);
+        $data['sellingQuantity']        = $request->sellingQuantity;
+        $data['sellingPrice']           = $request->sellingPrice;
+        $data['primarySellingStock']    = $request->primarySellingStock;
+        $data['product'] = $product; */
+        $list = view('backend.sell.pos.ajax-response.landing.invoice-final-calculation.invoice_final_calculation_summery')->render();
+        return response()->json([
+            'status'    => true,
+            'list'     => $list,
+        ]);
+    }
+
 
 
     //remove single item confirmation modal
