@@ -201,13 +201,8 @@ class PosController extends Controller
     }
 
     //display final invoice sell calculation
-    public function displayInvoiceFinalSellCalculation(Request $request)
+    public function invoiceFinalSellCalculation(Request $request)
     {
-        /* $product                        = Product::find($request->product_id);
-        $data['sellingQuantity']        = $request->sellingQuantity;
-        $data['sellingPrice']           = $request->sellingPrice;
-        $data['primarySellingStock']    = $request->primarySellingStock;
-        $data['product'] = $product; */
         $list = view('backend.sell.pos.ajax-response.landing.invoice-final-calculation.invoice_final_calculation_summery')->render();
         return response()->json([
             'status'    => true,

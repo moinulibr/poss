@@ -313,7 +313,7 @@ Route::group(['middleware' => ['auth']], function ()
         Route::get('display/sell/create/added/to/cart/product/list','PosController@displaySellCreateAddedToCartProductList')->name('display.sell.created.added.to.cart.product.list');
         
         //display addted to product list
-        Route::get('display/sell/final/invoice/calculation/summery','PosController@displayInvoiceFinalSellCalculation')->name('display.sell.final.invoice.calculation.summery');
+        Route::get('display/sell/final/invoice/calculation/summery','PosController@invoiceFinalSellCalculation')->name('sell.final.invoice.calculation.summery');
 
         //remove single item from sell added to cart list
         Route::get('remove/confirm-req/for/single/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForSingleItemFromSellAddedToCartList')->name('remove.confirmation.required.single.item.from.sell.added.to.cart.list');

@@ -128,4 +128,28 @@ use App\Models\Backend\ProductAttribute\Unit;
         // 1 = mrp price
     }
 
+    //vat
+    function vatApplicableOrNotWhenSellCreate_hh()
+    {
+        return 1;
+        // 0 = no
+        // 1 = yes
+    }
+    function vatApplicableOrNotWithVatAmountWhenSellCreate_hh()
+    {
+       if(vatApplicableOrNotWhenSellCreate_hh() == 1)
+       {
+            return 5; 
+       }else{
+        return 0;
+       }
+    }
+    function vatCustomizationApplicableOrNotWhenSellCreate_hh()
+    {
+        return 1;
+        // 0 = no
+        // 1 = yes
+    }
+    //vat
+
 

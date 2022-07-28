@@ -59,14 +59,17 @@
                         <table class="table table-bordered" style="font-size: 14px;margin-bottom: -10px">
                             <thead style="background-color:rgb(66, 66, 66); color:#e9ff30">
                                 <tr>
-                                    <td  style="padding: 0.85rem;">Stock Name</td>
-                                    <td  style="padding: 0.85rem;">Stock</td>
-                                    <td  style="padding: 0.85rem;"><small>Selling Amount</small></td>
-                                    <td  style="padding: 0.85rem;">
+                                    <td  style="width:15% ;padding: 0.85rem;">Stock Name</td>
+                                    <td  style="width:15% ;padding: 0.85rem;">Stock</td>
+                                    <td  style="width:10% ;padding: 0.85rem;"><small>Selling Amount</small></td>
+                                    <td  style="width:10% ;padding: 0.85rem;">
                                         <small>Quantity</small>
                                     </td>
-                                    <td  style="padding: 0.85rem;">
+                                    <td  style="width:5% ;padding: 0.85rem;">
                                         <small>#</small>
+                                    </td>
+                                    <td  style="width:45% ;padding: 0.85rem;">
+                                        <small>Over stock changing date</small>
                                     </td>
                                 </tr>
                             </thead>
@@ -97,6 +100,9 @@
                                     <td style="width:10%;padding: 0.25rem;">
                                         <input type="checkbox" name="" data-purchase-price="{{getProductPriceByProductStockIdProductIdStockIdPriceId_hh($product->id,$productStock->id,$productStock->stock_id,purchasePriceId_hh())}}" data-id="{{ $productStock->id }}" class="checkedCurrentSellingQuantity checkedCurrentSellingQuantity_{{ $productStock->id }} form-control" @if($primarySellingStock == $productStock->id) checked @endif style="font-size: 8px;">    
                                     </td>
+                                    <td>
+                                        
+                                    </td>
                                 </tr>
                                 @endforeach
                                 <input type="hidden" class="primarySellingProductStockId" value="{{$primarySellingStock}}">
@@ -115,7 +121,7 @@
                     Remove Quantity
                 </strong>
                 <strong style="padding:6px;"  class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock addThisQuantityToMainQuantity btn-sm" role="status">
-                    Add This Quantity
+                    Add  Quantity
                 </strong>
                 {{-- <input type="submit" style="padding:6px" class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-sm" role="status" value="Add This Quantity"> --}}
             </div>

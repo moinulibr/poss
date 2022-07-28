@@ -351,9 +351,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
 
                                         <div class="col-8">
-                                            <div class="displayInvoiceFinalSellCalculation">
-                                                @include('backend.sell.pos.ajax-response.landing.invoice-final-calculation.invoice_final_calculation_summery')
-                                            </div>
+                                            @include('backend.sell.pos.landing.include.invoice_final_calculation_summery')
                                         </div>
                                     </div>                                    
                                 </div>
@@ -466,9 +464,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <input type="hidden" class="displaySellCreateAddedToCartProductListUrl" value="{{ route('admin.sell.regular.pos.display.sell.created.added.to.cart.product.list') }}">
         <!-------display added to product list------> 
         
-        <!-------display invoice final calculation summery------> 
-        <input type="hidden" class="displayInvoiceFinalSellCalculationCartProductListUrl" value="{{ route('admin.sell.regular.pos.display.sell.final.invoice.calculation.summery') }}">
-        <!-------display invoice final calculation summery------> 
+        <!------- invoice final calculation summery------> 
+        <input type="hidden" class="invoiceFinalSellCalculationCartProductListUrl" value="{{ route('admin.sell.regular.pos.sell.final.invoice.calculation.summery') }}">
+        <!------- invoice final calculation summery------> 
 
         <!-------remove single item from added to sell cart list------> 
         <div class="modal fade" id="removeSingleItemFromSellAddedToCartModal"  aria-modal="true"></div>
