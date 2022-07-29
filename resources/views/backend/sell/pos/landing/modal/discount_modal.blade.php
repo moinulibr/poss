@@ -48,10 +48,13 @@
                         <div class="p-1 bg-light-dark d-flex justify-content-between border-bottom">
                             <div class="bg-light-dark" style="padding-top: 5px;">
                                 <h5 class="font-size-bold mb-0">Subtotal after less:
-                                    <strong class="invoice_subtotal_after_discount" style="padding-left: 4px;">0</strong>
+                                    
                                 </h5>
                             </div>
-                            <a href="javascript:void(0)" class="invoice_discount_apply btn-secondary btn ml-2 white pt-1 pb-1 d-flex align-items-center justify-content-center">Apply</a>
+                            <h5>
+                                <strong class="invoice_subtotal_after_discount" style="padding-left: 4px;">0</strong>
+                            </h5>
+                            {{-- <a href="javascript:void(0)" class="invoice_discount_apply btn-secondary btn ml-2 white pt-1 pb-1 d-flex align-items-center justify-content-center">Apply</a> --}}
                         </div>
                         Total Profit: <span class="totalInvoiceProfit"></span>
                     </div>

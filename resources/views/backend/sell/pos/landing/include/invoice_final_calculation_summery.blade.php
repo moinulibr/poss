@@ -33,14 +33,16 @@
             <th class="border-0" style="text-align: left !important;background-color:#f5f5f5;width:25%">
                 <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark" style="padding-left:4px;">
                     Shipping Cost
-                    <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#shippingcost" style="cursor: pointer">
+                    <span class="badge badge-secondary white rounded-circle ml-2 invoiceShippingCostApplyModal" data-toggle="modal" data-target="#shippingCostPopUpModal" style="cursor: pointer">
                         <i class="fa fa-plus"></i>
                     </span>
                 </div>
+                @include('backend.sell.pos.landing.modal.shipping_cost_modal')
             </th>
             <td class="border-0 " style="width:25%;text-align: left !important;">
                <strong class="invoiceFinalShippingCostAmount">0.0</strong>
             </td>
+
             <th class="border-0" style="width:25%;text-align: left !important;margin-left:0px;padding-left:0px">
                 <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark">
                     <span style="font-size: 11px;">Less Amount</span> 
@@ -49,7 +51,7 @@
                         <span class="invoiceDiscountType" style="margin-left: -3px;"></span>)
                     </span>
                     <span class="badge badge-secondary white rounded-circle ml-2 invoiceDiscountApplyModal" data-toggle="modal" data-target="#discountPopUpModal" style="cursor: pointer;">
-                        <i class="fa fa-plus"></i>
+                        <i class="fa fa-minus"></i>
                     </span>
                 </div>
                 @include('backend.sell.pos.landing.modal.discount_modal')
@@ -63,15 +65,11 @@
             <th class="border-0" style="background-color:#f5f5f5;width:25%;text-align:left !important">
                 <div class="d-flex align-items-center font-size-h5 mb-0 font-size-bold text-dark" style="padding-left:4px;">
                     Others Cost
-                    <span class="invoiceOtherCost">
-                        (<span class="invoiceOtherCostAmount">0</span>
-                        <span class="invoiceOtherCostType" style="margin-left: -3px;"></span>)
-                    </span>
                     <span class="badge badge-secondary white rounded-circle ml-2 invoiceOtherCostApplyModal" data-toggle="modal" data-target="#otherCostPopUpModal" style="cursor: pointer">
                         <i class="fa fa-plus"></i>
                     </span>
                 </div>
-                {{-- @include('backend.sell.pos.landing.modal.other_cost_modal') --}}
+                @include('backend.sell.pos.landing.modal.other_cost_modal')
             </th>
             <td  class="border-0"  style="text-align: left !important;width:25%;">
                 <strong  class="invoiceFinalTotalOtherCostAmount" style="padding-left: 31%;">0.0</strong>

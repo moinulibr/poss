@@ -95,6 +95,9 @@
         });
     });  
     jQuery(document).on('click','.removeSingleItemFromSellCartProductList',function(){
+        
+        var totalCartItem = nanCheck(parseFloat(jQuery('.totalItemFromSellCartList').text()));
+       
         var product_id = jQuery('.remove_product_id').val();
         var url = jQuery('.removeSingleItemFromSellAddedToCartListUrl').val();
         jQuery.ajax({
@@ -109,6 +112,11 @@
                     jQuery('.display_added_to_cart_list').html(response.list);
                     jQuery('#removeSingleItemFromSellAddedToCartModal').modal('hide');
                     jQuery.notify(response.message, response.type);
+
+                    if(totalCartItem == 1)
+                    {
+                        makingZeroInShippingCostOtherCostDiscountAndVat();
+                    }
                     finalCalculationForThisInvoice();
                 }
             },
@@ -151,6 +159,9 @@
                 jQuery('#removeAllItemFromSellAddedToCartModal').modal('hide');
                 jQuery('.display_added_to_cart_list').html(response.list);
                 jQuery.notify(response.message, response.type);
+
+                makingZeroInShippingCostOtherCostDiscountAndVat();
+
                 finalCalculationForThisInvoice();
             },
             complete:function(){
@@ -275,7 +286,7 @@
 
     //vat section start
     var ctrlDown = false,ctrlKey = 17,cmdKey = 91,vKey = 86,cKey = 67; xKey = 88;
-    jQuery(document).on('keyup blur change','.invoice_vat_amount',function(e){
+    jQuery(document).on('keyup blur','.invoice_vat_amount',function(e){
         e.preventDefault();
         var action = 0;
         if(jQuery(e.target).prop("name") == "invoice_vat_amount" && ((e.type)=='keyup'))
@@ -304,6 +315,74 @@
         jQuery('#vatPopUpModal').modal('hide');
     });
     //End vat section
+
+    //other cost section start
+    var ctrlDown = false,ctrlKey = 17,cmdKey = 91,vKey = 86,cKey = 67; xKey = 88;
+    jQuery(document).on('keyup blur','.invoice_other_cost_amount',function(e){
+        e.preventDefault();
+        var action = 0;
+        if(jQuery(e.target).prop("name") == "invoice_other_cost_amount" && ((e.type)=='keyup'))
+        {
+            action = 1;
+        } 
+        else if(jQuery(e.target).prop("name") == "invoice_other_cost_amount" && ((e.type)=='blur' || (e.type)=='focusout'))
+        {
+            action = 1;
+        } 
+        else{
+            action = 0;
+        }
+        if(action == 0) return;
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+        if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
+        makeingDiscountVatShippingCostOtherCost();
+        finalCalculationForThisInvoice();
+    });
+    jQuery(document).on('click','.invoiceOtherCostApplyModal',function(){
+        makeingDiscountVatShippingCostOtherCost();
+    });  
+    jQuery(document).on('click','.invoice_other_cost_apply',function(){
+        makeingDiscountVatShippingCostOtherCost();
+        finalCalculationForThisInvoice();
+        jQuery('#otherCostPopUpModal').modal('hide');
+    });
+    //End other cost section
+
+
+    //other cost section start
+    var ctrlDown = false,ctrlKey = 17,cmdKey = 91,vKey = 86,cKey = 67; xKey = 88;
+    jQuery(document).on('keyup blur','.invoice_shipping_cost',function(e){
+        e.preventDefault();
+        var action = 0;
+        if(jQuery(e.target).prop("name") == "invoice_shipping_cost" && ((e.type)=='keyup'))
+        {
+            action = 1;
+        } 
+        else if(jQuery(e.target).prop("name") == "invoice_shipping_cost" && ((e.type)=='blur' || (e.type)=='focusout'))
+        {
+            action = 1;
+        } 
+        else{
+            action = 0;
+        }
+        if(action == 0) return;
+        if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+        if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
+        makeingDiscountVatShippingCostOtherCost();
+        finalCalculationForThisInvoice();
+    });
+    jQuery(document).on('click','.invoiceShippingCostApplyModal',function(){
+        makeingDiscountVatShippingCostOtherCost();
+    });  
+    jQuery(document).on('click','.invoice_shipping_cost_apply',function(){
+        makeingDiscountVatShippingCostOtherCost();
+        finalCalculationForThisInvoice();
+        jQuery('#otherCostPopUpModal').modal('hide');
+    });
+    //End other cost section
+
+
+
 
     function makeingDiscountVatShippingCostOtherCost()
     {
@@ -361,7 +440,6 @@
 
 
         //-------------- Vat making-----------------//
-        jQuery('.subtotalAfterDiscountBasedOnSellCartList').text(0);
         jQuery('.subtotalAfterDiscountBasedOnSellCartList').text(invoiceSubtotalAfterDiscount);
         var invoiceVatAmount   = jQuery('.invoice_vat_amount').val();
         var totalVatAmountCalculation =  ((invoiceVatAmount * invoiceSubtotalAfterDiscount) / 100);
@@ -377,8 +455,42 @@
         jQuery('.invoiceVatType').text(setInvoiceVatType);
         jQuery('.invoiceFinalTotalVatAmount').text(totalVatAmountCalculation);
         //--------------End Vat making-----------------//
+
+
+        //-------------- shipping cost making-----------------//
+        var totalShippingCost = nanCheck(parseFloat(jQuery('.invoice_shipping_cost').val()));
+        //.............shipping cost set...........//
+        jQuery('.invoiceFinalShippingCostAmount').text(totalShippingCost);
+        //--------------End shipping cost making-----------------//
+
+        
+
+        //-------------- other cost making-----------------//
+        var totalInvoiceAmountAfterDiscountAndVat = totalInvoiceSubtotalAfterVat;
+        var totalInvoiceAmountAfterDiscountVatAndShippingCost = totalInvoiceAmountAfterDiscountAndVat + totalShippingCost;
+        jQuery('.subtotalBasedOnSellCartDiscountVatAndShippingCost').text(totalInvoiceAmountAfterDiscountVatAndShippingCost);
+        var invoiceOtherCostAmount   = nanCheck(parseFloat(jQuery('.invoice_other_cost_amount').val()));
+        
+        var totalInvoiceAmountAfterDiscountVatAndShippingCostAndOtherCost =   nanCheck(parseFloat(totalInvoiceAmountAfterDiscountVatAndShippingCost + invoiceOtherCostAmount));
+        
+        jQuery('.invoice_total_other_cost_amount').css({'color':'black','background-color':'white','padding':'0px 30%'});
+        jQuery('.invoice_total_other_cost_amount').text(invoiceOtherCostAmount);
+
+        jQuery('.invoice_subtotal_after_other_cost').text(totalInvoiceAmountAfterDiscountVatAndShippingCostAndOtherCost);
+
+        //.............other cost set...........//
+        jQuery('.invoiceFinalTotalOtherCostAmount').text(invoiceOtherCostAmount);
+        //--------------End other cost making-----------------//
     }
 
+    function makingZeroInShippingCostOtherCostDiscountAndVat()
+    {
+        nanCheck(parseFloat(jQuery('.invoice_shipping_cost').val(0)));
+        nanCheck(parseFloat(jQuery('.invoice_other_cost_amount').val(0)));
+
+        nanCheck(parseFloat(jQuery('.invoice_discount_amount').val(0)));                
+        nanCheck(parseFloat(jQuery('.invoice_vat_amount').val(0)));                
+    }
 
 
     /* jQuery(document).on('click','.dinvoice_discount_apply',function(){
