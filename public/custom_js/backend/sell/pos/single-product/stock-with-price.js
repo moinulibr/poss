@@ -335,8 +335,6 @@
 
         //enable disabled add to cart button
         enabledDisabledAddToCartButton();
-
-
     }
 
 

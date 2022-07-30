@@ -312,8 +312,8 @@ Route::group(['middleware' => ['auth']], function ()
         //display addted to product list
         Route::get('display/sell/create/added/to/cart/product/list','PosController@displaySellCreateAddedToCartProductList')->name('display.sell.created.added.to.cart.product.list');
         
-        //display addted to product list
-        Route::get('display/sell/final/invoice/calculation/summery','PosController@invoiceFinalSellCalculation')->name('sell.final.invoice.calculation.summery');
+        //sell final invoice calculation summery [save in session]
+        Route::get('/sell/final/invoice/calculation/summery','PosController@invoiceFinalSellCalculationSummery')->name('sell.final.invoice.calculation.summery');
 
         //remove single item from sell added to cart list
         Route::get('remove/confirm-req/for/single/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForSingleItemFromSellAddedToCartList')->name('remove.confirmation.required.single.item.from.sell.added.to.cart.list');
@@ -324,12 +324,16 @@ Route::group(['middleware' => ['auth']], function ()
         Route::get('remove/all/item/from/sell/added/to/cart/list','PosController@removeAllItemFromSellAddedToCartList')->name('remove.all.item.from.sell.added.to.cart.list');
         //change quantity [plus or minus]
         Route::get('change/quantity/from/added/to/cart/list','PosController@changeQuantity')->name('change.quantity.from.sell.added.to.cart.list');
+        
+        
+        //print sell invoice :- pos print
+        Route::get('pos/print/from/direct/sell/cart','PosController@posPriceFromDirectSellCart')->name('pos.print.from.direct.sell.cart');
+        Route::get('normal/print/from/direct/sell/cart','PosController@normalPriceFromDirectSellCart')->name('normal.print.from.direct.sell.cart');
+       
 
         Route::get('show','PosController@show')->name('show');
-        
         Route::get('edit','PosController@edit')->name('edit');
         Route::post('update','PosController@update')->name('update');
-    
         Route::get('delete','PosController@delete')->name('delete');
         
     });

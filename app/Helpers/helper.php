@@ -131,7 +131,7 @@ use App\Models\Backend\ProductAttribute\Unit;
     //vat
     function vatApplicableOrNotWhenSellCreate_hh()
     {
-        return 1;
+        return 0;
         // 0 = no
         // 1 = yes
     }
@@ -146,7 +146,7 @@ use App\Models\Backend\ProductAttribute\Unit;
     }
     function vatCustomizationApplicableOrNotWhenSellCreate_hh()
     {
-        return 1;
+        return 0;
         // 0 = no
         // 1 = yes
     }

@@ -342,10 +342,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 Payment
                                             </a>
 
-                                            <a href="#" class="btn btn-info btnFullWidth white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
+                                            <a href="#" class="pos_print_direct_from_sell_cart btn btn-info btnFullWidth white" style="margin-top: 1%;" data-href="{{ route('admin.sell.regular.pos.normal.print.from.direct.sell.cart') }}">
                                                 Print
                                             </a>
-                                            <a href="#" class="btn btn-primary btnFullWidth white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
+                                            <a href="#" class="normal_print_direct_from_sell_cart btn btn-primary btnFullWidth white" data-href="{{ route('admin.sell.regular.pos.pos.print.from.direct.sell.cart') }}" style="margin-top: 1%;">
                                                 POS Print
                                             </a>
                                         </div>
@@ -465,7 +465,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-------display added to product list------> 
         
         <!------- invoice final calculation summery------> 
-        <input type="hidden" class="invoiceFinalSellCalculationCartProductListUrl" value="{{ route('admin.sell.regular.pos.sell.final.invoice.calculation.summery') }}">
+        <input type="hidden" class="invoiceFinalSellCalculationSummeryUrl" value="{{ route('admin.sell.regular.pos.sell.final.invoice.calculation.summery') }}">
         <!------- invoice final calculation summery------> 
 
         <!-------remove single item from added to sell cart list------> 

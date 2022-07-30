@@ -8,7 +8,7 @@
                     </strong> 
                 </div>
             </th>
-            <td class="border-0 " style="width:25%;padding-left: 2%;">
+            <td class="border-0 " style="width:25%;">
                 <strong style="color:#8428e7">
                     <span class="totalItemFromSellCartList">0</span>
                 </strong>
@@ -72,7 +72,7 @@
                 @include('backend.sell.pos.landing.modal.other_cost_modal')
             </th>
             <td  class="border-0"  style="text-align: left !important;width:25%;">
-                <strong  class="invoiceFinalTotalOtherCostAmount" style="padding-left: 31%;">0.0</strong>
+                <strong  class="invoiceFinalTotalOtherCostAmount" style="padding-left: 25%;">0.0</strong>
             </td>
             
             <th class="border-0"  style="text-align: left !important;width:30%;">

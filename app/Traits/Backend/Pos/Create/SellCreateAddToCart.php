@@ -42,13 +42,57 @@ trait SellCreateAddToCart
     protected $selling_unit_name;
     protected $price_cat_id;
 
-  
+    //sell cart invoice summery [session:SellCartInvoiceSummery]
+    protected function sellCartInvoiceSummery()
+    {
+        //return $this->requestAllCartData;
+        //$this->cartName     = "SellCartInvoiceSummery";
+        $cartName           = [];
+        $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
 
+        $subtotalFromSellCartList   = $this->requestAllCartData['subtotalFromSellCartList'];
+        $totalItem   = $this->requestAllCartData['totalItem'];
+        $invoiceDiscountAmount   = $this->requestAllCartData['invoiceDiscountAmount'];
+        $invoiceDiscountType   = $this->requestAllCartData['invoiceDiscountType'];
+        $totalInvoiceDiscountAmount   = $this->requestAllCartData['totalInvoiceDiscountAmount'];
+        $invoiceVatAmount   = $this->requestAllCartData['invoiceVatAmount'];
+        $totalVatAmountCalculation   = $this->requestAllCartData['totalVatAmountCalculation'];
+        $totalShippingCost   = $this->requestAllCartData['totalShippingCost'];
+        $invoiceOtherCostAmount   = $this->requestAllCartData['invoiceOtherCostAmount'];
+        $totalInvoicePayableAmount   = $this->requestAllCartData['totalInvoicePayableAmount'];
 
+        $cartName = [
+            'subtotalFromSellCartList'=> $subtotalFromSellCartList,
+            'totalItem'=> $totalItem,
+            'invoiceDiscountAmount'=> $invoiceDiscountAmount,
+            'invoiceDiscountType'=> $invoiceDiscountType,
+            'totalInvoiceDiscountAmount'=> $totalInvoiceDiscountAmount,
+            'invoiceVatAmount'=> $invoiceVatAmount,
+            'totalVatAmountCalculation'=> $totalVatAmountCalculation,
+            'totalShippingCost'=> $totalShippingCost,
+            'invoiceOtherCostAmount'=> $invoiceOtherCostAmount,
+            'totalInvoicePayableAmount'=> $totalInvoicePayableAmount,
+        ];
+        session([$this->cartName => $cartName]);
+        return $this->cartName;
+        /* $subtotalFromSellCartList = $request->subtotalFromSellCartList;
+        $totalItem = $request->totalItem;
+        $invoiceDiscountAmount = $request->invoiceDiscountAmount;
+        $invoiceDiscountType = $request->invoiceDiscountType;
+        $totalInvoiceDiscountAmount = $request->totalInvoiceDiscountAmount;
+        $invoiceVatAmount = $request->invoiceVatAmount;
+        $totalVatAmountCalculation = $request->totalVatAmountCalculation;
+        $totalShippingCost = $request->totalShippingCost;
+        $invoiceOtherCostAmount = $request->invoiceOtherCostAmount;
+        $totalInvoicePayableAmount = $request->totalInvoicePayableAmount;
+        return $request; */
+    }
+
+    //adding to sell cart [session:SellCreateAddToCart]
     protected function addingToCartWhenSellCreate()
     {
         //return $this->requestAllCartData;
-        $this->cartName     = "SellCreateAddToCart";
+        //$this->cartName     = "SellCreateAddToCart";
         $cartName           = [];
         $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
 

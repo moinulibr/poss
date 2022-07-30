@@ -179,6 +179,7 @@ class PosController extends Controller
      */
     public function store(Request $request)
     {
+        $this->cartName     = "SellCreateAddToCart";
         $this->requestAllCartData = $request;
         $this->addingToCartWhenSellCreate();
         $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
@@ -200,14 +201,19 @@ class PosController extends Controller
         ]);
     }
 
-    //display final invoice sell calculation
-    public function invoiceFinalSellCalculation(Request $request)
+    //sell final invoice calculation summery [save in session]
+    public function invoiceFinalSellCalculationSummery(Request $request)
     {
-        $list = view('backend.sell.pos.ajax-response.landing.invoice-final-calculation.invoice_final_calculation_summery')->render();
+        $this->cartName     = "SellCartInvoiceSummery";
+        $this->requestAllCartData = $request;
+        $this->sellCartInvoiceSummery();
+        $cartName           = [];
+        $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
+        return $cartName;
         return response()->json([
             'status'    => true,
-            'list'     => $list,
         ]);
+        $cartName['totalInvoicePayableAmount'];
     }
 
 
@@ -272,6 +278,20 @@ class PosController extends Controller
             'type'      => 'success'
         ]);
     }
+
+
+    public function posPriceFromDirectSellCart()
+    {
+        return "pos print";
+    }
+    public function normalPriceFromDirectSellCart()
+    {
+        return "normal print";
+    }
+
+
+
+
 
     /**
      * Display the specified resource.
