@@ -345,7 +345,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <a href="#" class="pos_print_direct_from_sell_cart btn btn-info btnFullWidth white" style="margin-top: 1%;" data-href="{{ route('admin.sell.regular.pos.normal.print.from.direct.sell.cart') }}">
                                                 Print
                                             </a>
-                                            <a href="#" class="normal_print_direct_from_sell_cart btn btn-primary btnFullWidth white" data-href="{{ route('admin.sell.regular.pos.pos.print.from.direct.sell.cart') }}" style="margin-top: 1%;">
+                                            <a href="{{ route('admin.sell.regular.pos.pos.print.from.direct.sell.cart') }}" class="print normal_print_direct_from_sell_cart btn btn-primary btnFullWidth white" data-href="#" style="margin-top: 1%;" target="_blank">
                                                 POS Print
                                             </a>
                                         </div>

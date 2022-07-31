@@ -30,7 +30,7 @@
             <tbody>
                 @php
                     $cartName = [];
-                    $cartName     = session()->has('SellCreateAddToCart') ? session()->get('SellCreateAddToCart')  : [];
+                    $cartName     = session()->has(sellCreateCartSessionName_hh()) ? session()->get(sellCreateCartSessionName_hh())  : [];
                     $totalProduct = 1;
                 @endphp
                 @foreach ($cartName as $item)

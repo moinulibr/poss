@@ -33,6 +33,15 @@ use App\Models\Backend\ProductAttribute\Unit;
         return 5;
     }
 
+    function sellCreateCartSessionName_hh()
+    {
+        return "SellCreateAddToCart"; 
+    }
+    function sellCreateCartInvoiceSummerySessionName_hh()
+    {
+        return "SellCartInvoiceSummery";
+    }
+
     //get only single price, by product id,product stock id, stock id, price id
     function getProductPriceByProductStockIdProductIdStockIdPriceId_hh($productId,$productStockId,$stockId,$priceId)
     {

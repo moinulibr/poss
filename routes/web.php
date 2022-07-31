@@ -325,12 +325,6 @@ Route::group(['middleware' => ['auth']], function ()
         //change quantity [plus or minus]
         Route::get('change/quantity/from/added/to/cart/list','PosController@changeQuantity')->name('change.quantity.from.sell.added.to.cart.list');
         
-        
-        //print sell invoice :- pos print
-        Route::get('pos/print/from/direct/sell/cart','PosController@posPriceFromDirectSellCart')->name('pos.print.from.direct.sell.cart');
-        Route::get('normal/print/from/direct/sell/cart','PosController@normalPriceFromDirectSellCart')->name('normal.print.from.direct.sell.cart');
-       
-
         Route::get('show','PosController@show')->name('show');
         Route::get('edit','PosController@edit')->name('edit');
         Route::post('update','PosController@update')->name('update');
@@ -338,6 +332,12 @@ Route::group(['middleware' => ['auth']], function ()
         
     });
 
+    Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Prints'],function(){
+        //print sell invoice :- pos print
+        Route::get('pos/print/from/direct/sell/cart','InvoicePrintController@posPriceFromDirectSellCart')->name('pos.print.from.direct.sell.cart');
+        Route::get('normal/print/from/direct/sell/cart','InvoicePrintController@normalPriceFromDirectSellCart')->name('normal.print.from.direct.sell.cart');
+       
+    });
 
    
 

@@ -194,7 +194,7 @@ trait SellCreateAddToCart
     /*Remove Single item From  Cart Working Properly*/
     public function removeSingleItemFromSellCreateAddedToCartList()
     {
-        $this->cartName     = "SellCreateAddToCart";
+        $this->cartName     = sellCreateCartSessionName_hh();//"SellCreateAddToCart";
         $this->product_id   = $this->requestAllCartData['product_id'];
         $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
         unset($cartName[$this->product_id]);
@@ -205,7 +205,7 @@ trait SellCreateAddToCart
     /*Remove All item From Cart Working Properly*/
     public function removeAllItemFromSellCreateAddedToCartList()
     {
-        $this->cartName = "SellCreateAddToCart";
+        $this->cartName = sellCreateCartSessionName_hh();//"SellCreateAddToCart";
         session([$this->cartName => []]);
         return true;
     }
@@ -213,7 +213,7 @@ trait SellCreateAddToCart
     /*When changing quantity*/
     public function whenChangingQuantityFromCartList()
     {   
-        $this->cartName         = "SellCreateAddToCart";
+        $this->cartName         = sellCreateCartSessionName_hh();//"SellCreateAddToCart";
         $cartName               = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
         
         $this->product_id       = $this->requestAllCartData['product_id'];
@@ -280,6 +280,11 @@ trait SellCreateAddToCart
 
 
 
+
+
+    
+    
+    //====================================================================
 
     
     public function cartInsertUpdateWhenReturnOrEditSale()
