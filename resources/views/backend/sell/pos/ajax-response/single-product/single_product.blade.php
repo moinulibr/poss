@@ -33,6 +33,7 @@
                                     {{$product->name}}   
                                     <input type="hidden" id="main_product_id" class="product_id" name="product_id" value="{{$product->id}}">
                                     <input type="hidden" name="product_name" value="{{$product->name}}">
+                                    <input type="hidden" name="custom_code" value="{{$product->custom_code}}">
                                     <input type="hidden" name="warehouse_id" value="{{$product->warehouse_id}}">
                                     <input type="hidden" name="warehouse_rack_id" value="{{$product->warehouse_rack_id}}">
                                 </h4>    

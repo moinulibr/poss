@@ -12,6 +12,7 @@ trait SellCreateAddToCart
     protected $cartName;
     protected $product_id;
     protected $product_name;
+    protected $custom_code;
 
     protected $changeType;
     protected $discountType;
@@ -98,6 +99,7 @@ trait SellCreateAddToCart
 
         $this->product_id   = $this->requestAllCartData['product_id'];
         $this->product_name = $this->requestAllCartData['product_name'];
+        $this->custom_code  = $this->requestAllCartData['custom_code'];
 
         $otherProductStockQuantity                      = 0;
         $this->otherProductStockQuantityPurchasePrice   = 0;
@@ -131,6 +133,7 @@ trait SellCreateAddToCart
 
         $cartName[$this->product_id] = [
             'product_id'                                => $this->product_id,
+            'custom_code'                                   => $this->custom_code,
             'product_name'                              => $this->product_name,
             'warehouse_id'                              => $this->requestAllCartData['warehouse_id'],
             'warehouse_rack_id'                         => $this->requestAllCartData['warehouse_rack_id'],

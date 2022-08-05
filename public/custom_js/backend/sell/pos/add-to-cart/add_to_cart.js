@@ -461,7 +461,7 @@
 
 
         //-------------- shipping cost making-----------------//
-        var totalShippingCost = (nanCheck(parseFloat(jQuery('.invoice_shipping_cost').val())).toFixed(2));
+        var totalShippingCost = (nanCheck(parseFloat(jQuery('.invoice_shipping_cost').val())));
         //.............shipping cost set...........//
         jQuery('.invoiceFinalShippingCostAmount').text(totalShippingCost);
         //--------------End shipping cost making-----------------//
@@ -470,12 +470,12 @@
 
         //-------------- other cost making-----------------//
         var totalInvoiceAmountAfterDiscountAndVat = totalInvoiceSubtotalAfterVat;
-        var totalInvoiceAmountAfterDiscountVatAndShippingCost = (nanCheck(parseFloat(totalInvoiceAmountAfterDiscountAndVat + totalShippingCost)).toFixed(2));
+        var totalInvoiceAmountAfterDiscountVatAndShippingCost = (((parseFloat(totalInvoiceAmountAfterDiscountAndVat) + (totalShippingCost))).toFixed(2));
         jQuery('.subtotalBasedOnSellCartDiscountVatAndShippingCost').text(totalInvoiceAmountAfterDiscountVatAndShippingCost);
-        var invoiceOtherCostAmount   = (nanCheck(parseFloat(jQuery('.invoice_other_cost_amount').val())).toFixed(2));
+        var invoiceOtherCostAmount   = (nanCheck(parseFloat(jQuery('.invoice_other_cost_amount').val())));
         
-        var totalInvoiceAmountAfterDiscountVatAndShippingCostAndOtherCost =   (nanCheck(parseFloat(totalInvoiceAmountAfterDiscountVatAndShippingCost + invoiceOtherCostAmount)).toFixed(2));
-        
+        var totalInvoiceAmountAfterDiscountVatAndShippingCostAndOtherCost =  (parseFloat( (parseFloat(totalInvoiceAmountAfterDiscountAndVat) + (totalShippingCost)) + (invoiceOtherCostAmount) ).toFixed(2));
+       
         jQuery('.invoice_total_other_cost_amount').css({'color':'black','background-color':'white','padding':'0px 30%'});
         jQuery('.invoice_total_other_cost_amount').text(invoiceOtherCostAmount);
 

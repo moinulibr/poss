@@ -203,23 +203,23 @@
             @endphp
               @foreach ($cartName as $item)
             <tr class="service">
-                <td class="tableitem item-name" style="padding-bottom:5px;padding-top:5px;border-bottom: 0.10px dotted #c3c3c3;padding-bottom:2px;font-size: 10px !important;">
+                <td class="tableitem item-name" style="padding-bottom:1px;padding-top:3px;border-bottom: 0.10px dotted #c3c3c3;padding-bottom:2px;font-size: 10px !important;">
                     <span style="">
                     {{$item['product_name']}}
                         </span>
                 </td>
-                <td class="tableitem item-price" style="padding-bottom:5px;padding-top:5px;border-bottom: 0.10px dotted #c3c3c3;padding-bottom:2px;font-size: 10px !important;">
+                <td class="tableitem item-price" style="padding-bottom:1px;padding-top:3px;border-bottom: 0.10px dotted #c3c3c3;padding-bottom:2px;font-size: 10px !important;">
                     <span style="">
                         {{$item['final_sell_price']}}
                         {{-- {{ displayMrpOrRegularSellPriceInTheCustomerInvoice_hh() == 1 ? $item['mrp_price'] : $item['sell_price'] }} --}}
                     </span>
                 </td>
-                <td class="tableitem item-qty" style="padding-bottom:5px;padding-top:5px;border-bottom: 0.10px dotted #c3c3c3;padding-bottom:2px;font-size: 10px !important;">
+                <td class="tableitem item-qty" style="padding-bottom:1px;padding-top:3px;border-bottom: 0.10px dotted #c3c3c3;padding-bottom:2px;font-size: 10px !important;">
                     <span style="">
                     {{$item['final_sell_quantity']}}
                     </span>
                 </td>
-                <td class="tableitem item-total" style="padding-bottom:5px;padding-top:5px;border-bottom: 0.10px dotted #c3c3c3;text-align:right;padding-bottom:2px;font-size: 10px !important;">
+                <td class="tableitem item-total" style="padding-bottom:1px;padding-top:3px;border-bottom: 0.10px dotted #c3c3c3;text-align:right;padding-bottom:2px;font-size: 10px !important;">
                     <span style="">
                         {{$item['selling_final_amount'] ?? 00.00 }}
                         @if ($item['total_discount_amount'])
