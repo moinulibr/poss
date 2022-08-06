@@ -69,7 +69,7 @@
                                         <small>#</small>
                                     </td>
                                     <td  style="width:45% ;padding: 0.85rem;">
-                                        <small>Over stock changing date</small>
+                                        <small>Over stock Process</small>
                                     </td>
                                 </tr>
                             </thead>
@@ -94,14 +94,39 @@
                                     </td>
                                     <td style="width:15%;padding: 0.25rem;">{{$sellingPrice}}</td>
                                     <td style="width:15%;padding: 0.25rem;">
-                                        <input type="text" name="" data-id="{{ $productStock->id }}" class="pressingCurrentSellingQuantity pressingCurrentSellingQuantity_{{ $productStock->id }} form-control inputFieldValidatedOnlyNumeric" value="@if($primarySellingStock == $productStock->id) {{ $sellingQuantity > $productStock->available_base_stock ? $productStock->available_base_stock :$sellingQuantity }} @endif" >
+                                        <input type="text" name="" data-id="{{ $productStock->id }}" class="pressingCurrentSellingQuantity pressingCurrentSellingQuantity_{{ $productStock->id }} form-control inputFieldValidatedOnlyNumeric" value="@if($primarySellingStock == $productStock->id) {{ $sellingQuantity > $productStock->available_base_stock ? $productStock->available_base_stock : $sellingQuantity }}@endif" >
                                         <span class="overStockErrorMessage overStockErrorMessage_{{ $productStock->id }}" style="color:red;"></span>
                                     </td>
                                     <td style="width:10%;padding: 0.25rem;">
-                                        <input type="checkbox" name="" data-purchase-price="{{getProductPriceByProductStockIdProductIdStockIdPriceId_hh($product->id,$productStock->id,$productStock->stock_id,purchasePriceId_hh())}}" data-id="{{ $productStock->id }}" class="checkedCurrentSellingQuantity checkedCurrentSellingQuantity_{{ $productStock->id }} form-control" @if($primarySellingStock == $productStock->id) checked @endif style="font-size: 8px;">    
+                                        <input type="checkbox" name="" data-purchase-price="{{ getProductPriceByProductStockIdProductIdStockIdPriceId_hh($product->id,$productStock->id,$productStock->stock_id,purchasePriceId_hh()) }}" data-id="{{ $productStock->id }}" class="checkedCurrentSellingQuantity checkedCurrentSellingQuantity_{{ $productStock->id }} form-control" @if($primarySellingStock == $productStock->id) checked @endif style="font-size: 8px;">    
                                     </td>
                                     <td>
-                                        
+                                        <span class="regularStockProcessDuration regularStockProcessDuration_{{ $productStock->id }}" style="@if($primarySellingStock == $productStock->id) color:white; @else color:black; @endif">Regular Process</span>
+                                        <div class="row overStockProcessingDiv overStockProcessingDiv_{{ $productStock->id }}"  style="@if($primarySellingStock == $productStock->id) color:white; @else color:red; @endif display: none">
+                                            <div class="col-3 col-md-3" style="padding: 0px;padding-top:3px;">
+                                                Process
+                                            </div>
+                                            <div class="col-9 col-md-9" style="padding: 0px;padding-right:10px;">
+                                                <select name="" class="form-control overStockProcessDuration overStockProcessDuration_{{ $productStock->id }}">
+                                                    <option value="1">Tomorrow</option>
+                                                    <option value="2">Day after tomorrow</option>
+                                                    <option value="0">Today</option>
+                                                    <option value="3">After 3 days</option>
+                                                    <option value="4">After 4 days</option>
+                                                    <option value="5">After 5 days</option>
+                                                    <option value="6">After 6 days</option>
+                                                    <option value="7">After 7 days</option>
+                                                    <option value="8">After 8 days</option>
+                                                    <option value="9">After 9 days</option>
+                                                    <option value="10">After 10 days</option>
+                                                </select>
+                                                {{-- <input type="text" class="form-control inputFieldValidatedOnlyNumeric" value="1" style="color:red;"> --}}
+                                            </div>
+                                            {{-- <div class="col-3 col-md-3" style="padding: 0px">
+                                                Days
+                                            </div> --}}
+
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

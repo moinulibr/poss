@@ -364,7 +364,7 @@
         if(
             (finalSellingPrice === 'undefined' || finalSellingPrice === null || finalSellingPrice.length === 0)
         )
-        {   
+        {      
             makingFinalPrice = selectedSellingPrice;
         }else{
             if(selectingSellingPriceAction == 1)
@@ -843,6 +843,12 @@
             jQuery('#sellingPriceErrorMessageLayerWhenQuantity').css({'visibility':'hidden'});
         }
 
+        /*
+        |------------------------------------------------------------------------------------------
+        | 
+        |------------------------------------------------------------------------------------------ 
+        */
+        //quantity selected from others stock
         jQuery('#showProductDetailModal').css('overflow-y', 'auto');
         function quantitySelectedFromOthersStock(sellingQuantity,sellingPrice,primarySellingStock)
         {
@@ -858,6 +864,7 @@
                     if(response.status == true)
                     {
                         jQuery('#showQuantityWiseProductStockModal').html(response.stock).modal('show');
+                        pressingCurrentSellingQuantityForMoreQuantity(primarySellingStock);
                         setTotalCurrentSellingQuantity();
                     }
                 },
@@ -867,66 +874,114 @@
             });
         }
 
-
+        //pressing current selling quantity
         jQuery(document).on('keyup','.pressingCurrentSellingQuantity',function(){
-            var qty                             = nanCheck(parseFloat(jQuery(this).val()));
-            var id                              = jQuery(this).data('id');
+            pressingCurrentSellingQuantityForMoreQuantity(jQuery(this).data('id'));
+        });
+        
+        //Pressing Current selling quantity for more quantity
+        function pressingCurrentSellingQuantityForMoreQuantity(sellingStockId)
+        {
             var primarySellingProductStockId    = jQuery('.primarySellingProductStockId').val();
-            var currentStockQty                 = nanCheck(parseFloat(jQuery('.totalQuantityOfThisStockValue_'+id).val()));
-            if(qty > 0)
-            {
-                if(currentStockQty < qty)
-                {
-                    jQuery('.overStockErrorMessage_'+id).text("Over Stock");
-                }else{
-                    jQuery('.overStockErrorMessage_'+id).text("");
-                }
-                jQuery('.checkedCurrentSellingQuantity_'+id).prop('checked',true);
-            }else{
-                jQuery('.overStockErrorMessage_'+id).text("");
-                jQuery('.checkedCurrentSellingQuantity_'+id).prop('checked',false);
-            }
+            var primarySellingProductStockQty   = nanCheck(parseFloat(jQuery('.pressingCurrentSellingQuantity_'+primarySellingProductStockId).val()));
+            var pressing_qty                    = nanCheck(parseFloat(jQuery('.pressingCurrentSellingQuantity_'+sellingStockId).val()));
+            var currentStockQty                 = nanCheck(parseFloat(jQuery('.totalQuantityOfThisStockValue_'+sellingStockId).val()));
+            
+            var totalQty = totalSellingQuantityFromQuantityWiseMoreStock();
 
-            if(qty == 0 && id == primarySellingProductStockId)
+            if(primarySellingProductStockQty == 0)
+            {
+                disabledAddAllQuantityToTheMainQuanityt();
+            } 
+            else if(totalQty == 0)
             {
                 disabledAddAllQuantityToTheMainQuanityt();
             }
-            else if(qty > 0)
+            else
             {
                 enableAddAllQuantityToTheMainQuanityt();
             }
-            else{
-                enableAddAllQuantityToTheMainQuanityt();
+
+            if(pressing_qty > 0) 
+            {
+                if(currentStockQty < pressing_qty)
+                {
+                    jQuery('.overStockErrorMessage_'+sellingStockId).text("Over Stock");
+                    overStockProcessingDuration(sellingStockId);
+                }else{
+                    jQuery('.overStockErrorMessage_'+sellingStockId).text("");
+                    regularStockProcessingDuration(sellingStockId);
+                }
+                jQuery('.checkedCurrentSellingQuantity_'+sellingStockId).prop('checked',true);
             }
+
             setTotalCurrentSellingQuantity();
             finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
-        });
-    
+        }
+
         jQuery(document).on('change','.checkedCurrentSellingQuantity',function(){
-            var primarySellingProductStockId    = jQuery('.primarySellingProductStockId').val();
-            var id                              = jQuery(this).data('id');
+            var id   = jQuery(this).data('id');
             if(jQuery(this).is(':checked')) {
                 //jQuery('.pressingCurrentSellingQuantity_'+id).val();
             }else{
                 jQuery('.overStockErrorMessage_'+id).text("");
                 jQuery('.pressingCurrentSellingQuantity_'+id).val(0);
-                
-                if(id == primarySellingProductStockId)
-                {
-                    disabledAddAllQuantityToTheMainQuanityt();
-                }else{
-                    enableAddAllQuantityToTheMainQuanityt();
-                }
+
+                regularStockProcessingDuration(id);
+                //overStockProcessingDuration(id);
+            }
+
+            var primarySellingProductStockId    = jQuery('.primarySellingProductStockId').val();
+            var primarySellingProductStockQty   = nanCheck(parseFloat(jQuery('.pressingCurrentSellingQuantity_'+primarySellingProductStockId).val()));
+            var totalQty = totalSellingQuantityFromQuantityWiseMoreStock();
+
+            if((primarySellingProductStockQty > 0) && (totalQty > 0))
+            {
+                enableAddAllQuantityToTheMainQuanityt();
+            } 
+            else if(totalQty < 1)
+            {
+                disabledAddAllQuantityToTheMainQuanityt();
+            }
+            else if(primarySellingProductStockQty < 1)
+            {
+                disabledAddAllQuantityToTheMainQuanityt();
+            }
+            else
+            {
+                disabledAddAllQuantityToTheMainQuanityt();
             }
             setTotalCurrentSellingQuantity();
         });
 
+        //over stock processing duration
+        function overStockProcessingDuration(sellingStockId)
+        {
+            jQuery('.regularStockProcessDuration_'+sellingStockId).hide();
+            jQuery('.overStockProcessingDiv_'+sellingStockId).show();  
+        }
+        //regular stock processing duration
+        function regularStockProcessingDuration(sellingStockId)
+        {
+            jQuery('.regularStockProcessDuration_'+sellingStockId).show();
+            jQuery('.overStockProcessingDiv_'+sellingStockId).hide();  
+        }
+        //desabled regular stock processing duration: all fields
+        function desibledRegularStockProcessingDuration()
+        {
+            jQuery('.regularStockProcessDuration').show();
+            jQuery('.overStockProcessingDiv').hide();  
+        }
+
+        //set total current selling quantity
         function setTotalCurrentSellingQuantity()
         {
             var qty = totalSellingQuantityFromQuantityWiseMoreStock();
             jQuery('.now_current_selling_quantity').text(qty);
             jQuery('.final_sell_quantity').val(qty);
         }
+
+        //total selling quantity from quantity wise more stock
         function totalSellingQuantityFromQuantityWiseMoreStock()
         {
             var total = 0;
@@ -941,8 +996,17 @@
             jQuery('.addThisQuantityToMainQuantity').addClass('btn-danger');
         } 
         function enableAddAllQuantityToTheMainQuanityt(){
-            jQuery('.addThisQuantityToMainQuantity').addClass('addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-dark');
+            var totalQty = totalSellingQuantityFromQuantityWiseMoreStock();
+            if(totalQty > 0)
+            {
+                jQuery('.addThisQuantityToMainQuantity').addClass('addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-dark');
+            }else{
+                jQuery('.addThisQuantityToMainQuantity').removeClass('addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-dark');
+                jQuery('.addThisQuantityToMainQuantity').addClass('btn-danger');
+            }
         }
+
+
         /*
         |-----------------------------------------------------------------------
         | Set 
@@ -954,22 +1018,27 @@
             stockIdAndQuantity['stock_id']      = [];
             stockIdAndQuantity['qty']           = [];
             stockIdAndQuantity['purchasePrice'] = [];
+            stockIdAndQuantity['overStockQtyProcessDuration'] = [];
             jQuery('input.checkedCurrentSellingQuantity[type=checkbox]').each(function () {
                 if(this.checked){
                     var id              = jQuery(this).data('id');
                     var purchaseamount  = jQuery(this).data('purchase-price');
                     var quantity        = nanCheck(parseFloat(jQuery('.pressingCurrentSellingQuantity_'+id).val()));
+                    //var overStockQty    = nanCheck(parseFloat(jQuery('.overStockProcessDuration'+id).val()));
+                    var overStockQty    = jQuery('.overStockProcessDuration_'+id+' option:selected').val();
                     if(jQuery(this).data('id') && quantity > 0)
                     {
                         stockIdAndQuantity['stock_id'].push('<input type="hidden" name="product_stock_id[]" value="'+id+'">');
                         stockIdAndQuantity['qty'].push('<input type="hidden" name="product_stock_quantity_'+id+'" value="'+quantity+'">');
                         stockIdAndQuantity['purchasePrice'].push('<input type="hidden" name="product_stock_quantity_purchase_price_'+id+'" value="'+purchaseamount+'">');
+                        stockIdAndQuantity['overStockQtyProcessDuration'].push('<input type="hidden" name="over_stock_quantity_process_duration_'+id+'" value="'+overStockQty+'">');
                     }
                 }
             });
             jQuery('.responseOfMoreQtySellingStockId').html(stockIdAndQuantity['stock_id']);
             jQuery('.responseOfMoreStockSellingQuantity').html(stockIdAndQuantity['qty']);
             jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html(stockIdAndQuantity['purchasePrice']);
+            jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html(stockIdAndQuantity['overStockQtyProcessDuration']);
             jQuery('.moreQuantityFromOthersStock').val(1);
             setTotalCurrentSellingQuantity();
             finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
@@ -981,11 +1050,20 @@
             cancelAddMoreQuantityFromOthersStock();
         })
 
-
+        //cancel all option when cancel/remove quantity
         function cancelAddMoreQuantityFromOthersStock()
         {
+            //this part is from more stock quantity popup
+            desibledRegularStockProcessingDuration();
+            jQuery('.overStockErrorMessage').text("");
+            jQuery('.pressingCurrentSellingQuantity').val(0);
+            disabledAddAllQuantityToTheMainQuanityt();
+            setTotalCurrentSellingQuantity();
+            //this part is from more stock quantity popup
+
             jQuery('.responseOfMoreStockSellingQuantity').html('');
             jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
+            jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html('');
             jQuery('.responseOfMoreQtySellingStockId').html('');
             jQuery('.moreQuantityFromOthersStock').val(0);
 
@@ -999,6 +1077,7 @@
         {
             jQuery('.responseOfMoreStockSellingQuantity').html('');
             jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
+            jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html('');
             jQuery('.responseOfMoreQtySellingStockId').html('');
             jQuery('.moreQuantityFromOthersStock').val(0);
         }

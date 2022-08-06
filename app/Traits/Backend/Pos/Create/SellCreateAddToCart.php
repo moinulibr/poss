@@ -114,6 +114,7 @@ trait SellCreateAddToCart
                     $othersProductStocks[$this->product_id]['others_product_stock_ids'][]               = $productStockId;  
                     $othersProductStocks[$this->product_id]['others_product_stock_qtys'][]              = $this->requestAllCartData['product_stock_quantity_'.$productStockId] ;  
                     $othersProductStocks[$this->product_id]['others_product_stock_purchase_prices'][]   = $this->requestAllCartData['product_stock_quantity_purchase_price_'.$productStockId] ;  
+                    $othersProductStocks[$this->product_id]['over_stock_quantity_process_duration'][]   = $this->requestAllCartData['over_stock_quantity_process_duration_'.$productStockId] ;  
                     
                     if($productStockId != $this->requestAllCartData['selling_main_product_stock_id'])
                     {
@@ -175,15 +176,6 @@ trait SellCreateAddToCart
                 'price_cat_id'              => $this->saleDetails->price_cat_id,
                 'productVari_id'            => $this->saleDetails->product_variation_id,
                 'product_id'                => $this->saleDetails->product_id,
-                'name'                      => $productName,
-                'sale_price'                => number_format($this->sale_unit_price,2,'.', ''),
-                'purchase_price'            => number_format($this->purchase_price,2,'.', ''),
-                'discountType'              => $this->saleDetails->discount_type,
-                'discountValue'             => $this->saleDetails->discount_value,
-                'discountAmount'            => $this->saleDetails->discount_amount,
-                'sub_total'                 => number_format((($this->sale_quantity * $this->sale_unit_price) - $this->discountAmount()),2,'.',''),
-                'quantity'                  => $this->sale_quantity,
-                'sale_unit_id'              => $this->saleDetails->sale_unit_id,
                 'sale_from_stock_id'        => $this->saleDetails->sale_from_stock_id,
                 'selling_unit_name'         => $this->saleDetails->units?$this->saleDetails->units->short_name:NULL,
                 'sale_type_id'              => $this->saleDetails->sale_type_id,

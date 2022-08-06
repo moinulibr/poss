@@ -528,6 +528,7 @@
                     <div class="responseOfMoreQtySellingStockId"></div>
                     <div class="responseOfMoreStockSellingQuantity"></div>
                     <div class="responseOfMoreStockSellingQuantityPurchasePrice"></div>
+                    <div class="responseOfMoreStockSellingOverStockQtyProcessDuration"></div>
 
                     <div class="modal-footer" style="background-color:#f9f5f4;">
                         <button type="button" style="color:white;" class="btn btn-danger" data-dismiss="modal">Close</button>
