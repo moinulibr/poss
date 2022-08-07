@@ -843,9 +843,11 @@
             jQuery('#sellingPriceErrorMessageLayerWhenQuantity').css({'visibility':'hidden'});
         }
 
+
+        
         /*
         |------------------------------------------------------------------------------------------
-        | 
+        | Selling Quantity
         |------------------------------------------------------------------------------------------ 
         */
         //quantity selected from others stock
@@ -1009,78 +1011,84 @@
 
         /*
         |-----------------------------------------------------------------------
-        | Set 
+        | set up more quantity from others stock
         |-----------------------------------------------------------------------
         */
-        jQuery(document).on('click','.addThisInMainSellingQuantityOfMoreQuantityFromOthersStock',function(e){
-            e.preventDefault();
-            var stockIdAndQuantity              = [];
-            stockIdAndQuantity['stock_id']      = [];
-            stockIdAndQuantity['qty']           = [];
-            stockIdAndQuantity['purchasePrice'] = [];
-            stockIdAndQuantity['overStockQtyProcessDuration'] = [];
-            jQuery('input.checkedCurrentSellingQuantity[type=checkbox]').each(function () {
-                if(this.checked){
-                    var id              = jQuery(this).data('id');
-                    var purchaseamount  = jQuery(this).data('purchase-price');
-                    var quantity        = nanCheck(parseFloat(jQuery('.pressingCurrentSellingQuantity_'+id).val()));
-                    //var overStockQty    = nanCheck(parseFloat(jQuery('.overStockProcessDuration'+id).val()));
-                    var overStockQty    = jQuery('.overStockProcessDuration_'+id+' option:selected').val();
-                    if(jQuery(this).data('id') && quantity > 0)
-                    {
-                        stockIdAndQuantity['stock_id'].push('<input type="hidden" name="product_stock_id[]" value="'+id+'">');
-                        stockIdAndQuantity['qty'].push('<input type="hidden" name="product_stock_quantity_'+id+'" value="'+quantity+'">');
-                        stockIdAndQuantity['purchasePrice'].push('<input type="hidden" name="product_stock_quantity_purchase_price_'+id+'" value="'+purchaseamount+'">');
-                        stockIdAndQuantity['overStockQtyProcessDuration'].push('<input type="hidden" name="over_stock_quantity_process_duration_'+id+'" value="'+overStockQty+'">');
+            jQuery(document).on('click','.addThisInMainSellingQuantityOfMoreQuantityFromOthersStock',function(e){
+                e.preventDefault();
+                var stockIdAndQuantity              = [];
+                stockIdAndQuantity['stock_id']      = [];
+                stockIdAndQuantity['qty']           = [];
+                stockIdAndQuantity['purchasePrice'] = [];
+                stockIdAndQuantity['overStockQtyProcessDuration'] = [];
+                jQuery('input.checkedCurrentSellingQuantity[type=checkbox]').each(function () {
+                    if(this.checked){
+                        var id              = jQuery(this).data('id');
+                        var purchaseamount  = jQuery(this).data('purchase-price');
+                        var quantity        = nanCheck(parseFloat(jQuery('.pressingCurrentSellingQuantity_'+id).val()));
+                        var overStockQty    = jQuery('.overStockProcessDuration_'+id+' option:selected').val();
+                        if(jQuery(this).data('id') && quantity > 0)
+                        {
+                            stockIdAndQuantity['stock_id'].push('<input type="hidden" name="product_stock_id[]" value="'+id+'">');
+                            stockIdAndQuantity['qty'].push('<input type="hidden" name="product_stock_quantity_'+id+'" value="'+quantity+'">');
+                            stockIdAndQuantity['purchasePrice'].push('<input type="hidden" name="product_stock_quantity_purchase_price_'+id+'" value="'+purchaseamount+'">');
+                            stockIdAndQuantity['overStockQtyProcessDuration'].push('<input type="hidden" name="over_stock_quantity_process_duration_'+id+'" value="'+overStockQty+'">');
+                        }
                     }
-                }
-            });
-            jQuery('.responseOfMoreQtySellingStockId').html(stockIdAndQuantity['stock_id']);
-            jQuery('.responseOfMoreStockSellingQuantity').html(stockIdAndQuantity['qty']);
-            jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html(stockIdAndQuantity['purchasePrice']);
-            jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html(stockIdAndQuantity['overStockQtyProcessDuration']);
-            jQuery('.moreQuantityFromOthersStock').val(1);
-            setTotalCurrentSellingQuantity();
-            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
-            jQuery('#showQuantityWiseProductStockModal').modal('hide');
-        })
+                });
+                jQuery('.responseOfMoreQtySellingStockId').html(stockIdAndQuantity['stock_id']);
+                jQuery('.responseOfMoreStockSellingQuantity').html(stockIdAndQuantity['qty']);
+                jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html(stockIdAndQuantity['purchasePrice']);
+                jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html(stockIdAndQuantity['overStockQtyProcessDuration']);
+                jQuery('.moreQuantityFromOthersStock').val(1);
+                setTotalCurrentSellingQuantity();
+                finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+                jQuery('#showQuantityWiseProductStockModal').modal('hide');
+            })
 
-        jQuery(document).on('click','.removeMoreQuantityFromOthersStock',function(e){
-            e.preventDefault();
-            cancelAddMoreQuantityFromOthersStock();
-        })
+            jQuery(document).on('click','.removeMoreQuantityFromOthersStock',function(e){
+                e.preventDefault();
+                cancelAddMoreQuantityFromOthersStock();
+            })
 
-        //cancel all option when cancel/remove quantity
-        function cancelAddMoreQuantityFromOthersStock()
-        {
-            //this part is from more stock quantity popup
-            desibledRegularStockProcessingDuration();
-            jQuery('.overStockErrorMessage').text("");
-            jQuery('.pressingCurrentSellingQuantity').val(0);
-            disabledAddAllQuantityToTheMainQuanityt();
-            setTotalCurrentSellingQuantity();
-            //this part is from more stock quantity popup
+            //cancel all option when cancel/remove quantity
+            function cancelAddMoreQuantityFromOthersStock()
+            {
+                //this part is from more stock quantity popup
+                desibledRegularStockProcessingDuration();
+                jQuery('.overStockErrorMessage').text("");
+                jQuery('.pressingCurrentSellingQuantity').val(0);
+                disabledAddAllQuantityToTheMainQuanityt();
+                setTotalCurrentSellingQuantity();
+                //this part is from more stock quantity popup
 
-            jQuery('.responseOfMoreStockSellingQuantity').html('');
-            jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
-            jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html('');
-            jQuery('.responseOfMoreQtySellingStockId').html('');
-            jQuery('.moreQuantityFromOthersStock').val(0);
+                jQuery('.responseOfMoreStockSellingQuantity').html('');
+                jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
+                jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html('');
+                jQuery('.responseOfMoreQtySellingStockId').html('');
+                jQuery('.moreQuantityFromOthersStock').val(0);
 
-            jQuery('.checkedCurrentSellingQuantity').prop('checked',false);
-            var previousQty = jQuery('.previous_selling_quantity_value').val();
-            jQuery('.final_sell_quantity').val(previousQty);
-            finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
-        }
+                jQuery('.checkedCurrentSellingQuantity').prop('checked',false);
+                var previousQty = jQuery('.previous_selling_quantity_value').val();
+                jQuery('.final_sell_quantity').val(previousQty);
+                finalCalculationAccordingToSelectedPriceAndFinalSellPrice();
+            }
 
-        function hideOrDisabledOnlyAddMoreQuantityFromOthersStockRelatedPart()
-        {
-            jQuery('.responseOfMoreStockSellingQuantity').html('');
-            jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
-            jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html('');
-            jQuery('.responseOfMoreQtySellingStockId').html('');
-            jQuery('.moreQuantityFromOthersStock').val(0);
-        }
+            //hide or disabled only add more quantity from others stock related part
+            function hideOrDisabledOnlyAddMoreQuantityFromOthersStockRelatedPart()
+            {
+                jQuery('.responseOfMoreStockSellingQuantity').html('');
+                jQuery('.responseOfMoreStockSellingQuantityPurchasePrice').html('');
+                jQuery('.responseOfMoreStockSellingOverStockQtyProcessDuration').html('');
+                jQuery('.responseOfMoreQtySellingStockId').html('');
+                jQuery('.moreQuantityFromOthersStock').val(0);
+            }
+        /*
+        |-----------------------------------------------------------------------
+        | set up more quantity from others stock
+        |-----------------------------------------------------------------------
+        */
+
     /*
     |-----------------------------------------------------------------------
     | Selling Quantity
@@ -1097,6 +1105,7 @@
             return value;
         }
     }
+
 
     /*
     |-----------------------------------------------------------------------

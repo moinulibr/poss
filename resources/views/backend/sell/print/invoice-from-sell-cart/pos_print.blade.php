@@ -264,7 +264,8 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3"  style="text-align:right;padding-top:5px">
-                    {{ number_format(($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']),2,'.', '') }} 
+                   {{--  {{ number_format(($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']),2,'.', '') }}  --}}
+                   {{ $cartSummery['lineAfterDiscountWithInvoiceSubTotal'] }}
                 </td>
             </tr>
             <!-- -->
@@ -285,7 +286,8 @@
              <tr>
                 <td colspan="1"></td>
                 <td colspan="3"  style="text-align:right;padding-top:5px">
-                    {{ number_format((($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']) + $cartSummery['totalVatAmountCalculation']),2,'.', '') }} 
+                   {{--  {{ number_format((($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']) + $cartSummery['totalVatAmountCalculation']),2,'.', '') }}  --}}
+                   {{ $cartSummery['lineAfterDiscountAndVatWithInvoiceSubTotal'] }}
                 </td>
             </tr>
             <!-- -->
@@ -307,7 +309,8 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3"  style="text-align:right;padding-top:5px">
-                    {{  number_format((($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']) + $cartSummery['totalVatAmountCalculation'] + $cartSummery['totalShippingCost'] ),2,'.', '') }} 
+                    {{-- {{  number_format((($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']) + $cartSummery['totalVatAmountCalculation'] + $cartSummery['totalShippingCost'] ),2,'.', '') }}  --}}
+                    {{ $cartSummery['lineAfterShippingCostDiscountAndVatWithInvoiceSubTotal'] }}
                 </td>
             </tr>
             <!-- -->
@@ -329,7 +332,8 @@
              <tr>
                 <td colspan="1"></td>
                 <td colspan="3"  style="text-align:right;padding-top:5px">
-                    {{ $totalPayableAmount =  number_format((($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']) + $cartSummery['totalVatAmountCalculation'] + $cartSummery['totalShippingCost'] + $cartSummery['invoiceOtherCostAmount']),2,'.', '') }} 
+                    {{-- {{ $totalPayableAmount =  number_format((($cartSummery['subtotalFromSellCartList'] - $cartSummery['totalInvoiceDiscountAmount']) + $cartSummery['totalVatAmountCalculation'] + $cartSummery['totalShippingCost'] + $cartSummery['invoiceOtherCostAmount']),2,'.', '') }}  --}}
+                    {{ $cartSummery['lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal'] }}
                 </td>
             </tr>
             <!-- -->
@@ -342,7 +346,8 @@
                 </td>
                 <td class="Rate grand-total-title" style="padding-right: 5px;">:</td>
                 <td class="payment tax-amount" style="text-align:right;padding-bottom:7px;" colspan="2">
-                    {{ number_format((round($totalPayableAmount) - $totalPayableAmount),2,'.', '') }}
+                   {{--  {{ number_format((round($totalPayableAmount) - $totalPayableAmount),2,'.', '') }} --}}
+                   {{ $cartSummery['lineInvoiceRoundingAmount'] }}
                 </td>
             </tr>
     
@@ -357,7 +362,8 @@
                 <td class="Rate grand-total-title" style="padding-top:15px">:</td>
                 <td class="payment grand-total-amount" style="text-align:right;padding-top:15px" colspan="2">
                     <strong style="font-size:14px;">
-                        {{ number_format(round($totalPayableAmount),2,'.', '') }}
+                        {{-- {{ number_format(round($totalPayableAmount),2,'.', '') }} --}}
+                        {{ $cartSummery['lineInvoicePayableAmountWithRounding'] }}
                     </strong>
                 </td>
             </tr>

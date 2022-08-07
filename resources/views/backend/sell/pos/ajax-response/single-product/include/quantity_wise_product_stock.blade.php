@@ -61,15 +61,15 @@
                                 <tr>
                                     <td  style="width:15% ;padding: 0.85rem;">Stock Name</td>
                                     <td  style="width:15% ;padding: 0.85rem;">Stock</td>
-                                    <td  style="width:10% ;padding: 0.85rem;"><small>Selling Amount</small></td>
+                                    <td  style="width:10% ;padding: 0.85rem;">Selling Price</td>
                                     <td  style="width:10% ;padding: 0.85rem;">
-                                        <small>Quantity</small>
+                                        Quantity
                                     </td>
                                     <td  style="width:5% ;padding: 0.85rem;">
-                                        <small>#</small>
+                                        #
                                     </td>
                                     <td  style="width:45% ;padding: 0.85rem;">
-                                        <small>Over stock Process</small>
+                                        Over stock Process
                                     </td>
                                 </tr>
                             </thead>
@@ -106,8 +106,8 @@
                                             <div class="col-3 col-md-3" style="padding: 0px;padding-top:3px;">
                                                 Process
                                             </div>
-                                            <div class="col-9 col-md-9" style="padding: 0px;padding-right:10px;">
-                                                <select name="" class="form-control overStockProcessDuration overStockProcessDuration_{{ $productStock->id }}">
+                                            <div class="col-9 col-md-9" style="padding: 0px;padding-right:10px;color:red;">
+                                                <select name="" class="form-control overStockProcessDuration overStockProcessDuration_{{ $productStock->id }}"  style="color:red !important">
                                                     <option value="1">Tomorrow</option>
                                                     <option value="2">Day after tomorrow</option>
                                                     <option value="0">Today</option>
@@ -120,12 +120,7 @@
                                                     <option value="9">After 9 days</option>
                                                     <option value="10">After 10 days</option>
                                                 </select>
-                                                {{-- <input type="text" class="form-control inputFieldValidatedOnlyNumeric" value="1" style="color:red;"> --}}
                                             </div>
-                                            {{-- <div class="col-3 col-md-3" style="padding: 0px">
-                                                Days
-                                            </div> --}}
-
                                         </div>
                                     </td>
                                 </tr>
@@ -148,7 +143,6 @@
                 <strong style="padding:6px;"  class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock addThisQuantityToMainQuantity btn-sm" role="status">
                     Add  Quantity
                 </strong>
-                {{-- <input type="submit" style="padding:6px" class="btn btn-dark addThisInMainSellingQuantityOfMoreQuantityFromOthersStock btn-sm" role="status" value="Add This Quantity"> --}}
             </div>
         </div>
     </div>

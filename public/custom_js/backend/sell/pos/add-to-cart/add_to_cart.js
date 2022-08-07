@@ -1,8 +1,10 @@
 
     jQuery(document).ready(function(){
-        displaySaleCreateAddedToCartProductList();
+        displaySellCreateAddedToCartProductList();
     });
-   function displaySaleCreateAddedToCartProductList()
+
+    //display sale cart added to cart product list
+   function displaySellCreateAddedToCartProductList()
    {
        var url = jQuery('.displaySellCreateAddedToCartProductListUrl').val();
        jQuery.ajax({
@@ -25,6 +27,7 @@
    }
 
 
+    // add to sale cart [submit]
     jQuery(document).on("submit",'.addToSaleCart',function(e){
         e.preventDefault();
         var form = jQuery(this);
@@ -49,7 +52,7 @@
                 {
                     form[0].reset();
                     jQuery('.display_added_to_cart_list').html(response.list);
-                    //displaySaleCreateAddedToCartProductList();
+
                     jQuery('#showProductDetailModal').modal('hide');
                     jQuery.notify(response.message, response.type);
                     finalCalculationForThisInvoice();
@@ -72,7 +75,7 @@
 
     
     //remove/delete single item from sell cart product list
-    jQuery(document).on('click','.remove_this_item_from_sell_cart_list',function(e){//
+    jQuery(document).on('click','.remove_this_item_from_sell_cart_list',function(e){
         e.preventDefault();
         var product_id = jQuery(this).data('product_id');
         var url = jQuery('.removeConfirmationRequiredSingleItemFromSellAddedToCartListUrl').val();
@@ -96,7 +99,7 @@
     jQuery(document).on('click','.removeSingleItemFromSellCartProductList',function(){
         
         var totalCartItem = nanCheck(parseFloat(jQuery('.totalItemFromSellCartList').text()));
-       
+    
         var product_id = jQuery('.remove_product_id').val();
         var url = jQuery('.removeSingleItemFromSellAddedToCartListUrl').val();
         jQuery.ajax({
@@ -124,6 +127,7 @@
             },
         });
     });  
+    //remove/delete single item from sell cart product list
 
     //remove/delete all item from sell cart product list
     jQuery(document).on('click','.removeOrEmptyAllItemFromCreateSellCartList',function(e){
@@ -174,6 +178,8 @@
     });
     //remove/delete all item from sell cart product list
 
+
+
     //change quantity from added to cart list [plus or minus]
     jQuery(document).on('click','.quantityChange',function(e){
         e.preventDefault();
@@ -205,12 +211,13 @@
 
 
 
+    //final calculation for this invoice
     function finalCalculationForThisInvoice()
     {
         totalItemFromCartList();
         var subtotal = subtotalFromCartList();
         totalPurchasePriceForThisInvoiceFromCartList();
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         var totalInvoiceDiscount                = (nanCheck(parseFloat(jQuery('.invoiceFinalTotalDiscountAmount').text())));
         var invoiceFinalTotalVatAmount          = (nanCheck(parseFloat(jQuery('.invoiceFinalTotalVatAmount').text())));
         var invoiceFinalTotalOtherCostAmount    = (nanCheck(parseFloat(jQuery('.invoiceFinalTotalOtherCostAmount').text())));
@@ -220,6 +227,7 @@
         jQuery('.netPayableInvoiceTotal').text(netInvoiceTotalAmount);
     }
 
+    //subtotal from cart list
     function subtotalFromCartList()
     {
         var subtotalFromCartList = 0;
@@ -231,6 +239,8 @@
         jQuery('.subtotalFromSellCartListValue').val(subtotalFromCartList);
         return subtotalFromCartList;
     } 
+
+    //total purchase price for this invoice from cart list
     function totalPurchasePriceForThisInvoiceFromCartList()
     {
         var totalPurchasePriceFromCartList = 0;
@@ -240,6 +250,8 @@
         jQuery('.totalPurchasePriceForThisInvoiceFromSellCartList').val(totalPurchasePriceFromCartList);
         return totalPurchasePriceFromCartList;
     } 
+
+    //total item from cart list
     function totalItemFromCartList()
     {
        var totalItme = (nanCheck(parseFloat(jQuery(".total_item_from_cartlist").val())).toFixed(2));
@@ -272,14 +284,14 @@
         if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
         if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
 
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
     });
     jQuery(document).on('click','.invoiceDiscountApplyModal',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
     });  
     jQuery(document).on('click','.invoice_discount_apply',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
         jQuery('#discountPopUpModal').modal('hide');
     });
@@ -305,14 +317,14 @@
         if(action == 0) return;
         if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
         if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
     });
     jQuery(document).on('click','.invoiceVatApplyModal',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
     });  
     jQuery(document).on('click','.invoice_vat_apply',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
         jQuery('#vatPopUpModal').modal('hide');
     });
@@ -337,14 +349,14 @@
         if(action == 0) return;
         if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
         if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
     });
     jQuery(document).on('click','.invoiceOtherCostApplyModal',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
     });  
     jQuery(document).on('click','.invoice_other_cost_apply',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
         jQuery('#otherCostPopUpModal').modal('hide');
     });
@@ -370,14 +382,14 @@
         if(action == 0) return;
         if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
         if (ctrlDown && ( e.keyCode == vKey || e.keyCode == cKey || e.keyCode == xKey)) return false;
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
     });
     jQuery(document).on('click','.invoiceShippingCostApplyModal',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
     });  
     jQuery(document).on('click','.invoice_shipping_cost_apply',function(){
-        makeingDiscountVatShippingCostOtherCost();
+        makingDiscountVatShippingCostOtherCost();
         finalCalculationForThisInvoice();
         jQuery('#otherCostPopUpModal').modal('hide');
     });
@@ -386,7 +398,7 @@
 
 
     //making invoice discount, vat, shipping cost, other cost..
-    function makeingDiscountVatShippingCostOtherCost()
+    function makingDiscountVatShippingCostOtherCost()
     {
        //--------------discount making-----------------//
         var invoiceDiscountAmount               = jQuery('.invoice_discount_amount').val();
@@ -550,14 +562,16 @@
     }
 
 
-    jQuery(document).on('click','.pos_print_direct_from_sell_cart',function(){
-        var url = jQuery('.pos_print_direct_from_sell_cart').data('href');
+
+
+    /* jQuery(document).on('click','.pos_print_direct_from_sell_cart',function(){
+        //var url = jQuery('.pos_print_direct_from_sell_cart').data('href');
         console.log('yes pos');
     }); 
     jQuery(document).on('click','.normal_print_direct_from_sell_cart',function(){
-        var url = jQuery('.normal_print_direct_from_sell_cart').data('href');
+        //var url = jQuery('.normal_print_direct_from_sell_cart').data('href');
         console.log('yes normal');
-    });
+    }); */
 
 
     

@@ -62,6 +62,15 @@ trait SellCreateAddToCart
         $invoiceOtherCostAmount   = $this->requestAllCartData['invoiceOtherCostAmount'];
         $totalInvoicePayableAmount   = $this->requestAllCartData['totalInvoicePayableAmount'];
 
+        //line total calculation
+        $lineInvoiceSubTotal   = number_format($this->requestAllCartData['subtotalFromSellCartList'],2,'.', '');
+        $lineAfterDiscountWithInvoiceSubTotal   = number_format(($this->requestAllCartData['subtotalFromSellCartList'] - $this->requestAllCartData['totalInvoiceDiscountAmount']),2,'.', '');
+        $lineAfterDiscountAndVatWithInvoiceSubTotal   = number_format((($this->requestAllCartData['subtotalFromSellCartList'] - $this->requestAllCartData['totalInvoiceDiscountAmount'])+ $this->requestAllCartData['totalVatAmountCalculation']),2,'.', '');
+        $lineAfterShippingCostDiscountAndVatWithInvoiceSubTotal   = number_format((($this->requestAllCartData['subtotalFromSellCartList'] - $this->requestAllCartData['totalInvoiceDiscountAmount']) +  $this->requestAllCartData['totalVatAmountCalculation'] + $this->requestAllCartData['totalShippingCost']),2,'.', '');
+        $lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal   = number_format((($this->requestAllCartData['subtotalFromSellCartList'] - $this->requestAllCartData['totalInvoiceDiscountAmount']) +  $this->requestAllCartData['totalVatAmountCalculation'] + $this->requestAllCartData['totalShippingCost'] + $this->requestAllCartData['invoiceOtherCostAmount']),2,'.', '');
+        $lineInvoiceRoundingAmount   = number_format((round($lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal) - $lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal),2,'.', '');
+        $lineInvoicePayableAmountWithRounding   = number_format(round($lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal),2,'.', '');
+
         $cartName = [
             'subtotalFromSellCartList'=> $subtotalFromSellCartList,
             'totalItem'=> $totalItem,
@@ -73,6 +82,15 @@ trait SellCreateAddToCart
             'totalShippingCost'=> $totalShippingCost,
             'invoiceOtherCostAmount'=> $invoiceOtherCostAmount,
             'totalInvoicePayableAmount'=> $totalInvoicePayableAmount,
+
+            //line total calculation store in session
+            'lineInvoiceSubTotal'=> $lineInvoiceSubTotal,
+            'lineAfterDiscountWithInvoiceSubTotal'=> $lineAfterDiscountWithInvoiceSubTotal,
+            'lineAfterDiscountAndVatWithInvoiceSubTotal'=> $lineAfterDiscountAndVatWithInvoiceSubTotal,
+            'lineAfterShippingCostDiscountAndVatWithInvoiceSubTotal'=> $lineAfterShippingCostDiscountAndVatWithInvoiceSubTotal,
+            'lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal'=> $lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal,
+            'lineInvoiceRoundingAmount'=> $lineInvoiceRoundingAmount,
+            'lineInvoicePayableAmountWithRounding'=> $lineInvoicePayableAmountWithRounding,
         ];
         session([$this->cartName => $cartName]);
         return $this->cartName;
