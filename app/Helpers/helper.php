@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use App\Models\Backend\Price\ProductPrice;
 use App\Models\Backend\ProductAttribute\Unit;
-
+use App\Models\Backend\Stock\ProductStock;
 
     function authBranch_hh()
     {
@@ -162,3 +162,13 @@ use App\Models\Backend\ProductAttribute\Unit;
     //vat
 
 
+    //product stock
+    function productStockByProductStockId_hh($id)
+    {
+        $pstock = ProductStock::findOrFail($id);
+        if($pstock)
+        {
+            return $pstock;
+        }
+        return NULL;
+    }

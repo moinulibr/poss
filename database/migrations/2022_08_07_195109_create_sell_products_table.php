@@ -21,13 +21,14 @@ class CreateSellProductsTable extends Migration
                 $table->integer('product_id')->nullable();
                 $table->integer('unit_id')->nullable();
                 $table->integer('supplier_id')->nullable();
-                $table->integer('product_stock_id_main')->nullable()->comment('product stock id');
-                $table->text('product_stocks')->nullable()->comment('json:all product stock ids,others stock related information');
+                $table->integer('main_product_stock_id')->nullable()->comment('product stock id');
+                $table->integer('total_sell_product_stock_id')->nullable()->comment('total sell from product stock ids: count');
+                //$table->text('product_stocks')->nullable()->comment('json:all product stock ids,others stock related information');
                 $table->string('custom_code',50)->nullable()->comment('product custom_code');
                 $table->decimal('quantity',20,3)->nullable();
 
-                $table->decimal('mrp_price',20,2)->nullable();
-                $table->decimal('regular_sell_price',20,2)->nullable();
+                //$table->decimal('mrp_price',20,2)->nullable();
+                //$table->decimal('regular_sell_price',20,2)->nullable();
                 $table->decimal('sold_price',20,2)->nullable();
 
                 $table->decimal('discount_amount',20,2)->nullable();
@@ -36,23 +37,26 @@ class CreateSellProductsTable extends Migration
 
                 $table->decimal('reference_commission',20,2)->nullable();
                 
-                $table->decimal('subtotal',20,2)->nullable();
-                $table->decimal('purchase_price',20,2)->nullable();
+                $table->decimal('total_sold_price',20,2)->nullable();
+                //$table->decimal('purchase_price',20,2)->nullable();
                 $table->decimal('total_purchase_price',20,2)->nullable();
                 $table->decimal('total_profit',20,2)->nullable();
 
                 $table->text('liability_type')->nullable()->comment('default-null, 1=Warranty,2=Guarantee.json:w_g_type,w_g_type_day,identityNumber');
+                $table->string('identity_number',50)->nullable();
                 $table->text('cart')->nullable()->comment('json:p.name,custom_code,unit_name,wharehouse_id,warehouse_rack_id,sold_price');
 
                 $table->tinyInteger('status')->nullable();
                 $table->tinyInteger('delivery_status')->nullable();
 
-                $table->decimal('stock_process_instanly_qty',20,3)->nullable()->comment('stock processed instantly quantity');
+                $table->decimal('stock_process_instantly_qty',20,3)->nullable()->comment('stock processed instantly quantity');
                 $table->decimal('stock_process_later_qty',20,3)->nullable()->comment('stock processe latter quantity');
                 $table->string('stock_process_later_date')->nullable();
                 $table->decimal('total_stock_remaining_process_qty',20,3)->nullable()->comment('stock processe latter quantity');
                 $table->decimal('total_stock_processed_qty',20,3)->nullable()->comment('stock processe latter quantity');
 
+                $table->integer('created_by')->nullable();
+                
                 $table->softDeletes();
                 $table->timestamps();
                     

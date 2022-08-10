@@ -33,9 +33,11 @@ use App\Models\Backend\Reference\Reference;
 use App\Traits\Backend\Product\Request\ProductValidationTrait;
 use App\Traits\Backend\Pos\Create\SellCreateAddToCart;
 
+use App\Traits\Backend\Pos\Create\StoreDataFromSellCartTrait;
+
 class PosController extends Controller
 {
-    use SellCreateAddToCart;
+    use SellCreateAddToCart, StoreDataFromSellCartTrait;
     /**
      * Display a listing of the resource.
      *
@@ -285,48 +287,23 @@ class PosController extends Controller
 
 
     /*======================================================= */
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function storeDataFromSellCart(Request $request)
     {
-        //
-    }
+        return $this->storeSessionDataFromSellCart();
+        
+        DB::beginTransaction();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try {
+            //DB::insert(...);    
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        } catch (\Throwable $e) {
+            DB::rollback();
+            throw $e;
+        }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    /*======================================================= */
+    
 }

@@ -18,6 +18,7 @@ class CreateSellInvoicesTable extends Migration
                 $table->id();
 
                 $table->integer('branch_id')->nullable();
+                $table->tinyInteger('sell_type')->nullable()->comment('1=final sell, 2=quatation , 3=draft, 4=others');
 
                 $table->string('invoice_no',50)->nullable();
                 $table->decimal('total_item',20,2)->nullable();
@@ -52,6 +53,7 @@ class CreateSellInvoicesTable extends Migration
                 $table->integer('customer_id')->nullable();
                 $table->integer('customer_type_id')->nullable()->comment('1=Permanent, 2=Temporary');
                 $table->integer('shipping_id')->nullable();
+                $table->text('receiver_details')->nullable();
                 $table->integer('reference_id')->nullable();
 
                 $table->tinyInteger('product_stock_type')->nullable()->comment('1=single, 2=multiple');

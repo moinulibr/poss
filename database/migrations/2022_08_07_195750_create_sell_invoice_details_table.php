@@ -48,6 +48,8 @@ class CreateSellInvoiceDetailsTable extends Migration
 
                 $table->tinyInteger('status')->nullable();
                 $table->tinyInteger('delivery_status')->nullable();
+                $table->integer('created_by')->nullable();
+                
                 $table->softDeletes();
                 $table->timestamps();
             });

@@ -56,7 +56,7 @@
                             <i class="fa fa-minus-circle"></i>
                         </span>
             
-                        <span id="set-1">{{$item['final_sell_quantity']}}</span>
+                        <span id="set-1" class="total_cart_quantity">{{$item['final_sell_quantity']}}</span>
             
                         <span class="quantityChange" data-change_type="plus" data-product_id="{{$item['product_id']}}" data-quantity="1" style="cursor:pointer">
                             <i class="fa fa-plus-circle"></i>

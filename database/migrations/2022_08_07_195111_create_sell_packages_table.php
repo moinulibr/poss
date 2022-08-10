@@ -38,6 +38,7 @@ class CreateSellPackagesTable extends Migration
                 $table->decimal('total_stock_remaining_process_qty',20,3)->nullable()->comment('stock processe latter quantity');
                 $table->decimal('total_stock_processed_qty',20,3)->nullable()->comment('stock processe latter quantity');
 
+                $table->integer('created_by')->nullable();
 
                 $table->softDeletes();
                 $table->timestamps();

@@ -325,6 +325,10 @@ Route::group(['middleware' => ['auth']], function ()
         //change quantity [plus or minus]
         Route::get('change/quantity/from/added/to/cart/list','PosController@changeQuantity')->name('change.quantity.from.sell.added.to.cart.list');
         
+
+        //
+        Route::post('store/data/from/sell/cart','PosController@storeDataFromSellCart')->name('store.data.from.sell.cart');
+
         Route::get('show','PosController@show')->name('show');
         Route::get('edit','PosController@edit')->name('edit');
         Route::post('update','PosController@update')->name('update');

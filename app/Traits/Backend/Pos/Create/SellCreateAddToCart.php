@@ -53,6 +53,7 @@ trait SellCreateAddToCart
 
         $subtotalFromSellCartList   = $this->requestAllCartData['subtotalFromSellCartList'];
         $totalItem   = $this->requestAllCartData['totalItem'];
+        $totalQuantity   = $this->requestAllCartData['totalQuantity'];
         $invoiceDiscountAmount   = $this->requestAllCartData['invoiceDiscountAmount'];
         $invoiceDiscountType   = $this->requestAllCartData['invoiceDiscountType'];
         $totalInvoiceDiscountAmount   = $this->requestAllCartData['totalInvoiceDiscountAmount'];
@@ -74,6 +75,7 @@ trait SellCreateAddToCart
         $cartName = [
             'subtotalFromSellCartList'=> $subtotalFromSellCartList,
             'totalItem'=> $totalItem,
+            'totalQuantity'=> $totalQuantity,
             'invoiceDiscountAmount'=> $invoiceDiscountAmount,
             'invoiceDiscountType'=> $invoiceDiscountType,
             'totalInvoiceDiscountAmount'=> $totalInvoiceDiscountAmount,

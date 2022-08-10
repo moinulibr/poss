@@ -259,6 +259,17 @@
        return totalItme;
     }
 
+    //total quantity from cart list
+    function totalQuantityFromCartList()
+    {
+        var totalQuantityFromCartList = 0;
+        jQuery(".total_cart_quantity").each(function() {
+            totalQuantityFromCartList += nanCheck(parseFloat(jQuery(this).text()));
+        });
+        totalQuantityFromCartList = ((totalQuantityFromCartList).toFixed(2));
+        return totalQuantityFromCartList;
+    }
+
 
     //invoice discount related part
     var ctrlDown = false,ctrlKey = 17,cmdKey = 91,vKey = 86,cKey = 67; xKey = 88;
@@ -535,12 +546,13 @@
         //jQuery('.invoiceFinalTotalOtherCostAmount').text(invoiceOtherCostAmount);
 
         var totalItem = nanCheck(parseFloat(jQuery('.totalItemFromSellCartList').text()));
+        var totalQuantity = totalQuantityFromCartList();
         var totalInvoicePayableAmount = nanCheck(parseFloat(jQuery('.netPayableInvoiceTotal').text()));
 
         var url = jQuery('.invoiceFinalSellCalculationSummeryUrl').val();
         jQuery.ajax({
             url:url,
-            data:{subtotalFromSellCartList:subtotalFromSellCartList,totalItem:totalItem,
+            data:{subtotalFromSellCartList:subtotalFromSellCartList,totalItem:totalItem,totalQuantity:totalQuantity,
                 invoiceDiscountAmount:invoiceDiscountAmount,invoiceDiscountType:invoiceDiscountType,
                 totalInvoiceDiscountAmount:totalInvoiceDiscountAmount,invoiceVatAmount:invoiceVatAmount,
                 totalVatAmountCalculation:totalVatAmountCalculation,totalShippingCost:totalShippingCost,
