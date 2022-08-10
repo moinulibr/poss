@@ -156,6 +156,7 @@ trait SellCreateAddToCart
             'product_id'                                => $this->product_id,
             'custom_code'                               => $this->custom_code,
             'product_name'                              => $this->product_name,
+            'supplier_id'                               => $this->requestAllCartData['supplier_id'],
             'warehouse_id'                              => $this->requestAllCartData['warehouse_id'],
             'warehouse_rack_id'                         => $this->requestAllCartData['warehouse_rack_id'],
             'unit_id'                                   => $this->requestAllCartData['unit_id'],

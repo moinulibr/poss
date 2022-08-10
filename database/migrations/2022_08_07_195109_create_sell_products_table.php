@@ -49,12 +49,6 @@ class CreateSellProductsTable extends Migration
                 $table->tinyInteger('status')->nullable();
                 $table->tinyInteger('delivery_status')->nullable();
 
-                $table->decimal('stock_process_instantly_qty',20,3)->nullable()->comment('stock processed instantly quantity');
-                $table->decimal('stock_process_later_qty',20,3)->nullable()->comment('stock processe latter quantity');
-                $table->string('stock_process_later_date')->nullable();
-                $table->decimal('total_stock_remaining_process_qty',20,3)->nullable()->comment('stock processe latter quantity');
-                $table->decimal('total_stock_processed_qty',20,3)->nullable()->comment('stock processe latter quantity');
-
                 $table->integer('created_by')->nullable();
                 
                 $table->softDeletes();
