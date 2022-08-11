@@ -56,6 +56,9 @@
                                 </fieldset>
                             </div>
                         </div>
+                        
+                        <input type="hidden" name="sell_type" value="1">
+
                         <div class="form-group row justify-content-end mb-0">
                             <div class="col-md-6 text-right">
                                 <input type="submit" class="btn btn-primary" value="Submit">

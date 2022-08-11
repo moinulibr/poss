@@ -16,10 +16,8 @@ class CreateSellInvoicesTable extends Migration
         if(!Schema::hasTable('sell_invoices')){
             Schema::create('sell_invoices', function (Blueprint $table) {
                 $table->id();
-
                 $table->integer('branch_id')->nullable();
                 $table->tinyInteger('sell_type')->nullable()->comment('1=final sell, 2=quatation , 3=draft, 4=others');
-
                 $table->string('invoice_no',50)->nullable();
                 $table->decimal('total_item',20,2)->nullable();
                 $table->decimal('total_quantity',20,2)->nullable();
@@ -42,10 +40,9 @@ class CreateSellInvoicesTable extends Migration
                 $table->decimal('refunded_amount',20,2)->nullable();
                 $table->decimal('refund_charge',20,2)->nullable()->comment('take from customer(comp profit)');
                 $table->decimal('total_paid_amount',20,2)->nullable();
-                $table->decimal('reference_charge',20,2)->nullable();
+                $table->decimal('reference_amount',20,2)->nullable();
                 $table->decimal('total_purchase_amount',20,2)->nullable();
-                $table->decimal('total_invoice_profit',20,2)->nullable();
-
+                $table->decimal('total_invoice_profit',20,2)->nullable()->comment('from products price only');
 
                 $table->string('payment_status',50)->nullable();
                 $table->string('payment_type',20)->nullable();
@@ -56,9 +53,8 @@ class CreateSellInvoicesTable extends Migration
                 $table->text('receiver_details')->nullable();
                 $table->integer('reference_id')->nullable();
 
-                $table->tinyInteger('product_stock_type')->nullable()->comment('1=single, 2=multiple');
+                //$table->tinyInteger('product_stock_type')->nullable()->comment('1=single, 2=multiple');
             
-
                 $table->tinyInteger('status')->nullable();
                 $table->tinyInteger('delivery_status')->nullable();
 

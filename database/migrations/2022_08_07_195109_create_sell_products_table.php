@@ -22,8 +22,11 @@ class CreateSellProductsTable extends Migration
                 $table->integer('unit_id')->nullable();
                 $table->integer('supplier_id')->nullable();
                 $table->integer('main_product_stock_id')->nullable()->comment('product stock id');
-                $table->integer('total_sell_product_stock_id')->nullable()->comment('total sell from product stock ids: count');
+                
+                $table->tinyInteger('product_stock_type')->nullable()->comment('1=single, 2=multiple');
+                
                 //$table->text('product_stocks')->nullable()->comment('json:all product stock ids,others stock related information');
+                
                 $table->string('custom_code',50)->nullable()->comment('product custom_code');
                 $table->decimal('quantity',20,3)->nullable();
 

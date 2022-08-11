@@ -70,45 +70,13 @@ trait StoreDataFromSellCartTrait
         }//end foreach
         
         $sellInvoice->total_purchase_amount = $this->totalPurchasePriceOfAllQuantityOfThisInvoice;
-        $sellInvoice->total_invoice_profit = (($sellInvoiceSummeryCart['lineInvoicePayableAmountWithRounding']) - ($this->totalPurchasePriceOfAllQuantityOfThisInvoice));
+        $sellInvoice->total_invoice_profit = (($sellInvoiceSummeryCart['lineInvoicePayableAmountWithRounding']) - ($this->totalPurchasePriceOfAllQuantityOfThisInvoice) - ($sellInvoiceSummeryCart['totalShippingCost'] + $sellInvoiceSummeryCart['invoiceOtherCostAmount'] ));
         $sellInvoice->save();
         return $sellCart;
     }
 
-    private function insertDataInTheSellProduct($sellInvoice,$cart)
-    {
-        $productStock = new SellProduct();
-        $productStock->branch_id = 1;
-        $productStock->sell_invoice_id = $sellInvoice->id;
-        $productStock->product_id = $cart['product_id'];
-        $productStock->unit_id = $cart['unit_id'];
-        $productStock->supplier_id = $cart['supplier_id'];
-        $productStock->main_product_stock_id = $cart['selling_main_product_stock_id'];
-        //$productStock->total_sell_product_stock_id = $cart[''];
-        $productStock->custom_code = $cart['custom_code'];
-        $productStock->quantity = $cart['final_sell_quantity'];
-        $productStock->sold_price = $cart['final_sell_price'];
-        $productStock->discount_amount = $cart['discount_amount'];
-        $productStock->discount_type = $cart['discount_type'];
-        $productStock->total_discount = $cart['total_discount_amount'];
-        $productStock->reference_commission = 0;//$cart[''];
-        $productStock->total_sold_price = $cart['selling_final_amount'];
-        $productStock->total_purchase_price = $cart['total_purchase_price_of_all_quantity'];
-        $productStock->total_profit = $cart['selling_final_amount'] - $cart['total_purchase_price_of_all_quantity'];
-        
-        $this->totalPurchasePriceOfAllQuantityOfThisInvoice += $cart['total_purchase_price_of_all_quantity'];
 
-        if($cart['w_g_type'])
-        {
-            $productStock->liability_type = json_encode(["w_g_type" => $cart['w_g_type'], "w_g_type_day" => $cart['w_g_type_day']]);
-        }
-        $productStock->identity_number = $cart['identityNumber'];
-        $productStock->cart = NULL;//$cart[''];
-
-        $productStock->save();
-        return $productStock;
-    }
-
+    
     private function insertDataInTheSellProductStockTable($cart,$sellInvoice,$sellProduct,$product_stock_id,$qty,$purchase_price,$process_duration)
     {
         $productStock = new SellProductStock();
@@ -162,6 +130,10 @@ trait StoreDataFromSellCartTrait
         }
 
         //if sell_type==1, then reduce stock from product stocks table 
+        if('sell_type' == 1)
+        {
+
+        }
 
         $productStock->stock_process_instantly_qty = $instantlyProcessedQty;
         $productStock->stock_process_later_qty = $stockProcessLaterQty;
@@ -171,7 +143,56 @@ trait StoreDataFromSellCartTrait
 
         $productStock->status =1;
         $productStock->delivery_status =1;
+        $productStock->save();
+        return $productStock;
+    }
+
+
+    private function insertDataInTheSellProduct($sellInvoice,$cart)
+    {
+        $productStock = new SellProduct();
+        $productStock->branch_id = 1;
+        $productStock->sell_invoice_id = $sellInvoice->id;
+        $productStock->product_id = $cart['product_id'];
+        $productStock->unit_id = $cart['unit_id'];
+        $productStock->supplier_id = $cart['supplier_id'];
+        $productStock->main_product_stock_id = $cart['selling_main_product_stock_id'];
+        $productStock->product_stock_type = $cart['total_qty_from_others_product_stock'] == 0 ? 1 : 2;
+        $productStock->custom_code = $cart['custom_code'];
+        $productStock->quantity = $cart['final_sell_quantity'];
+        $productStock->sold_price = $cart['final_sell_price'];
+        $productStock->discount_amount = $cart['discount_amount'];
+        $productStock->discount_type = $cart['discount_type'];
+        $productStock->total_discount = $cart['total_discount_amount'];
+        $productStock->reference_commission = 0;//$cart[''];
+        $productStock->total_sold_price = $cart['selling_final_amount'];
+        $productStock->total_purchase_price = $cart['total_purchase_price_of_all_quantity'];
+        $productStock->total_profit = $cart['selling_final_amount'] - $cart['total_purchase_price_of_all_quantity'];
         
+        $this->totalPurchasePriceOfAllQuantityOfThisInvoice += $cart['total_purchase_price_of_all_quantity'];
+
+        if($cart['w_g_type'])
+        {
+            $productStock->liability_type = json_encode(["w_g_type" => $cart['w_g_type'], "w_g_type_day" => $cart['w_g_type_day']]);
+        }
+        $productStock->identity_number = $cart['identityNumber'];
+        $productStock->cart = json_encode([
+            'productName' => $cart['product_name'],
+            "productId" =>$cart['product_id'],
+            'soldPrice' =>$cart['final_sell_price'] ,
+            'totalSellQuantity' =>$cart['final_sell_quantity'] ,
+            'totalMainProductStockQuantity' =>$cart['total_qty_of_main_product_stock'] ,
+            'totalOtherProductStockQuantity' =>$cart['total_qty_from_others_product_stock'] ,
+            'unitName' => $cart['unit_name'],
+            'unitId' =>$cart['unit_id'],
+            'customCode' =>$cart['custom_code'],
+            'warehouseId' =>$cart['warehouse_id'],
+            'warehouseRackId' =>$cart['warehouse_rack_id'],
+        ]);
+
+        $productStock->status =1;
+        $productStock->delivery_status =1;
+        $productStock->created_by = 1;
         $productStock->save();
         return $productStock;
     }
@@ -181,7 +202,9 @@ trait StoreDataFromSellCartTrait
         //return $sellInvoiceSummeryCart;
         $sellInvoice = new SellInvoice();
         $sellInvoice->branch_id = 1;
-        $sellInvoice->invoice_no = 'dkfjdl';
+        $rand = rand(01,99);
+        $makeInvoice = date("isHymd").$rand;
+        $sellInvoice->invoice_no = $makeInvoice;
         $sellInvoice->total_item = $sellInvoiceSummeryCart['totalItem'];
         $sellInvoice->total_quantity = $sellInvoiceSummeryCart['totalQuantity'];
         $sellInvoice->subtotal = $sellInvoiceSummeryCart['lineInvoiceSubTotal'];
@@ -206,9 +229,13 @@ trait StoreDataFromSellCartTrait
         }
         $sellInvoice->round_type = $sign;
         $sellInvoice->total_payable_amount = $sellInvoiceSummeryCart['lineInvoicePayableAmountWithRounding'];
-        //$sellInvoice->total_purchase_amount = $this->totalPurchasePriceOfAllQuantityOfThisInvoice;
-        //$sellInvoice->total_invoice_profit = (($sellInvoiceSummeryCart['lineInvoicePayableAmountWithRounding']) - ($this->totalPurchasePriceOfAllQuantityOfThisInvoice));
         
+        $sellInvoice->sell_type = 1;
+
+        $sellInvoice->status =1;
+        $sellInvoice->delivery_status =1;
+        $sellInvoice->created_by = 1;
+
         $sellInvoice->save();
         return $sellInvoice;
         return $sellInvoiceSummeryCart;
