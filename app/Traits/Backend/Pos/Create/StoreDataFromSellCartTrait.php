@@ -5,6 +5,7 @@ use App\Models\Backend\Sell\SellInvoice;
 use App\Models\Backend\Sell\SellPackage;
 use App\Models\Backend\Sell\SellProduct;
 use App\Models\Backend\Sell\SellProductStock;
+use App\Traits\Backend\Stock\Logical\StockChangingTrait;
 
 /**
  * pricing trait
@@ -12,6 +13,9 @@ use App\Models\Backend\Sell\SellProductStock;
  */
 trait StoreDataFromSellCartTrait
 {
+    use StockChangingTrait;
+
+
     protected $cartName;
     protected $product_id;
 
@@ -99,9 +103,11 @@ trait StoreDataFromSellCartTrait
 
         
         $pStock = productStockByProductStockId_hh($product_stock_id);
+        $stockId = 1;
         if($pStock)
         {
             $availableBaseStock = $pStock->available_base_stock;
+            $stockId = $pStock->stock_id;
         }else{
             $availableBaseStock = 0;
         }
@@ -129,10 +135,15 @@ trait StoreDataFromSellCartTrait
            $stockProcessLaterQty   = $overStock;
         }
 
+        $sellType = 0;
         //if sell_type==1, then reduce stock from product stocks table 
-        if('sell_type' == 1)
+        if($sellType  == 1)
         {
-
+            $this->stock_id_FSCT = $stockId;
+            $this->product_id_FSCT = $cart['product_id'];
+            $this->stock_quantity_FSCT = $instantlyProcessedQty;
+            $this->unit_id_FSCT = $cart['unit_id'];
+            $this->sellingFromPossStockTypeDecrement();
         }
 
         $productStock->stock_process_instantly_qty = $instantlyProcessedQty;
