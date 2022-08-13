@@ -103,7 +103,7 @@ trait StoreDataFromSellCartTrait
 
         
         $pStock = productStockByProductStockId_hh($product_stock_id);
-        $stockId = 1;
+        $stockId = regularStockId_hh();
         if($pStock)
         {
             $availableBaseStock = $pStock->available_base_stock;
@@ -111,6 +111,8 @@ trait StoreDataFromSellCartTrait
         }else{
             $availableBaseStock = 0;
         }
+        //stock id 
+        $productStock->stock_id = $stockId;
 
         if($availableBaseStock > $qty)
         {
@@ -137,7 +139,7 @@ trait StoreDataFromSellCartTrait
 
         $sellType = 0;
         //if sell_type==1, then reduce stock from product stocks table 
-        if($sellType  == 1)
+        if($sellType  == 1 && $instantlyProcessedQty > 0)
         {
             $this->stock_id_FSCT = $stockId;
             $this->product_id_FSCT = $cart['product_id'];

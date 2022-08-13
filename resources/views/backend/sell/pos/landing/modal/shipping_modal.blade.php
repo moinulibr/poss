@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group row justify-content-end mb-0">
                         <div class="col-md-6 text-right">
-                            <a href="#" class="btn btn-primary">Add Address</a>
+                            <a href="#" class="btn btn-primary" style="padding: 5px;">Add Address</a>
                         </div>
                     </div>
                 </form>

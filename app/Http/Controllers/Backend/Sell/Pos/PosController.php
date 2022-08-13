@@ -294,15 +294,15 @@ class PosController extends Controller
         DB::beginTransaction();
 
         try {
-            //DB::insert(...);    
+            $this->storeSessionDataFromSellCart();   
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             throw $e;
-        } catch (\Throwable $e) {
+        } /* catch (\Throwable $e) {
             DB::rollback();
             throw $e;
-        }
+        } */
     }
     /*======================================================= */
     

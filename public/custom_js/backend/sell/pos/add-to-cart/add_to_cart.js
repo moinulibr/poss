@@ -267,6 +267,16 @@
             totalQuantityFromCartList += nanCheck(parseFloat(jQuery(this).text()));
         });
         totalQuantityFromCartList = ((totalQuantityFromCartList).toFixed(2));
+
+        
+        if(totalQuantityFromCartList > 0)
+        {
+            jQuery('.paymentQuotationButtonWhenCartItemZero').hide();
+            jQuery('.paymentQuotationButtonWhenCartItemMoreThenZero').show();
+        }else{
+            jQuery('.paymentQuotationButtonWhenCartItemZero').show();
+            jQuery('.paymentQuotationButtonWhenCartItemMoreThenZero').hide();   
+        }
         return totalQuantityFromCartList;
     }
 

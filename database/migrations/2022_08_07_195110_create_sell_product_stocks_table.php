@@ -21,6 +21,7 @@ class CreateSellProductStocksTable extends Migration
             $table->integer('sell_product_id')->nullable()->comment('sell product wise');
 
             $table->integer('product_id')->nullable();
+            $table->integer('stock_id')->nullable();
             $table->integer('product_stock_id')->nullable()->comment('sell product stock id');
             $table->decimal('total_quantity',20,3)->nullable();
             $table->decimal('mrp_price',20,2)->nullable();

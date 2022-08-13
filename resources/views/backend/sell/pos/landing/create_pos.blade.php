@@ -335,12 +335,22 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <a href="#" class="btn btn-danger btnFullWidth white removeOrEmptyAllItemFromCreateSellCartList" style="margin-top: 1%;">
                                                 Cancel
                                             </a>
-                                            <a href="#" class="btn btn-dark btnFullWidth white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
+
+                                        
+                                            <a  class="paymentQuotationButtonWhenCartItemZero btn btn-dark btnFullWidth white" style="margin-top: 1%; cursor: pointer;">
                                                 Quotation
                                             </a>
-                                            <a href="#" class="btn btn-success btnFullWidth white" style="margin-top: 1%;" data-toggle="modal" data-target="#payment-popup">
+                                            <a href="#" class="paymentQuotationButtonWhenCartItemMoreThenZero btn btn-dark btnFullWidth white" style="margin-top: 1%; display:none; cursor: pointer;" data-toggle="modal" data-target="#payment-popup">
+                                                Quotation
+                                            </a>
+
+                                            <a class="paymentQuotationButtonWhenCartItemZero btn btn-success btnFullWidth white" style="margin-top: 1%; cursor: pointer;">
                                                 Payment
                                             </a>
+                                            <a href="#" class="paymentQuotationButtonWhenCartItemMoreThenZero btn btn-success btnFullWidth white" style="margin-top: 1%; display:none; cursor: pointer;" data-toggle="modal" data-target="#payment-popup">
+                                                Payment
+                                            </a>
+
 
                                             <a href="#" class="pos_print_direct_from_sell_cart btn btn-info btnFullWidth white" style="margin-top: 1%;" data-href="{{ route('admin.sell.regular.pos.normal.print.from.direct.sell.cart') }}">
                                                 Print
