@@ -4,6 +4,8 @@ namespace App\Models\Backend\Customer;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Backend\Customer\CustomerShippingAddress;
+
 class Customer extends Model
 {
     use SoftDeletes;
@@ -20,6 +22,12 @@ class Customer extends Model
     public function customerTypies()
     {
         return $this->belongsTo(CustomerType::class,'customer_type_id','id');
+    }
+
+    //get shipping address
+    public function shippingAddresses()
+    {
+        return $this->hasMany(CustomerShippingAddress::class,'customer_id','id');
     }
 
 }

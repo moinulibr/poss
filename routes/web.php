@@ -326,7 +326,7 @@ Route::group(['middleware' => ['auth']], function ()
         Route::get('change/quantity/from/added/to/cart/list','PosController@changeQuantity')->name('change.quantity.from.sell.added.to.cart.list');
         
 
-        //
+        // Store data from sell cart
         Route::post('store/data/from/sell/cart','PosController@storeDataFromSellCart')->name('store.data.from.sell.cart');
 
         Route::get('show','PosController@show')->name('show');
@@ -335,6 +335,12 @@ Route::group(['middleware' => ['auth']], function ()
         Route::get('delete','PosController@delete')->name('delete');
         
     });
+    
+    //customer shipping address
+    Route::group(['as'=> 'admin.customer.', 'prefix'=>'admin/customer/shipping','namespace'=>'Backend\Customer'],function(){
+        Route::get('address/details/by','ShippingAddressController@getCustomerShippingAddressDetailsByCustomerId')->name('shipping.address.details.by.customer.id');
+    });
+    //customer shipping address
 
     Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Prints'],function(){
         //print sell invoice :- pos print

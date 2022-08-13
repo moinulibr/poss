@@ -15,24 +15,10 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label class="text-body">Customer</label>
-                                <fieldset class="form-group mb-3">
-                                    <input type="text" name="text" class="form-control" placeholder="Enter Customer " value="David Jones" disabled />
-                                </fieldset>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="text-body">Shipping Address</label>
-                                <fieldset class="form-group mb-3">
-                                    <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                        <option value="AL">928 Johnsaon Dr Columbo,MD 21044</option>
 
-                                        <option value="WY">933 Johnsaon Dr Columbo,MD 21044</option>
-                                    </select>
-                                </fieldset>
-                            </div>
-                        </div>
+                        <div class="shipping_information"></div>
+
+
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label class="text-body">Shipping Charges</label>
@@ -41,13 +27,9 @@
                                 </fieldset>
                             </div>
                             <div class="col-md-6">
-                                <label class="text-body">Shipping Status</label>
+                                <label class="text-body">Receiver Details</label>
                                 <fieldset class="form-group mb-3">
-                                    <select class="js-example-basic-single js-states form-control bg-transparent p-0 border-0" name="state">
-                                        <option value="AL">Packed</option>
-
-                                        <option value="WY">Open</option>
-                                    </select>
+                                    <textarea  name="new_shipping_address" class="receiver_details form-control" placeholder="Receiver Details"  ></textarea>
                                 </fieldset>
                             </div>
                         </div>
@@ -69,3 +51,5 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" class="getShippingAddressDetailsUrl" value="{{route('admin.customer.shipping.address.details.by.customer.id')}}">

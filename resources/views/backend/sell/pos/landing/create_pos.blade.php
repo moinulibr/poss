@@ -241,7 +241,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="selectmain" style="width: 45%;">
                                         <label class="text-dark d-flex">
                                             Choose a Customer
-                                            <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#choosecustomer" style="cursor: pointer">
+                                            {{-- <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#choosecustomer" style="cursor: pointer">
+                                                <i class="fa fa-plus"></i>
+                                            </span> --}} 
+                                            <span class="addCustomerModal badge badge-secondary white rounded-circle" data-create_from_value="customer" data-class_name="addedNewCustomer" style="cursor: pointer">
                                                 <i class="fa fa-plus"></i>
                                             </span>
 
@@ -252,7 +255,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </span>
                                             <span style="padding-left:1px;">Shipping Address</span>
                                         </label>
-                                        <select class="arabic-select" style="width: 100%;">
+                                        <select class="addedNewCustomer customer_id" style="width: 100%;"> <!--arabic-select--->
                                             <option value="1">walk in customer</option>
                                             @foreach ($customers as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
@@ -264,11 +267,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="d-flex flex-column selectmain" style="width: 45%;">
                                         <label class="text-dark d-flex">
                                             Reference
-                                            <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#shippingpop" style="cursor: pointer">
+                                            {{-- <span class="badge badge-secondary white rounded-circle" data-toggle="modal" data-target="#shippingpop" style="cursor: pointer">
+                                                <i class="fa fa-plus"></i>
+                                            </span> --}} 
+                                            <span class="addReferenceModal badge badge-secondary white rounded-circle"  data-create_from_value="customer" data-class_name="addedNewReference" style="cursor: pointer">
                                                 <i class="fa fa-plus"></i>
                                             </span>
                                         </label>
-                                        <select class="arabic-select" style="width: 100%;">
+                                        <select class="addedNewReference " style="width: 100%;"><!--arabic-select--->
                                             <option value="">Select Reference</option>
                                             @foreach ($references as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
@@ -560,6 +566,23 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{asset('custom_js/backend')}}/sell/pos/single-product/stock-with-price.js"></script>
         <script src="{{asset('custom_js/backend')}}/sell/pos/add-to-cart/add_to_cart.js"></script>
 
+        
+        <!---customer related js file--->
+        <!--<span class="addCustomerModal badge badge-secondary white rounded-circle" data-create_from_value="customer" data-class_name="addedNewCustomer" style="cursor: pointer"><i class="fa fa-plus"></i>-->
+        <!-------add Customer Modal------> 
+        <div class="modal fade " id="addCustomerModal"  aria-modal="true"></div>
+        <input type="hidden" class="addCustomerModalRoute" value="{{ route('admin.customer.create') }}">
+        <!-------add Customer Modal------> 
+        <script src="{{asset('custom_js/backend')}}/customer/customer/create.js?v=2"></script>
+        <!---customer related js file--->
+ 
+        <!---Reference related js file--->
+         <!-------add Reference Modal------> 
+         <div class="modal fade " id="addReferenceModal"  aria-modal="true"></div>
+         <input type="hidden" class="addReferenceModalRoute" value="{{ route('admin.reference.create') }}">
+         <!-------add Reference Modal------> 
+         <script src="{{asset('custom_js/backend')}}/reference/reference/create.js?v=2"></script>
+        <!---Reference related js file--->
 
     </body>
     <!--end::Body-->

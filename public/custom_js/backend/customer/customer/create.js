@@ -1,6 +1,6 @@
 
-    $(document).on('click','.addCustomerModal',function(){
-        var url = $('.addCustomerModalRoute').val();
+    jQuery(document).on('click','.addCustomerModal',function(){
+        var url = jQuery('.addCustomerModalRoute').val();
         
         /*
         |-----------------------------------------------
@@ -9,10 +9,10 @@
         */
             var addCreateFromValue  = "regular";
             var addedCreateFromclassName    = "";
-            if (typeof $(this).data('create_from_value') !== 'undefined') 
+            if (typeof jQuery(this).data('create_from_value') !== 'undefined') 
             {
-                addCreateFromValue       = $(this).data('create_from_value');
-                addedCreateFromclassName = $(this).data('class_name');
+                addCreateFromValue       = jQuery(this).data('create_from_value');
+                addedCreateFromclassName = jQuery(this).data('class_name');
             }
         /*
         |-----------------------------------------------
@@ -20,18 +20,18 @@
         |----------------------------------------------
         */
 
-        $.ajax({
+        jQuery.ajax({
             url:url,
             success:function(response){
-                $('#addCustomerModal').html(response).modal('show');
+                jQuery('#addCustomerModal').html(response).modal('show');
                  
                 /*
                 |-------------------------------------
                 | set create from value in the modal
                 |-------------------------------------
                 */
-                    $('.create_from').val(addCreateFromValue);
-                    $('.created_from_class_name').val(addedCreateFromclassName);
+                    jQuery('.create_from').val(addCreateFromValue);
+                    jQuery('.created_from_class_name').val(addedCreateFromclassName);
                 /*
                 |-------------------------------------
                 | set create from value in the modal
@@ -42,20 +42,20 @@
         });
     });
 
-    $(document).on("submit",'.storeCustomerData',function(e){
+    jQuery(document).on("submit",'.storeCustomerData',function(e){
         e.preventDefault();
-        var form = $(this);
+        var form = jQuery(this);
         var url = form.attr("action");
         var type = form.attr("method");
         var data = form.serialize();
-        $('.color-red').text('');
-        $.ajax({
+        jQuery('.color-red').text('');
+        jQuery.ajax({
             url: url,
             data: data,
             type: type,
             datatype:"JSON",
             beforeSend:function(){
-                $('.processing').fadeIn();
+                jQuery('.processing').fadeIn();
             },
             success: function(response){
                 //console.log(response) 
@@ -65,9 +65,9 @@
                 }
                 else if(response.status == true)
                 {
-                    $.notify(response.message, response.type);
+                    jQuery.notify(response.message, response.type);
                     form[0].reset();
-                    //$('#addCustomerModal').html(response).modal('hide');
+                    //jQuery('#addCustomerModal').html(response).modal('hide');
                     setTimeout(function(){
                         //for regular process
                         if(response.create_from == "regular")
@@ -75,17 +75,17 @@
                             customerList();
                         }
                         //for regular process
-                        $('#addCustomerModal').modal('hide');//hide modal
+                        jQuery('#addCustomerModal').modal('hide');//hide modal
                     },1000);
 
                     //for added from another page or another place
                     if((response.create_from != "regular") && (response.data_created_class_name != ""))
                     {
-                        $('.'+response.data_created_class_name).append('<option value='+response.data_id+' selected="selected">'+response.data_name+'</option>');
+                        jQuery('.'+response.data_created_class_name).append('<option value='+response.data_id+' selected="selected">'+response.data_name+'</option>');
                     }
                     //for added from another page or another place
-                    /* $('.customer_id').append('<option value='+response.data_id+' selected="selected">'+response.data_name+'</option>');
-                    $('#add-customer').modal("hide"); */
+                    /* jQuery('.customer_id').append('<option value='+response.data_id+' selected="selected">'+response.data_name+'</option>');
+                    jQuery('#add-customer').modal("hide"); */
                     /* //This is also working perfect , 
                         var len = 0;
                         if(response['data'] != null){
@@ -100,23 +100,23 @@
                                 var name    = response['data'][i].name;
                                 html += "<option value='"+id+"'>"+name+"</option>";
                             }
-                            $(".customer_id").html(html);
-                            $('#add-customer').modal("hide");
+                            jQuery(".customer_id").html(html);
+                            jQuery('#add-customer').modal("hide");
                             form[0].reset();  //this for after completing processed, the all data of form will be clear.. like reset
                         } 
                     */
                 }
             },
             complete:function(){
-                $('.processing').fadeOut();
+                jQuery('.processing').fadeOut();
             },
         });
         //end ajax
 
         function printErrorMsg(msg) {
-            $('.color-red').css({'color':'red'});
-            $.each(msg, function(key, value ) {
-                $('.'+key+'_err').text(value);
+            jQuery('.color-red').css({'color':'red'});
+            jQuery.each(msg, function(key, value ) {
+                jQuery('.'+key+'_err').text(value);
             });
         }
     });

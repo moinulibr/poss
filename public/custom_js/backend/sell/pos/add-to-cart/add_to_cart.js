@@ -597,4 +597,37 @@
 
 
     
+
+    //shipping address and add new shipping address
+    jQuery(document).on('click','.invoiceShippingCostApplyModal',function(){
+        var customer_id = jQuery('.customer_id option:selected').val();
+        var url = jQuery('.getShippingAddressDetailsUrl').val();
+        jQuery.ajax({
+            url:url,
+            data:{customer_id:customer_id},
+            beforeSend:function(){
+                jQuery('.processing').fadeIn();
+            },
+            success:function(response){
+                console.log(response.html);
+                jQuery('.shipping_information').html(response.html);
+            },
+            complete:function(){
+                jQuery('.processing').fadeOut();
+            },
+        });
+    });  
+    
+    jQuery(document).on('change','.use_shipping_address',function(){
+        var id = jQuery('.use_shipping_address option:selected').val();
+        if(id == 1)
+        {
+            jQuery('.existing_shipping_address_div').show();
+            jQuery('.new_shipping_address_div').hide();
+        }else{
+            jQuery('.existing_shipping_address_div').hide();
+            jQuery('.new_shipping_address_div').show();
+        }
+    }); 
+    //shipping address and add new shipping address 
     
