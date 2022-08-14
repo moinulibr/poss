@@ -4,22 +4,34 @@ namespace App\Http\Controllers\Backend\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Customer\Customer;
+use App\Models\Backend\Reference\Reference;
 use Illuminate\Http\Request;
 
 class ShippingAddressController extends Controller
 {
 
-
-    public function getCustomerShippingAddressDetailsByCustomerId(Request $request)
-    {
-        $data['customer'] = Customer::where('id',$request->customer_id)->first();
-        $view = view('backend.customer.shipping_address.create_shipping_address',$data)->render();
-        return response()->json([
-            'html' => $view,
-            'status' => true
-        ]);
-    }
-
+    /*
+    |------------------------------------------------------
+    | Only from pos 
+    | get customer shipping address details by costomer id
+    |------------------------------------------------------
+    */
+        public function getCustomerShippingAddressDetailsByCustomerId(Request $request)
+        {
+            $data['customer'] = Customer::where('id',$request->customer_id)->first();
+            $data['reference'] = Reference::where('id',$request->reference_id)->first();
+            $view = view('backend.customer.shipping_address.create_from_pos_shipping_address',$data)->render();
+            return response()->json([
+                'html' => $view,
+                'status' => true
+            ]);
+        }
+    /*
+    |------------------------------------------------------
+    | Only from pos 
+    | get customer shipping address details by costomer id
+    |------------------------------------------------------
+    */
 
     /**
      * Display a listing of the resource.

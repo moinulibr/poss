@@ -329,6 +329,9 @@ Route::group(['middleware' => ['auth']], function ()
         // Store data from sell cart
         Route::post('store/data/from/sell/cart','PosController@storeDataFromSellCart')->name('store.data.from.sell.cart');
 
+        //customer shipping address
+        Route::post('customer/shipping/address','PosController@customerShippingAddress')->name('customer.shipping.address');
+        
         Route::get('show','PosController@show')->name('show');
         Route::get('edit','PosController@edit')->name('edit');
         Route::post('update','PosController@update')->name('update');

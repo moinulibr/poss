@@ -14,9 +14,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-
-                        <div class="shipping_information"></div>
+                    <form method="POST" action="{{route('admin.sell.regular.pos.customer.shipping.address')}}" class="submitCustomerShippingAddress">
+                        @csrf
+                        <div class="response_shipping_information"></div>
 
 
                         <div class="form-group row">
@@ -29,21 +29,27 @@
                             <div class="col-md-6">
                                 <label class="text-body">Receiver Details</label>
                                 <fieldset class="form-group mb-3">
-                                    <textarea  name="new_shipping_address" class="receiver_details form-control" placeholder="Receiver Details"  ></textarea>
+                                    <textarea  name="receiver_details" class="receiver_details form-control" placeholder="Receiver Details"  ></textarea>
                                 </fieldset>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label class="text-body">Shipping Note</label>
                                 <fieldset class="form-label-group">
-                                    <textarea class="form-control fixed-size" rows="5" placeholder="Shipping Note"></textarea>
+                                    <textarea name="shipping_note" class="form-control" placeholder="Shipping Note"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-body">Sell Note</label>
+                                <fieldset class="form-label-group">
+                                    <textarea name="sell_note" class="form-control" placeholder="Sell Note"></textarea>
                                 </fieldset>
                             </div>
                         </div>
                         <div class="form-group row justify-content-end mb-0">
                             <div class="col-md-6 text-right">
-                                <a href="#" class="btn btn-primary btn-md" style="padding: 5px;">Update Order</a>
+                                <input type="submit" class="btn btn-primary btn-md" value="Update Information" style="padding: 5px;">
                             </div>
                         </div>
                     </form>

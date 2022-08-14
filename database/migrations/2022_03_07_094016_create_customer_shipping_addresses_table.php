@@ -27,8 +27,8 @@ class CreateCustomerShippingAddressesTable extends Migration
                 $table->string('postal_code',50)->nullable();
 
                 $table->string('email')->nullable();
-                $table->string('phone',15)->unique()->nullable();
-                $table->string('phone_2',15)->unique()->nullable();
+                $table->string('phone',15)->nullable();
+                $table->string('phone_2',15)->nullable();
                 $table->text('address')->nullable();
                 $table->text('note')->nullable();
 

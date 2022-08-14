@@ -539,6 +539,9 @@
     //invoice final sell calculation summery processing in the session.
     function invoiceFinalSellCalculationSummeryProcessingInTheSession()
     {
+        var customer_id = jQuery('.customer_id option:selected').val();
+        var reference_id = jQuery('.reference_id option:selected').val();
+
         var invoiceDiscountAmount               = nanCheck(parseFloat(jQuery('.invoice_discount_amount').val()));
         var invoiceDiscountType                 = jQuery('.invoice_discount_type option:selected').val();
         var subtotalFromSellCartList            = nanCheck(parseFloat(jQuery('.subtotalFromSellCartListValue').val()));
@@ -566,7 +569,8 @@
                 invoiceDiscountAmount:invoiceDiscountAmount,invoiceDiscountType:invoiceDiscountType,
                 totalInvoiceDiscountAmount:totalInvoiceDiscountAmount,invoiceVatAmount:invoiceVatAmount,
                 totalVatAmountCalculation:totalVatAmountCalculation,totalShippingCost:totalShippingCost,
-                invoiceOtherCostAmount:invoiceOtherCostAmount,totalInvoicePayableAmount:totalInvoicePayableAmount
+                invoiceOtherCostAmount:invoiceOtherCostAmount,totalInvoicePayableAmount:totalInvoicePayableAmount,
+                customer_id:customer_id,reference_id:reference_id
             },
             beforeSend:function(){
                 jQuery('.processing').fadeIn();
@@ -601,16 +605,16 @@
     //shipping address and add new shipping address
     jQuery(document).on('click','.invoiceShippingCostApplyModal',function(){
         var customer_id = jQuery('.customer_id option:selected').val();
+        var reference_id = jQuery('.reference_id option:selected').val();
         var url = jQuery('.getShippingAddressDetailsUrl').val();
         jQuery.ajax({
             url:url,
-            data:{customer_id:customer_id},
+            data:{customer_id:customer_id,reference_id:reference_id},
             beforeSend:function(){
                 jQuery('.processing').fadeIn();
             },
             success:function(response){
-                console.log(response.html);
-                jQuery('.shipping_information').html(response.html);
+                jQuery('.response_shipping_information').html(response.html);
             },
             complete:function(){
                 jQuery('.processing').fadeOut();
@@ -622,12 +626,40 @@
         var id = jQuery('.use_shipping_address option:selected').val();
         if(id == 1)
         {
-            jQuery('.existing_shipping_address_div').show();
-            jQuery('.new_shipping_address_div').hide();
+            jQuery('.existing_shipping_address_div').show(200);
+            jQuery('.new_shipping_address_div').hide(200);
         }else{
-            jQuery('.existing_shipping_address_div').hide();
-            jQuery('.new_shipping_address_div').show();
+            jQuery('.existing_shipping_address_div').hide(200);
+            jQuery('.new_shipping_address_div').show(200);
         }
     }); 
+
+    jQuery(document).on("submit",'.submitCustomerShippingAddress',function(e){
+        e.preventDefault();
+        var form = jQuery(this);
+        var url = form.attr("action");
+        var type = form.attr("method");
+        var data = form.serialize();
+        jQuery('.color-red').text('');
+        jQuery.ajax({
+            url: url,
+            data: data,
+            type: type,
+            datatype:"JSON",
+            beforeSend:function(){
+                jQuery('.processing').fadeIn();
+            },
+            success: function(response){
+                if(response.status == true)
+                {
+                    jQuery('#shippingCostPopUpModal').modal('hide');
+                }
+            },
+            complete:function(){
+                jQuery('.processing').fadeOut();
+            },
+        });
+        //end ajax
+    });
     //shipping address and add new shipping address 
     

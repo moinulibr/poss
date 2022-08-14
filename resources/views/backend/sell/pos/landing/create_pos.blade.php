@@ -248,12 +248,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-plus"></i>
                                             </span>
 
-                                            <span style="padding-left:2%;">
+                                            {{-- <span style="padding-left:2%;">
                                                 <span class="badge badge-secondary white rounded-circle ml-2" data-toggle="modal" data-target="#shippingpop" style="cursor: pointer">
                                                     <i class="fa fa-plus"></i>
                                                 </span>
                                             </span>
-                                            <span style="padding-left:1px;">Shipping Address</span>
+                                            <span style="padding-left:1px;">Shipping Address</span> --}}
                                         </label>
                                         <select class="addedNewCustomer customer_id" style="width: 100%;"> <!--arabic-select--->
                                             <option value="1">walk in customer</option>
@@ -274,7 +274,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-plus"></i>
                                             </span>
                                         </label>
-                                        <select class="addedNewReference " style="width: 100%;"><!--arabic-select--->
+                                        <select class="addedNewReference reference_id" style="width: 100%;"><!--arabic-select--->
                                             <option value="">Select Reference</option>
                                             @foreach ($references as $item)
                                             <option value="{{$item->id}}">{{$item->name}}</option>
@@ -346,7 +346,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <a  class="paymentQuotationButtonWhenCartItemZero btn btn-dark btnFullWidth white" style="margin-top: 1%; cursor: pointer;">
                                                 Quotation
                                             </a>
-                                            <a href="#" class="paymentQuotationButtonWhenCartItemMoreThenZero btn btn-dark btnFullWidth white" style="margin-top: 1%; display:none; cursor: pointer;" data-toggle="modal" data-target="#payment-popup">
+                                            <a href="#" class="paymentQuotationButtonWhenCartItemMoreThenZero btn btn-dark btnFullWidth white" style="margin-top: 1%; display:none; cursor: pointer;" data-toggle="modal" data-target="#quotation-popup">
                                                 Quotation
                                             </a>
 
@@ -453,6 +453,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
         @include('backend.sell.pos.landing.modal.payment_modal')
+        @include('backend.sell.pos.landing.modal.quotation_modal')
         @include('backend.sell.pos.landing.modal.shipping_modal')
         @include('backend.sell.pos.landing.modal.shipping_cost_modal')
         @include('backend.sell.pos.landing.modal.choose_customer_modal')

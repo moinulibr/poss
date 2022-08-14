@@ -35,36 +35,36 @@
                             </tr>
                         </tbody>
                     </table>
-                    <form>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label class="text-body">Received Amount</label>
-                                <fieldset class="form-group mb-3">
-                                    <input type="text" name="number" class="form-control" value="$1000" placeholder="Enter Amount " />
-                                </fieldset>
-                                <div class="p-3 bg-light-dark d-flex justify-content-between border-bottom">
-                                    <h5 class="font-size-bold mb-0">Amount to Return :</h5>
-                                    <h5 class="font-size-bold mb-0">-$20</h5>
-                                </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="text-body">Received Amount</label>
+                            <fieldset class="form-group mb-3">
+                                <input type="text" name="number" class="form-control" value="$1000" placeholder="Enter Amount " />
+                            </fieldset>
+                            <div class="p-3 bg-light-dark d-flex justify-content-between border-bottom">
+                                <h5 class="font-size-bold mb-0">Amount to Return :</h5>
+                                <h5 class="font-size-bold mb-0">-$20</h5>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <label class="text-body">Note (If any)</label>
-                                <fieldset class="form-label-group">
-                                    <textarea class="form-control fixed-size" id="horizontalTextarea" rows="5" placeholder="Enter Note"></textarea>
-                                </fieldset>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="text-body">Note (If any)</label>
+                            <fieldset class="form-label-group">
+                                <textarea class="form-control fixed-size" id="horizontalTextarea" rows="5" placeholder="Enter Note"></textarea>
+                            </fieldset>
                         </div>
-                        
-                        <input type="hidden" name="sell_type" value="1">
+                    </div>
+                    
+                    <input type="hidden" name="sell_type" value="1">
 
-                        <div class="form-group row justify-content-end mb-0">
-                            <div class="col-md-6 text-right">
-                                <input type="submit" class="btn btn-primary" value="Submit" style="padding:7px 20px;">
-                            </div>
+                    <div class="form-group row justify-content-end mb-0">
+                        <div class="col-md-6 text-right">
+                            <input type="submit" class="btn btn-primary" value="Submit" style="padding:7px 20px;">
                         </div>
-                    </form>
+                    </div>
+                   
                 </div>
             </from>
         </div>

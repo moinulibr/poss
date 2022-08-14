@@ -40,6 +40,10 @@ use App\Models\Backend\Stock\ProductStock;
     function sellCreateCartInvoiceSummerySessionName_hh()
     {
         return "SellCartInvoiceSummery";
+    } 
+    function sellCreateCartShippingAddressSessionName_hh()
+    {
+        return "customerShippingAddress";
     }
 
     //get only single price, by product id,product stock id, stock id, price id

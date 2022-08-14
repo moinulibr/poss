@@ -1,15 +1,34 @@
+<div class="form-group row" style="background-color: #e9ecef;padding-top:5px;">
+    <div class="col-md-6">
+        <label class="text-body">Refenece</label>
+        <fieldset class="form-group mb-3">
+            <input type="text"  class="form-control"  value="{{$reference ? $reference->name : "No body"}}" disabled />
+            <input type="hidden" name="reference_id" value="{{$reference ? $reference->id : ""}}" />
+        </fieldset>
+    </div>
+    <div class="col-md-6">
+        <label class="text-body">Refenece Phone</label>
+        <fieldset class="form-group mb-3">
+            <input type="text" class="form-control" value="{{$reference ? $reference->phone : NULL}}" disabled />
+        </fieldset>
+    </div>
+</div>
+
+<hr>
+<br/>
+
 <div class="form-group row">
     <div class="col-md-6">
         <label class="text-body">Customer</label>
         <fieldset class="form-group mb-3">
-            <input type="text"  class="form-control" placeholder="Enter Customer " value="{{$customer?$customer->name:NULL}}" disabled />
-            
+            <input type="text"  class="form-control"  value="{{$customer?$customer->name:NULL}}" disabled />
+            <input type="hidden" name="customer_id" value="{{$customer?$customer->id:1}}" />
         </fieldset>
     </div>
     <div class="col-md-6">
         <label class="text-body">Customer Phone</label>
         <fieldset class="form-group mb-3">
-            <input type="text" name="text" class="form-control" value="{{$customer?$customer->phone:NULL}}" disabled />
+            <input type="text" class="form-control" value="{{$customer?$customer->phone:NULL}}" disabled />
         </fieldset>
     </div>
 </div>
@@ -17,16 +36,16 @@
     <div class="col-md-6">
         <label class="text-body">Use Shipping Address</label>
         <fieldset class="form-group mb-3">
-            <select class="use_shipping_address  form-control" >
-                <option value="1">Existing Shipping Address</option>
-                <option value="2">New Shipping Address (add)</option>
+            <select class="use_shipping_address  form-control" name="use_shipping_address">
+                <option value="1_existing">Existing Shipping Address</option>
+                <option value="2_new">New Shipping Address (add)</option>
             </select>
         </fieldset>
     </div>
     <div class="existing_shipping_address_div col-md-6">
         <label class="text-body">Shipping Address</label>
         <fieldset class="form-group mb-3">
-            <select class="customer_shipping_address_id form-control ">
+            <select class="customer_shipping_address_id form-control " name="customer_shipping_address_id">
                 @if ($customer)    
                     @foreach ($customer->shippingAddresses as $item)
                     <option value="{{$item->id}}">

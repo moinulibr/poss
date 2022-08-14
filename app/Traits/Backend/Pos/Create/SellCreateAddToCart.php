@@ -1,13 +1,16 @@
 <?php
 namespace App\Traits\Backend\Pos\Create;
 
+use App\Traits\Backend\Customer\Shipping\ShippingAddressTrait;
 
 /**
- * pricing trait
+ *  trait
  * 
  */
 trait SellCreateAddToCart
 {
+    use ShippingAddressTrait;
+
     protected $requestAllCartData;
     protected $cartName;
     protected $product_id;
@@ -73,6 +76,9 @@ trait SellCreateAddToCart
         $lineInvoicePayableAmountWithRounding   = number_format(round($lineAfterOtherCostShippingCostDiscountAndVatWithInvoiceSubTotal),2,'.', '');
 
         $cartName = [
+            'invoice_customer_id'=> $this->requestAllCartData['customer_id'],
+            'invoice_reference_id'=> $this->requestAllCartData['reference_id'],
+
             'subtotalFromSellCartList'=> $subtotalFromSellCartList,
             'totalItem'=> $totalItem,
             'totalQuantity'=> $totalQuantity,
@@ -301,8 +307,60 @@ trait SellCreateAddToCart
     
     
     //====================================================================
+    protected function shippingAddressStoreInSession()
+    {
+        //return $this->requestAllCartData;
+        $use_shipping_address = $this->requestAllCartData['use_shipping_address'];
+        $customer_id = $this->requestAllCartData['customer_id'];
+        $reference_id = $this->requestAllCartData['reference_id'];
+        $customerShippingAddressId = NULL;
+        if($use_shipping_address == '1_existing')
+        {
+            $customerShippingAddressId = $this->requestAllCartData['customer_shipping_address_id'];
+           
+        }else if($use_shipping_address  = '2_new')
+        {
+            $data['customer_id'] = $customer_id;
+            $data['phone'] = $this->requestAllCartData['phone'];
+            $data['new_shipping_address'] = $this->requestAllCartData['new_shipping_address'];
+            $data['email'] = $this->requestAllCartData['email'];
+            
+            $this->customerFormData = $data;
+            $customerShippingAddressId = $this->insertCustomerShippingAddressFromPosCreate();
+        }
 
-    
+        $invoice_shipping_cost = $this->requestAllCartData['invoice_shipping_cost'];
+        $shipping_note = $this->requestAllCartData['shipping_note'];
+        $sell_note = $this->requestAllCartData['sell_note'];
+        $receiver_details = $this->requestAllCartData['receiver_details'];
+
+        $cartName           = [];
+        $cartName           = session()->has($this->cartName) ? session()->get($this->cartName)  : [];
+        $cartName = [
+            'customer_id'=> $customer_id,
+            'reference_id'=> $reference_id,
+            'customer_shipping_address_id'=> $customerShippingAddressId,
+            'invoice_shipping_cost'=> $invoice_shipping_cost,
+            'shipping_note'=> $shipping_note,
+            'sell_note'=> $sell_note,
+            'receiver_details'=> $receiver_details,
+           ];
+        session([$this->cartName => $cartName]);
+        return $this->cartName;
+    }
+
+    //====================================================================
+
+
+
+
+
+
+
+
+
+    //====================================================================
+
     public function cartInsertUpdateWhenReturnOrEditSale()
     {
         $cartName = [];

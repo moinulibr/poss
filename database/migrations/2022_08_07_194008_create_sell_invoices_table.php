@@ -50,9 +50,10 @@ class CreateSellInvoicesTable extends Migration
                 $table->integer('customer_id')->nullable();
                 $table->integer('customer_type_id')->nullable()->comment('1=Permanent, 2=Temporary');
                 $table->integer('shipping_id')->nullable();
+                $table->text('shipping_note')->nullable();
                 $table->text('receiver_details')->nullable();
                 $table->integer('reference_id')->nullable();
-
+                $table->text('sell_note')->nullable();
                 //$table->tinyInteger('product_stock_type')->nullable()->comment('1=single, 2=multiple');
             
                 $table->tinyInteger('status')->nullable();

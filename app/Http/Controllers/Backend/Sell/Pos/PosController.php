@@ -287,8 +287,20 @@ class PosController extends Controller
 
 
     /*======================================================= */
-    public function storeDataFromSellCart(Request $request)
+    public function customerShippingAddress(Request $request)
     {
+        //return $request; 
+        $this->requestAllCartData = $request;
+        $this->cartName = sellCreateCartShippingAddressSessionName_hh();
+        $this->shippingAddressStoreInSession();
+        return response()->json([
+            'status'    => true,
+        ]);
+    }
+    /*======================================================= */
+    public function storeDataFromSellCart(Request $request)
+    {   
+        $this->sellCreateFormData = $request;
         return $this->storeSessionDataFromSellCart();
         
         DB::beginTransaction();

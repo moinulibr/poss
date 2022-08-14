@@ -1,9 +1,12 @@
 <?php
 namespace App\Traits\Backend\Pos\Create;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Backend\Sell\SellInvoice;
 use App\Models\Backend\Sell\SellPackage;
 use App\Models\Backend\Sell\SellProduct;
+use App\Models\Backend\Customer\Customer;
+use App\Models\Backend\Sell\SellQuotation;
 use App\Models\Backend\Sell\SellProductStock;
 use App\Traits\Backend\Stock\Logical\StockChangingTrait;
 
@@ -15,6 +18,8 @@ trait StoreDataFromSellCartTrait
 {
     use StockChangingTrait;
 
+
+    protected $sellCreateFormData;
 
     protected $cartName;
     protected $product_id;
@@ -28,6 +33,7 @@ trait StoreDataFromSellCartTrait
 
     protected function storeSessionDataFromSellCart()
     {   
+        
         $sellCartName = sellCreateCartSessionName_hh();
         $sellCart   = [];
         $sellCart   = session()->has($sellCartName) ? session()->get($sellCartName)  : [];
@@ -137,7 +143,7 @@ trait StoreDataFromSellCartTrait
            $stockProcessLaterQty   = $overStock;
         }
 
-        $sellType = 0;
+        $sellType = $this->sellCreateFormData['sell_type'];
         //if sell_type==1, then reduce stock from product stocks table 
         if($sellType  == 1 && $instantlyProcessedQty > 0)
         {
@@ -212,11 +218,14 @@ trait StoreDataFromSellCartTrait
 
     private function insertDataInTheSellInvoiceTable($sellInvoiceSummeryCart)
     {  
+        $shippingCart = [];
+        $shippingCart = session()->has(sellCreateCartShippingAddressSessionName_hh()) ? session()->get(sellCreateCartShippingAddressSessionName_hh())  : [];
+
         //return $sellInvoiceSummeryCart;
         $sellInvoice = new SellInvoice();
         $sellInvoice->branch_id = 1;
         $rand = rand(01,99);
-        $makeInvoice = date("isHymd").$rand;
+        $makeInvoice = date("iHsymd").$rand;
         $sellInvoice->invoice_no = $makeInvoice;
         $sellInvoice->total_item = $sellInvoiceSummeryCart['totalItem'];
         $sellInvoice->total_quantity = $sellInvoiceSummeryCart['totalQuantity'];
@@ -243,13 +252,52 @@ trait StoreDataFromSellCartTrait
         $sellInvoice->round_type = $sign;
         $sellInvoice->total_payable_amount = $sellInvoiceSummeryCart['lineInvoicePayableAmountWithRounding'];
         
-        $sellInvoice->sell_type = 1;
+        $sellInvoice->sell_type = $this->sellCreateFormData['sell_type'];
 
-        $sellInvoice->status =1;
-        $sellInvoice->delivery_status =1;
+        $customerId = $sellInvoiceSummeryCart['invoice_customer_id'];
+        if(count($shippingCart) > 0)
+        {
+            $sellInvoice->customer_id = $shippingCart['customer_id'];
+            $customerId = $shippingCart['customer_id'];
+            $sellInvoice->reference_id = $shippingCart['reference_id'];
+            $sellInvoice->shipping_id = $shippingCart['customer_shipping_address_id'];
+            $sellInvoice->shipping_note = $shippingCart['shipping_note'];
+            $sellInvoice->sell_note = $shippingCart['sell_note'];
+            $sellInvoice->receiver_details = $shippingCart['receiver_details'];
+        }else{
+            $sellInvoice->customer_id = $sellInvoiceSummeryCart['invoice_customer_id'];
+            $sellInvoice->reference_id = $sellInvoiceSummeryCart['invoice_reference_id'];
+        }
+
+        $customer = Customer::select('customer_type_id')->where('id',$customerId)->first();
+        if($customer)
+        {
+            $sellInvoice->customer_type_id = $customer->customer_type_id;  
+        }else{
+            $sellInvoice->customer_type_id = 2;  //temporary
+        }
+
+        $sellInvoice->status = 1;
+        $sellInvoice->delivery_status = 1;
         $sellInvoice->created_by = 1;
 
         $sellInvoice->save();
+
+        if( $this->sellCreateFormData['sell_type'] == 2)
+        {
+            $quotation =  new SellQuotation();
+            $quotation->sell_invoice_id  = $sellInvoice->id;
+            $quotation->invoice_no       = $sellInvoice->invoice_no;
+            $quotation->customer_name    = $this->sellCreateFormData['customer_name'];
+            $quotation->phone            = $this->sellCreateFormData['phone'];
+            $quotation->quotation_no     = $this->sellCreateFormData['quotation_no'];
+            $quotation->validate_date    = $this->sellCreateFormData['validate_date'];
+            $quotation->quotation_note   = $this->sellCreateFormData['quotation_note'];
+            $quotation->sell_date        = $this->sellCreateFormData['sale_date'];
+            $quotation->created_by       = 1;//Auth::user()->id;
+            $quotation->save(); 
+        }
+
         return $sellInvoice;
         return $sellInvoiceSummeryCart;
     }
