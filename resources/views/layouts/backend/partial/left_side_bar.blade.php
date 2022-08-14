@@ -25,7 +25,7 @@
                 </a>
                 <ul class="sidenav-menu">
                     <li class="sidenav-item ">{{-- <li class="sidenav-item active"> active--}}
-                        <a href="index.html" class="sidenav-link">
+                        <a href="{{route('admin.sell.regular.sell.index')}}" class="sidenav-link">
                             <div>Sale List</div>
                         </a>
                     </li>

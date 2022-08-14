@@ -287,6 +287,7 @@ class PosController extends Controller
 
 
     /*======================================================= */
+    //customer shipping address from sell cart (pos)
     public function customerShippingAddress(Request $request)
     {
         //return $request; 
@@ -298,19 +299,34 @@ class PosController extends Controller
         ]);
     }
     /*======================================================= */
+    // store sell and quotation data from sell cart (pos)
     public function storeDataFromSellCart(Request $request)
     {   
-        $this->sellCreateFormData = $request;
-        return $this->storeSessionDataFromSellCart();
-        
         DB::beginTransaction();
 
         try {
+            $this->sellCreateFormData = $request;
             $this->storeSessionDataFromSellCart();   
             DB::commit();
+            
+            session([sellCreateCartSessionName_hh() => []]);
+            session([sellCreateCartInvoiceSummerySessionName_hh() => []]);
+            session([sellCreateCartShippingAddressSessionName_hh() => []]);
+            $list = view('backend.sell.pos.ajax-response.landing.added-to-cart.list')->render();
+            return response()->json([
+                'status'    => true,
+                'list'      => $list,
+                'message'   => "Action submited successfully!",
+                'type'      => 'success'
+            ]);
         } catch (\Exception $e) {
             DB::rollback();
             throw $e;
+            return response()->json([
+                'status'    => true,
+                'message'   => "Something went wrong",
+                'type'      => 'error'
+            ]);
         } /* catch (\Throwable $e) {
             DB::rollback();
             throw $e;

@@ -1,7 +1,7 @@
 <div class="modal fade text-left" id="quotation-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel11" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <form action="{{route('admin.sell.regular.pos.store.data.from.sell.cart')}}" method="POST">
+            <form action="{{route('admin.sell.regular.pos.store.data.from.sell.cart')}}" method="POST" class="storeDataFromSellCart">
                 @csrf
                 <div class="modal-header">
                     <h3 class="modal-title" id="myModalLabel11">Quotation</h3>
@@ -35,14 +35,14 @@
                         <label>Quotation Note</label>
                         <textarea name="quotation_note" class="form-control"></textarea>
                     </div>
+                    <input type="hidden" name="sell_type" value="2">
                     <div class="form-group row justify-content-end mb-0">
                         <div class="col-md-6 text-right">
-                            <input type="submit" class="btn btn-primary" value="Submit" style="padding:7px 20px;">
+                            <input type="submit"  class="btn btn-primary" value="Submit Quotation" style="padding:7px 20px;">
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="sell_type" value="2">
-            </from>
+            </form>
         </div>
     </div>
 </div>

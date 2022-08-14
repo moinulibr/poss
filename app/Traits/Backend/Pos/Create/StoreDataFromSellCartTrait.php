@@ -42,17 +42,8 @@ trait StoreDataFromSellCartTrait
         $sellInvoiceSummeryCart = [];
         $sellInvoiceSummeryCart = session()->has($sellInvoiceSummeryCartName) ? session()->get($sellInvoiceSummeryCartName)  : [];
         
-        echo "<pre>";
-        print_r($sellCart);
-        echo "</pre>";
-        echo "---------------- <br/>";
-        
         $sellInvoice =  $this->insertDataInTheSellInvoiceTable($sellInvoiceSummeryCart);
-       echo "<pre>";
-       print_r($sellInvoice);
-       echo "</pre>";
-        echo "----------------- <br/>";
-
+       
         $this->totalSellingQuantity = 0;
         $this->otherProductStockQuantityPurchasePrice = 0;
         $this->mainProductStockQuantityPurchasePrice = 0;
@@ -90,7 +81,7 @@ trait StoreDataFromSellCartTrait
     private function insertDataInTheSellProductStockTable($cart,$sellInvoice,$sellProduct,$product_stock_id,$qty,$purchase_price,$process_duration)
     {
         $productStock = new SellProductStock();
-        $productStock->branch_id = 1;
+        $productStock->branch_id = authBranch_hh();
         $productStock->sell_invoice_id = $sellInvoice->id;
         $productStock->sell_product_id = $sellProduct->id;
         $productStock->product_stock_id = $product_stock_id;
@@ -170,7 +161,7 @@ trait StoreDataFromSellCartTrait
     private function insertDataInTheSellProduct($sellInvoice,$cart)
     {
         $productStock = new SellProduct();
-        $productStock->branch_id = 1;
+        $productStock->branch_id = authBranch_hh();
         $productStock->sell_invoice_id = $sellInvoice->id;
         $productStock->product_id = $cart['product_id'];
         $productStock->unit_id = $cart['unit_id'];
@@ -211,7 +202,7 @@ trait StoreDataFromSellCartTrait
 
         $productStock->status =1;
         $productStock->delivery_status =1;
-        $productStock->created_by = 1;
+        $productStock->created_by = authId_hh();
         $productStock->save();
         return $productStock;
     }
@@ -223,7 +214,7 @@ trait StoreDataFromSellCartTrait
 
         //return $sellInvoiceSummeryCart;
         $sellInvoice = new SellInvoice();
-        $sellInvoice->branch_id = 1;
+        $sellInvoice->branch_id = authBranch_hh();
         $rand = rand(01,99);
         $makeInvoice = date("iHsymd").$rand;
         $sellInvoice->invoice_no = $makeInvoice;
@@ -279,11 +270,11 @@ trait StoreDataFromSellCartTrait
 
         $sellInvoice->status = 1;
         $sellInvoice->delivery_status = 1;
-        $sellInvoice->created_by = 1;
+        $sellInvoice->created_by = authId_hh();
 
         $sellInvoice->save();
 
-        if( $this->sellCreateFormData['sell_type'] == 2)
+        if( $this->sellCreateFormData['sell_type'] == 2) 
         {
             $quotation =  new SellQuotation();
             $quotation->sell_invoice_id  = $sellInvoice->id;
@@ -294,7 +285,7 @@ trait StoreDataFromSellCartTrait
             $quotation->validate_date    = $this->sellCreateFormData['validate_date'];
             $quotation->quotation_note   = $this->sellCreateFormData['quotation_note'];
             $quotation->sell_date        = $this->sellCreateFormData['sale_date'];
-            $quotation->created_by       = 1;//Auth::user()->id;
+            $quotation->created_by       = authId_hh();//Auth::user()->id;
             $quotation->save(); 
         }
 

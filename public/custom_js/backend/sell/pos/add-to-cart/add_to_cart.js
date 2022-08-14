@@ -602,64 +602,129 @@
 
     
 
-    //shipping address and add new shipping address
-    jQuery(document).on('click','.invoiceShippingCostApplyModal',function(){
-        var customer_id = jQuery('.customer_id option:selected').val();
-        var reference_id = jQuery('.reference_id option:selected').val();
-        var url = jQuery('.getShippingAddressDetailsUrl').val();
-        jQuery.ajax({
-            url:url,
-            data:{customer_id:customer_id,reference_id:reference_id},
-            beforeSend:function(){
-                jQuery('.processing').fadeIn();
-            },
-            success:function(response){
-                jQuery('.response_shipping_information').html(response.html);
-            },
-            complete:function(){
-                jQuery('.processing').fadeOut();
-            },
-        });
-    });  
-    
-    jQuery(document).on('change','.use_shipping_address',function(){
-        var id = jQuery('.use_shipping_address option:selected').val();
-        if(id == 1)
-        {
-            jQuery('.existing_shipping_address_div').show(200);
-            jQuery('.new_shipping_address_div').hide(200);
-        }else{
-            jQuery('.existing_shipping_address_div').hide(200);
-            jQuery('.new_shipping_address_div').show(200);
-        }
-    }); 
+    /*
+    |-----------------------------------------------
+    |shipping address and add new shipping address
+    |----------------------------------------------
+    */
+        jQuery(document).on('click','.invoiceShippingCostApplyModal',function(){
+            var customer_id = jQuery('.customer_id option:selected').val();
+            var reference_id = jQuery('.reference_id option:selected').val();
+            var url = jQuery('.getShippingAddressDetailsUrl').val();
+            jQuery.ajax({
+                url:url,
+                data:{customer_id:customer_id,reference_id:reference_id},
+                beforeSend:function(){
+                    jQuery('.processing').fadeIn();
+                },
+                success:function(response){
+                    jQuery('.response_shipping_information').html(response.html);
+                },
+                complete:function(){
+                    jQuery('.processing').fadeOut();
+                },
+            });
+        });  
+        
+        jQuery(document).on('change','.use_shipping_address',function(){
+            var id = jQuery('.use_shipping_address option:selected').val();
+            if(id == 1)
+            {
+                jQuery('.existing_shipping_address_div').show(200);
+                jQuery('.new_shipping_address_div').hide(200);
+            }else{
+                jQuery('.existing_shipping_address_div').hide(200);
+                jQuery('.new_shipping_address_div').show(200);
+            }
+        }); 
 
-    jQuery(document).on("submit",'.submitCustomerShippingAddress',function(e){
-        e.preventDefault();
-        var form = jQuery(this);
-        var url = form.attr("action");
-        var type = form.attr("method");
-        var data = form.serialize();
-        jQuery('.color-red').text('');
-        jQuery.ajax({
-            url: url,
-            data: data,
-            type: type,
-            datatype:"JSON",
-            beforeSend:function(){
-                jQuery('.processing').fadeIn();
-            },
-            success: function(response){
-                if(response.status == true)
-                {
-                    jQuery('#shippingCostPopUpModal').modal('hide');
-                }
-            },
-            complete:function(){
-                jQuery('.processing').fadeOut();
-            },
+        jQuery(document).on("submit",'.submitCustomerShippingAddress',function(e){
+            e.preventDefault();
+            var form = jQuery(this);
+            var url = form.attr("action");
+            var type = form.attr("method");
+            var data = form.serialize();
+            jQuery('.color-red').text('');
+            jQuery.ajax({
+                url: url,
+                data: data,
+                type: type,
+                datatype:"JSON",
+                beforeSend:function(){
+                    jQuery('.processing').fadeIn();
+                },
+                success: function(response){
+                    if(response.status == true)
+                    {
+                        jQuery('#shippingCostPopUpModal').modal('hide');
+                    }
+                },
+                complete:function(){
+                    jQuery('.processing').fadeOut();
+                },
+            });
+            //end ajax
         });
-        //end ajax
-    });
-    //shipping address and add new shipping address 
+        //empty all shipping related information
+        function makingEmptyshippingRelatedInformation()
+        {
+            jQuery(':input','#submitCustomerShippingAddress')
+            .not(':button, :submit, :reset')
+            .val('')
+            .removeAttr('checked')
+            .removeAttr('selected');
+            //jQuery('#myform')[0].reset();
+            //document.getElementById("myform").reset();
+        }
+    /*
+    |-----------------------------------------------
+    |shipping address and add new shipping address
+    |----------------------------------------------
+    */
+    
+
+    /*
+    |-----------------------------------------------
+    | finally submit sell (final sell and quotation)
+    |----------------------------------------------
+    */ 
+        jQuery(document).on("submit",'.storeDataFromSellCart',function(e){
+            e.preventDefault();
+            var form = jQuery(this);
+            var url = form.attr("action");
+            var type = form.attr("method");
+            var data = form.serialize();
+            jQuery('.color-red').text('');
+            jQuery.ajax({
+                url: url,
+                data: data,
+                type: type,
+                datatype:"JSON",
+                beforeSend:function(){
+                    jQuery('.processing').fadeIn();
+                },
+                success: function(response){
+                    if(response.status == true)
+                    {
+                        jQuery('.display_added_to_cart_list').html(response.list);
+                        jQuery('#payment-popup').modal('hide');
+                        jQuery('#quotation-popup').modal('hide');
+
+                        makingEmptyshippingRelatedInformation();
+                        makingZeroInShippingCostOtherCostDiscountAndVat();
+                        finalCalculationForThisInvoice();
+                        jQuery.notify(response.message, response.type);
+                    }
+                },
+                complete:function(){
+                    jQuery('.processing').fadeOut();
+                },
+            });
+            //end ajax
+        });
+    /*
+    |-----------------------------------------------
+    | finally submit sell 
+    |----------------------------------------------
+    */
     

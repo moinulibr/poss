@@ -332,11 +332,6 @@ Route::group(['middleware' => ['auth']], function ()
         //customer shipping address
         Route::post('customer/shipping/address','PosController@customerShippingAddress')->name('customer.shipping.address');
         
-        Route::get('show','PosController@show')->name('show');
-        Route::get('edit','PosController@edit')->name('edit');
-        Route::post('update','PosController@update')->name('update');
-        Route::get('delete','PosController@delete')->name('delete');
-        
     });
     
     //customer shipping address
@@ -352,6 +347,16 @@ Route::group(['middleware' => ['auth']], function ()
        
     });
 
+    /*
+    |-----------------------------------
+    | Sell list, and others
+    |-----------------------------------
+    */
+    Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.', 'namespace'=>'Backend\Sell\Details'],function(){
+        Route::get('sell/list','SellController@index')->name('sell.index');//->middleware(['permissions:unit|index']);
+        Route::get('sell/list/by/ajr','SellController@sellListByAjaxResponse')->name('sell.list.ajaxresponse');//->middleware(['permissions:unit|index']);
+        
+    });
    
 
 });//end auth middleware

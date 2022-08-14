@@ -1,7 +1,7 @@
 <div class="modal fade text-left" id="payment-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel11" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <form action="{{route('admin.sell.regular.pos.store.data.from.sell.cart')}}" method="POST">
+            <form action="{{route('admin.sell.regular.pos.store.data.from.sell.cart')}}" method="POST"  class="storeDataFromSellCart">
                 @csrf
                 <div class="modal-header">
                     <h3 class="modal-title" id="myModalLabel11">Payment</h3>
@@ -61,12 +61,12 @@
 
                     <div class="form-group row justify-content-end mb-0">
                         <div class="col-md-6 text-right">
-                            <input type="submit" class="btn btn-primary" value="Submit" style="padding:7px 20px;">
+                            <input type="submit" class="btn btn-primary" value="Submit With Payment" style="padding:7px 20px;">
                         </div>
                     </div>
                    
                 </div>
-            </from>
+            </form>
         </div>
     </div>
 </div>

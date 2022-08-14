@@ -33,7 +33,7 @@
                     $cartName     = session()->has(sellCreateCartSessionName_hh()) ? session()->get(sellCreateCartSessionName_hh())  : [];
                     $totalProduct = 1;
                 @endphp
-                @foreach ($cartName as $item)
+                @forelse ($cartName as $item)
                 <tr style="border-bottom: 0.05px dashed #dddfe0;">
                     <td style="text-align:center;padding-top:1%;padding-bottom:1%;background-color: #f5f5f5">
                         {{$totalProduct}}.
@@ -82,7 +82,12 @@
                 @php
                     $totalProduct++;
                 @endphp
-                @endforeach
+
+                @empty
+                <tr>
+                    <th colspan="9" style="text-align: center;border-bottom: 1px solid ##f7f7f7;">No data found</th>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
