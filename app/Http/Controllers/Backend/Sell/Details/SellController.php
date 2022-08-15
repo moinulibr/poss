@@ -25,18 +25,14 @@ class SellController extends Controller
 
     public function sellListByAjaxResponse(Request $request)
     {
-        $product  = Product::query();
+        $sell  = SellInvoice::query();
         if($request->ajax())
         {
             if($request->search)
             {
-                $product->where('name','like','%'.$request->search.'%')
-                        ->orWhere('sku','like','%'.$request->search.'%')
-                        ->orWhere('bacode','like','%'.$request->search.'%')
-                        ->orWhere('custom_code','like','%'.$request->search.'%')
-                        ->orWhere('company_code','like','%'.$request->search.'%');
+                $sell->where('invoice_no','like','%'.$request->search.'%');
             }
-            $data['datas']  =  $product->latest()->paginate(50);
+            $data['datas']  =  $sell->latest()->paginate(50);
             $html = view('backend.sell.sell_details.ajax.list_ajax_response',$data)->render();
             return response()->json([
                 'status' => true,
@@ -45,6 +41,16 @@ class SellController extends Controller
         }
     }
 
+
+    public function singleView(Request $request)
+    {
+        $data['data']  =  SellInvoice::where('id',$request->id)->first();
+        $html = view('backend.sell.sell_details.show.show',$data)->render();
+        return response()->json([
+            'status' => true,
+            'html' => $html
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -61,6 +67,7 @@ class SellController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+  
     public function store(Request $request)
     {
         //

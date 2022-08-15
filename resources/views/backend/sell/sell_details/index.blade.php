@@ -82,10 +82,10 @@
 
             
 
-            <!-------add Customer Modal------> 
-            <div class="modal fade " id="addCustomerModal"  aria-modal="true"></div>
-            <input type="hidden" class="addCustomerModalRoute" value="{{ route('admin.customer.create') }}">
-            <!-------add Customer Modal------> 
+            <!-------single view Modal------> 
+            <div class="modal fade " id="singleModalView"  aria-modal="true"></div>
+            <input type="hidden" class="singleViewModalRoute" value="{{ route('admin.sell.regular.sell.single.view') }}">
+            <!-------single view Modal------> 
             
 
             <!-------edit Customer Modal------> 
@@ -121,7 +121,7 @@
 
 
     {{--Customer list url --}}
-    <input type="hidden" class="customerListUrl" value="{{route('admin.sell.regular.sell.list.ajaxresponse')}}">
+    <input type="hidden" class="sellListUrl" value="{{route('admin.sell.regular.sell.list.ajaxresponse')}}">
     {{--Customer list url --}}
 
 <!--=================js=================-->

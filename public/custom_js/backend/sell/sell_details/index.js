@@ -74,6 +74,24 @@
 //-----------------------------------------------------------------------
 
 
+//-----------------------------------------------------------------------
+    $(document).on('click','.singleViewModal',function(e){
+        e.preventDefault();
+        var url = $('.singleViewModalRoute').val();
+        var id = $(this).data('id');
+        $.ajax({
+            url:url,
+            data:{id:id},
+            success:function(response){
+                if(response.status == true)
+                {
+                    $('#singleModalView').html(response.html).modal('show');
+                }
+            }
+        });
+    });
+//-----------------------------------------------------------------------
+
 
 
 

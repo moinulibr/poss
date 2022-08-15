@@ -54,6 +54,7 @@ class CreateSellInvoicesTable extends Migration
                 $table->text('receiver_details')->nullable();
                 $table->integer('reference_id')->nullable();
                 $table->text('sell_note')->nullable();
+                $table->string('sell_date',25)->nullable();
                 //$table->tinyInteger('product_stock_type')->nullable()->comment('1=single, 2=multiple');
             
                 $table->tinyInteger('status')->nullable();

@@ -267,7 +267,10 @@ trait StoreDataFromSellCartTrait
         }else{
             $sellInvoice->customer_type_id = 2;  //temporary
         }
-
+        if( $this->sellCreateFormData['sell_type'] == 1) 
+        {
+            $sellInvoice->sell_date = date('Y-m-d h:i:s');
+        }
         $sellInvoice->status = 1;
         $sellInvoice->delivery_status = 1;
         $sellInvoice->created_by = authId_hh();

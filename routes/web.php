@@ -355,6 +355,7 @@ Route::group(['middleware' => ['auth']], function ()
     Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.', 'namespace'=>'Backend\Sell\Details'],function(){
         Route::get('sell/list','SellController@index')->name('sell.index');//->middleware(['permissions:unit|index']);
         Route::get('sell/list/by/ajr','SellController@sellListByAjaxResponse')->name('sell.list.ajaxresponse');//->middleware(['permissions:unit|index']);
+        Route::get('sell/single/view','SellController@singleView')->name('sell.single.view');//->middleware(['permissions:unit|index']);
         
     });
    
