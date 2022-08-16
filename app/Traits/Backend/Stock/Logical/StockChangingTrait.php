@@ -126,6 +126,7 @@ trait StockChangingTrait
         $this->usedStockQuantityChangingSignStatus_FSCT = true;
         $this->usedStockQuantityChangingSign_FSCT = "+";
         $this->changingProductStockQuantityAsIncrementOrDecrementStock();
+        $this->productRealStockUpdate();
         return true;
         //-- product_stocks
         // branch_id, stock_id,product_id,available_stock
@@ -374,9 +375,9 @@ trait StockChangingTrait
             }
             //insert stock 
             else{
-            $stock                               = $this->firstTimeStoreStockInTheProductStock();
-            $available_stock                     = $stock->available_stock;
-            $this->product_stock_id_FSCT         = $stock->id;
+                $stock                               = $this->firstTimeStoreStockInTheProductStock();
+                $available_stock                     = $stock->available_stock;
+                $this->product_stock_id_FSCT         = $stock->id;
             }
             $this->storeProductStockHistoryWhenStockQuantityChanging();
             return $available_stock;
@@ -671,11 +672,11 @@ trait StockChangingTrait
         private function productRealStockUpdate()
         {
             $productStocks = ProductStock::where('branch_id',authBranch_hh())
-            ->where('product_id',$this->product_id_FSCT)
-            ->select('available_stock','available_base_stock','used_stock','used_base_stock')
-            ->where('status',1)
-            ->whereNull('deleted_at')
-            ->get();
+                        ->where('product_id',$this->product_id_FSCT)
+                        ->select('available_stock','available_base_stock','used_stock','used_base_stock')
+                        ->where('status',1)
+                        ->whereNull('deleted_at')
+                        ->get();
             //$productStocks->sum('available_stock');
             //$productStocks->sum('available_base_stock');
             //$productStocks->sum('used_stock');

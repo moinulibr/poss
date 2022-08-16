@@ -31,10 +31,10 @@
                                 {{-- <i class="fas fa-cogs"></i> --}}
                             </button>
                             <div class="dropdown-menu " x-placement="top-start" style="position: absolute; will-change: top, left; top: -183px; left: 0px;">
-                                <a class="dropdown-item singleViewModal" data-id="{{$item->id}}" href="#">View</a>
-                                <a class="dropdown-item " data-id="{{$item->id}}" href="#">Print</a>
-                                <a class="dropdown-item " data-id="{{$item->id}}" href="#">Print (POS)</a>
-                                <a class="dropdown-item " data-id="{{$item->id}}" href="#">Delivery</a>
+                                <a class="dropdown-item singleView" data-id="{{$item->id}}" style="cursor: pointer">View</a>
+                                <a class="dropdown-item " data-id="{{$item->id}}" href="#" style="cursor: pointer">Print</a>
+                                <a class="dropdown-item " data-id="{{$item->id}}" href="#" style="cursor: pointer">Print (POS)</a>
+                                <a class="dropdown-item invoiceWiseDelivery" data-id="{{$item->id}}" style="cursor: pointer">Delivery</a>
                                 {{-- <a class="dropdown-item singleEditModal" data-id="{{$item->id}}" href="javascript:void(0)">Edit</a>
                                 <a class="dropdown-item singleDeleteModal" data-id="{{$item->id}}" data-name="{{$item->name}}" href="javascript:void(0)">Delete</a> --}}
                             {{-- <div class="dropdown-divider"></div>
@@ -42,7 +42,7 @@
                             </div> --}}
                         </div>
                     </td>
-                    <td>{{$item->invoice_no}}</td>
+                    <td> <a  class="singleView" data-id="{{$item->id}}" style="cursor: pointer">{{$item->invoice_no}} </a> </td>
                     <td>{{date('d-m-Y h:i:s A',strtotime($item->created_at))}}</td>
                     <td>{{$item->customer?$item->customer->name:NULL}}</td>
                     <td>{{$item->total_payable_amount}}</td>

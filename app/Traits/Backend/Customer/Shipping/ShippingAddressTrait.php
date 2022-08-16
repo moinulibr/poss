@@ -32,6 +32,7 @@ trait ShippingAddressTrait
     protected function insertCustomerShippingAddressFromPosCreate()
     {
         $customer = new CustomerShippingAddress();
+        $customer->branch_id = authBranch_hh();
         $customer->customer_id = $this->customerFormData['customer_id'];
         $customer->phone  = $this->customerFormData['phone'];
         $customer->email = $this->customerFormData['email'];

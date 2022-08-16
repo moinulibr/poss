@@ -92,10 +92,10 @@
             <input type="hidden" class="editProductModalRoute" value="{{ route('admin.product.edit') }}">
             <!-------edit Product Modal------> 
 
-            <!-------edit Product Modal------> 
+            <!-------show Product Modal------> 
             <div class="modal fade " id="showProductModal"  aria-modal="true"></div>
             <input type="hidden" class="showProductModalRoute" value="{{ route('admin.product.show') }}">
-            <!-------edit Product Modal------> 
+            <!-------show Product Modal------> 
 
 
             <!-------delete Product Modal------> 

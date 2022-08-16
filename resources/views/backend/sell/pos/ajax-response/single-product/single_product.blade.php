@@ -50,22 +50,38 @@
 
 
                                         <div class="form-group row" style="margin-left:3px;background-color:#f9f9f9;border: 1px solid #ddd9d9;">
-                                            <div class="col-sm-5"  style="background-color:#eaf3ea;padding:10px 5px;color:#fff;">
-                                                <label class="form-label" style="color:#080808">
-                                                    Unit
+                                            <div class="col-sm-5"  style="padding:10px 5px;">
+                                                <div style="background-color:#e9e4e4;padding:3px;height:98%;">
+                                                    <table style="width:100%;background-color:#f2f3f5;height:100%;">
+                                                        <tr>
+                                                            <td style="height:49%;text-align: center;background-color: #ffffff">
+                                                                AS Code : {{$product->custom_code }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="height:49%;text-align: center;">
+                                                               Unit : {{$product->units->short_name}}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <input type="hidden" name="unit_id" value="{{$product->unit_id}}" class="form-control">
+                                                <input type="hidden" name="unit_name" value="{{$product->units->short_name}}">
+                                                
+                                                {{-- <label class="form-label" style="color:#080808">
+                                                    Unit : {{$product->units->short_name}}
                                                 </label>
                                                 <input type="text" disabled value="{{$product->units->short_name}}" class="form-control">
                                                 <input type="hidden" name="unit_id" value="{{$product->unit_id}}" class="form-control">
                                                 <input type="hidden" name="unit_name" value="{{$product->units->short_name}}">
-                                                {{-- 
+                                                
                                                     <select class="form-control addedNewSupplier" name="unit_id" style="background-color:#d0e7ef;">
                                                         <option value=""  style="background-color:#d0e7ef;color:rgb(15, 15, 15);">Select Unit</option>
                                                         @foreach ($units as $item)
                                                         <option {{$product->unit_id == $item->id ? 'selected' : ''}} value="{{$item->id}}"  style="background-color:#d0e7ef;color:rgb(15, 15, 15);">{{$item->full_name}}</option>
                                                         @endforeach
                                                     </select> 
-                                                --}}
-                                                <strong class="unit_id_err color-red"></strong>
+                                                <strong class="unit_id_err color-red"></strong> --}}
                                                 <div class="clearfix"></div>
                                             </div>
                                             <!---Warranty Guarantee part--->

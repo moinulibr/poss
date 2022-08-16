@@ -319,7 +319,7 @@
 
             <!---Stock--->
             <li class="sidenav-item">
-                <a href="typography.html" class="sidenav-link">
+                <a href="{{route('admin.product.stock.index')}}" class="sidenav-link">
                 <i class="sidenav-icon feather icon-type"></i>
                 <div>Stock</div>
                 </a>

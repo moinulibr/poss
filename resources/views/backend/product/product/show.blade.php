@@ -223,7 +223,8 @@
                                                 </th>
                                                 <td style="width:1%;border:none;">:</td>
                                                 <th style="border:none;">
-                                                    {{ unitView_hh($product->unit_id,$product->available_stock)  }}
+                                                    {{ $product->total_product_stock }}
+                                                    {{-- {{ unitView_hh($product->unit_id,$product->available_stock)  }} --}}
                                                 </th>
                                             </tr>
                                         </thead>

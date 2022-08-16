@@ -83,7 +83,7 @@
                     </td> 
                     <td>
                         <strong>
-                        {{$item->available_base_stock ?? 0 }}
+                        {{ $item->total_product_stock }}
                         </strong>
                     </td> 
 

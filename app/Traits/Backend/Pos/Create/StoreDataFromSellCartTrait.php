@@ -288,7 +288,7 @@ trait StoreDataFromSellCartTrait
             $quotation->validate_date    = $this->sellCreateFormData['validate_date'];
             $quotation->quotation_note   = $this->sellCreateFormData['quotation_note'];
             $quotation->sell_date        = $this->sellCreateFormData['sale_date'];
-            $quotation->created_by       = authId_hh();//Auth::user()->id;
+            $quotation->created_by       = authId_hh();
             $quotation->save(); 
         }
 

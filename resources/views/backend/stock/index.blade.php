@@ -1,5 +1,5 @@
 @extends('layouts.backend.app')
-@section('page_title') Sell @endsection
+@section('page_title') Product Stock @endsection
 @push('css')
 <style>
 
@@ -20,18 +20,18 @@
     <!---page_title_of_content-->    
     @push('page_title_of_content')
         <div class="breadcrumbs layout-navbar-fixed">
-            <h4 class="font-weight-bold py-3 mb-0">Sell  </h4>
+            <h4 class="font-weight-bold py-3 mb-0"> Product Stock  </h4>
             <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="#"><i class="feather icon-home"></i></a>
                     </li>
-                    <li class="breadcrumb-item">Sell</li>
-                    <li class="breadcrumb-item active">All Sells</li>
+                    <li class="breadcrumb-item"> Product Stock</li>
+                    <li class="breadcrumb-item active">All  Product Stock</li>
                 </ol>
             </div>
             <div class="products">
-                <a href="#" class="addSellModal">Add Sell</a>
+                <a href="#" class="addStockModal">Add  Product Stock</a>
             </div>
         </div>
     @endpush
@@ -73,32 +73,37 @@
             </div>
             
             <!-------responsive table------> 
-            <div class="sellListAjaxResponseResult">
+            <div class="productStockListAjaxResponseResult">
 
-                @include('backend.sell.sell_details.partial.list')
+                @include('backend.stock.partial.list')
 
             </div>
             <!-------responsive table------> 
 
             
 
-            <!-------single sell view Modal------> 
-            <div class="modal fade " id="singleModalView"  aria-modal="true"></div>
-            <input type="hidden" class="singleViewModalRoute" value="{{ route('admin.sell.regular.sell.single.view') }}">
-            <!-------single sell view Modal------> 
+            {{-- <!-------add Customer Modal------> 
+            <div class="modal fade " id="addCustomerModal"  aria-modal="true"></div>
+            <input type="hidden" class="addCustomerModalRoute" value="{{ route('admin.customer.create') }}">
+            <!-------add Customer Modal------> 
             
 
-            <!-------Sell product delivery Modal------> 
-            <div class="modal fade " id="sellProductDeliveryModal"  aria-modal="true"></div>
-            <input type="hidden" class="sellProductDeliveryInvoiceWiseModalRoute" value="{{route('admin.sell.product.delivery.invoice.wise.list.index')}}">
-            <!-------Sell product delivery Modal------> 
+            <!-------edit Customer Modal------> 
+            <div class="modal fade " id="editCustomerModal"  aria-modal="true"></div>
+            <input type="hidden" class="editCustomerModalRoute" value="{{ route('admin.customer.edit') }}">
+            <!-------edit Customer Modal------> 
 
 
-           {{--  <!-------delete Customer Modal------> 
-            @include('backend.customer.customer.partial.delete_modal')
+            <!-------delete Customer Modal------> 
+            @include('backend.stock.partial.delete_modal')
             <input type="hidden" class="deleteCustomerModalRoute" value="{{ route('admin.customer.delete') }}">
-            <!-------delete Customer Modal------> --}} 
-            
+            <!-------delete Customer Modal------>  --}}
+                        
+            <!-------show Product Modal------> 
+            <div class="modal fade " id="showProductModal"  aria-modal="true"></div>
+            <input type="hidden" class="showProductModalRoute" value="{{ route('admin.product.show') }}">
+            <!-------show Product Modal------> 
+
 
 
 
@@ -120,18 +125,15 @@
     <!--#################################################################################-->
 
 
-    {{--sell list url --}}
-    <input type="hidden" class="sellListUrl" value="{{route('admin.sell.regular.sell.list.ajaxresponse')}}">
-    {{--sell list url --}}
-    
-
+    {{--product stock list url --}}
+    <input type="hidden" class="productStockListUrl" value="{{route('admin.product.stock.list.ajaxresponse')}}">
+    {{--product stock list url --}}
 
 <!--=================js=================-->
 @push('js')
 <!--=================js=================-->
-<script src="{{asset('custom_js/backend')}}/sell/sell_details/index.js?v=1"></script>
-<script src="{{asset('custom_js/backend')}}/sell/delivery/index.js?v=1"></script>
-
+<script src="{{asset('custom_js/backend')}}/product-stock/index.js?v=1"></script>
+<script src="{{asset('custom_js/backend')}}/product/product/index.js?v=1"></script>
 
 
     

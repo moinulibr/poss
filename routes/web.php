@@ -53,7 +53,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','UnitController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   prodct attribute : Unit  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
     /*
     |----------------------------------------
@@ -71,6 +75,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','CategoryController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
+    /*
+    |----------------------------------------
+    |   prodct attribute : Category  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
     /*
     |----------------------------------------
@@ -92,7 +101,11 @@ Route::group(['middleware' => ['auth']], function ()
             //sub category by category id
             Route::get('category/id','SubCategoryController@subCategoryByCategoryId')->name('by.category.id');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   prodct attribute : SubCategory  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
     /*
     |----------------------------------------
@@ -110,7 +123,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','BrandController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   prodct attribute : Brand  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
     /*
     |----------------------------------------
@@ -128,7 +145,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','ColorController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   prodct attribute : Color  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
 
     /*
@@ -147,6 +168,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','ProductGradeController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
+    /*
+    |----------------------------------------
+    |   prodct attribute : Product grade  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
 
     /*
@@ -165,7 +191,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','SupplierGroupController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   prodct attribute : Supplier Group  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
     /*
     |----------------------------------------
@@ -183,7 +213,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','SupplierController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   Supplier  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
     /*
     |----------------------------------------
@@ -201,7 +235,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','CustomerController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   Customer  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
         
     /*
@@ -219,7 +257,12 @@ Route::group(['middleware' => ['auth']], function ()
             Route::post('update','ReferenceController@update')->name('update');//->middleware(['permissions:unit|index']);
         
             Route::get('delete','ReferenceController@delete')->name('delete');//->middleware(['permissions:unit|index']);
-        });
+        });        
+    /*
+    |----------------------------------------
+    |   Reference  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
 
 
@@ -240,6 +283,11 @@ Route::group(['middleware' => ['auth']], function ()
         
             Route::get('delete','WarehouseController@delete')->name('delete');//->middleware(['permissions:unit|index']);
         });
+    /*
+    |----------------------------------------
+    |   prodct attribute : warehouse  
+    |---------------------------------------
+    */
 
     /*
     |----------------------------------------
@@ -261,7 +309,11 @@ Route::group(['middleware' => ['auth']], function ()
             //warehouse rack by warehouse id
             Route::get('warehouse/id','WarehouseRackController@warehouseRackByWarehouseId')->name('by.warehouse.id');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   prodct attribute : SubCategory  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
 
 
@@ -287,7 +339,11 @@ Route::group(['middleware' => ['auth']], function ()
             Route::get('price/update','ProductPriceController@index')->name('price.index');//->middleware(['permissions:unit|index']);
             Route::post('price/updating','ProductPriceController@store')->name('price.store');//->middleware(['permissions:unit|index']);
         });
-
+    /*
+    |----------------------------------------
+    |   Product  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */
 
 
 
@@ -298,67 +354,111 @@ Route::group(['middleware' => ['auth']], function ()
     |   Sell  middleware(['permissions:unit|index','auth_only:auth|yes'])
     |---------------------------------------
     */
-    Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Pos'],function(){
-        Route::get('display/product/list','PosController@displayProductList')->name('display.product.list');
-        Route::get('create','PosController@create')->name('create');
-        Route::get('show/single/product/details','PosController@singleProductDetails')->name('show.single.product.details');
-        
-        Route::get('display/single/price/list/by/product/stock/id','PosController@displaySinglePriceListByProductStockId')->name('display.sigle.price.list.by.product.stock.id');
-        
-        //display product stock and price, when sell create. more than stock, from others stock
-        Route::get('display/quantity/wise/single/product/sotck/by/product/id','PosController@displayQuantityWiseSingleProductStockByProductId')->name('display.quantity.wise.sigle.product.stock.by.product.id');
-        
-        Route::post('store','PosController@store')->name('store');
-        //display addted to product list
-        Route::get('display/sell/create/added/to/cart/product/list','PosController@displaySellCreateAddedToCartProductList')->name('display.sell.created.added.to.cart.product.list');
-        
-        //sell final invoice calculation summery [save in session]
-        Route::get('/sell/final/invoice/calculation/summery','PosController@invoiceFinalSellCalculationSummery')->name('sell.final.invoice.calculation.summery');
+        Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Pos'],function(){
+            Route::get('display/product/list','PosController@displayProductList')->name('display.product.list');
+            Route::get('create','PosController@create')->name('create');
+            Route::get('show/single/product/details','PosController@singleProductDetails')->name('show.single.product.details');
+            
+            Route::get('display/single/price/list/by/product/stock/id','PosController@displaySinglePriceListByProductStockId')->name('display.sigle.price.list.by.product.stock.id');
+            
+            //display product stock and price, when sell create. more than stock, from others stock
+            Route::get('display/quantity/wise/single/product/sotck/by/product/id','PosController@displayQuantityWiseSingleProductStockByProductId')->name('display.quantity.wise.sigle.product.stock.by.product.id');
+            
+            Route::post('store','PosController@store')->name('store');
+            //display addted to product list
+            Route::get('display/sell/create/added/to/cart/product/list','PosController@displaySellCreateAddedToCartProductList')->name('display.sell.created.added.to.cart.product.list');
+            
+            //sell final invoice calculation summery [save in session]
+            Route::get('/sell/final/invoice/calculation/summery','PosController@invoiceFinalSellCalculationSummery')->name('sell.final.invoice.calculation.summery');
 
-        //remove single item from sell added to cart list
-        Route::get('remove/confirm-req/for/single/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForSingleItemFromSellAddedToCartList')->name('remove.confirmation.required.single.item.from.sell.added.to.cart.list');
-        Route::get('remove/single/item/from/sell/added/to/cart/list','PosController@removeSingleItemFromSellAddedToCartList')->name('remove.single.item.from.sell.added.to.cart.list');
-        
-        //remove all item from sell added to cart list
-        Route::get('remove/confirm-req/for/all/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForAllItemFromSellAddedToCartList')->name('remove.confirmation.required.all.item.from.sell.added.to.cart.list');
-        Route::get('remove/all/item/from/sell/added/to/cart/list','PosController@removeAllItemFromSellAddedToCartList')->name('remove.all.item.from.sell.added.to.cart.list');
-        //change quantity [plus or minus]
-        Route::get('change/quantity/from/added/to/cart/list','PosController@changeQuantity')->name('change.quantity.from.sell.added.to.cart.list');
-        
+            //remove single item from sell added to cart list
+            Route::get('remove/confirm-req/for/single/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForSingleItemFromSellAddedToCartList')->name('remove.confirmation.required.single.item.from.sell.added.to.cart.list');
+            Route::get('remove/single/item/from/sell/added/to/cart/list','PosController@removeSingleItemFromSellAddedToCartList')->name('remove.single.item.from.sell.added.to.cart.list');
+            
+            //remove all item from sell added to cart list
+            Route::get('remove/confirm-req/for/all/item/from/sell/added/to/cart/list','PosController@removeConfirmationRequiredForAllItemFromSellAddedToCartList')->name('remove.confirmation.required.all.item.from.sell.added.to.cart.list');
+            Route::get('remove/all/item/from/sell/added/to/cart/list','PosController@removeAllItemFromSellAddedToCartList')->name('remove.all.item.from.sell.added.to.cart.list');
+            //change quantity [plus or minus]
+            Route::get('change/quantity/from/added/to/cart/list','PosController@changeQuantity')->name('change.quantity.from.sell.added.to.cart.list');
+            
 
-        // Store data from sell cart
-        Route::post('store/data/from/sell/cart','PosController@storeDataFromSellCart')->name('store.data.from.sell.cart');
+            // Store data from sell cart
+            Route::post('store/data/from/sell/cart','PosController@storeDataFromSellCart')->name('store.data.from.sell.cart');
 
+            //customer shipping address
+            Route::post('customer/shipping/address','PosController@customerShippingAddress')->name('customer.shipping.address');
+            
+        });
+        
         //customer shipping address
-        Route::post('customer/shipping/address','PosController@customerShippingAddress')->name('customer.shipping.address');
-        
-    });
-    
-    //customer shipping address
-    Route::group(['as'=> 'admin.customer.', 'prefix'=>'admin/customer/shipping','namespace'=>'Backend\Customer'],function(){
-        Route::get('address/details/by','ShippingAddressController@getCustomerShippingAddressDetailsByCustomerId')->name('shipping.address.details.by.customer.id');
-    });
-    //customer shipping address
+        Route::group(['as'=> 'admin.customer.', 'prefix'=>'admin/customer/shipping','namespace'=>'Backend\Customer'],function(){
+            Route::get('address/details/by','ShippingAddressController@getCustomerShippingAddressDetailsByCustomerId')->name('shipping.address.details.by.customer.id');
+        });
+        //customer shipping address
 
-    Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Prints'],function(){
-        //print sell invoice :- pos print
-        Route::get('pos/print/from/direct/sell/cart','InvoicePrintController@posPriceFromDirectSellCart')->name('pos.print.from.direct.sell.cart');
-        Route::get('normal/print/from/direct/sell/cart','InvoicePrintController@normalPriceFromDirectSellCart')->name('normal.print.from.direct.sell.cart');
-       
-    });
+        Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Prints'],function(){
+            //print sell invoice :- pos print
+            Route::get('pos/print/from/direct/sell/cart','InvoicePrintController@posPriceFromDirectSellCart')->name('pos.print.from.direct.sell.cart');
+            Route::get('normal/print/from/direct/sell/cart','InvoicePrintController@normalPriceFromDirectSellCart')->name('normal.print.from.direct.sell.cart');
+        });
+
+        /*
+        |-----------------------------------
+        | Sell list, and others
+        |-----------------------------------
+        */
+        Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.', 'namespace'=>'Backend\Sell\Details'],function(){
+            Route::get('sell/list','SellController@index')->name('sell.index');//->middleware(['permissions:unit|index']);
+            Route::get('sell/list/by/ajr','SellController@sellListByAjaxResponse')->name('sell.list.ajaxresponse');//->middleware(['permissions:unit|index']);
+            Route::get('sell/single/view','SellController@singleView')->name('sell.single.view');//->middleware(['permissions:unit|index']);
+            
+        });
+        /*
+        |-----------------------------------
+        | Sell list, and others
+        |-----------------------------------
+        */
+
+        /*
+        |-----------------------------------
+        | Sell list, and others
+        |-----------------------------------
+        */
+        Route::group(['prefix'=>'admin/sell/product/delivery','as'=> 'admin.sell.product.delivery.', 'namespace'=>'Backend\Sell\Delivery'],function(){
+            Route::get('by/sell/invoice','SellProductDeliveryController@index')->name('invoice.wise.list.index');//->middleware(['permissions:unit|index']);
+            //Route::get('invoice/wise/list','SellProductDeliveryController@index')->name('list.index');//->middleware(['permissions:unit|index']);
+            //Route::get('list/by/ajr','SellProductDeliveryController@sellListByAjaxResponse')->name('sell.list.ajaxresponse');//->middleware(['permissions:unit|index']);
+            //Route::get('single/view','SellProductDeliveryController@singleView')->name('sell.single.view');//->middleware(['permissions:unit|index']);
+        });
+        /*
+        |-----------------------------------
+        | Sell list, and others
+        |-----------------------------------
+        */
+    /*
+    |----------------------------------------
+    |   Sell  middleware(['permissions:unit|index','auth_only:auth|yes'])
+    |---------------------------------------
+    */   
+
 
     /*
     |-----------------------------------
-    | Sell list, and others
+    | product stock 
     |-----------------------------------
     */
-    Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.', 'namespace'=>'Backend\Sell\Details'],function(){
-        Route::get('sell/list','SellController@index')->name('sell.index');//->middleware(['permissions:unit|index']);
-        Route::get('sell/list/by/ajr','SellController@sellListByAjaxResponse')->name('sell.list.ajaxresponse');//->middleware(['permissions:unit|index']);
-        Route::get('sell/single/view','SellController@singleView')->name('sell.single.view');//->middleware(['permissions:unit|index']);
-        
-    });
-   
+        Route::group(['prefix'=>'admin/product/stock','as'=> 'admin.product.stock.', 'namespace'=>'Backend\Stock'],function(){
+            Route::get('list','StockController@index')->name('index');
+            Route::get('list/by/ajr','StockController@stockListByAjaxResponse')->name('list.ajaxresponse');
+        });
+    /*
+    |-----------------------------------
+    | product stock 
+    |-----------------------------------
+    */
+
+
+
 
 });//end auth middleware
 

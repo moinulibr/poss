@@ -1,56 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Sell\Details;
+namespace App\Http\Controllers\Backend\Sell\Delivery;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Sell\SellInvoice;
-use Illuminate\Http\Request;
 
-class SellController extends Controller
+class SellProductDeliveryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $data['datas'] = SellInvoice::where('sell_type',1)
-                        ->where('branch_id',authBranch_hh())
-                        ->whereNull('deleted_at')
-                        //->orderBy('custom_serial','ASC')
-                        ->paginate(50);
-        return view('backend.sell.sell_details.index',$data);
-    }
-
-    public function sellListByAjaxResponse(Request $request)
-    {
-        $sell  = SellInvoice::query();
-        if($request->ajax())
-        {
-            if($request->search)
-            {
-                $sell->where('invoice_no','like','%'.$request->search.'%');
-            }
-            $data['datas']  =  $sell->latest()->paginate(50);
-            $html = view('backend.sell.sell_details.ajax.list_ajax_response',$data)->render();
-            return response()->json([
-                'status' => true,
-                'html' => $html
-            ]);
-        }
-    }
-
-
-    public function singleView(Request $request)
+    public function index(Request $request)
     {
         $data['data']  =  SellInvoice::where('id',$request->id)->first();
-        $html = view('backend.sell.sell_details.show.show',$data)->render();
+        $html = view('backend.sell.delivery.index',$data)->render();
+        $product = view('backend.sell.delivery.product_only',$data)->render();
         return response()->json([
             'status' => true,
-            'html' => $html
+            'html' => $html,
+            'product' => $product
         ]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -67,7 +41,6 @@ class SellController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-  
     public function store(Request $request)
     {
         //

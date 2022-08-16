@@ -80,6 +80,11 @@ class Product extends Model
     | product stocks
     |---------------------------------
     */
+        //total product stock. call: total_product_stock
+        public function getTotalProductStockAttribute()
+        {
+            return $this->productStocks()->sum('available_base_stock');
+        }
         public function productStocks()
         {
             return $this->hasMany(ProductStock::class,'product_id','id');
@@ -123,7 +128,7 @@ class Product extends Model
             ->get();
         }
 
-        
+        //stockNORWhenThisStockIsNotStoreInPreviousTime
         public function stockNORWhenThidStockIsNotStoreInPreviousTime()
         {
             $stockId = ProductStock::where('branch_id',authBranch_hh())
@@ -191,6 +196,7 @@ class Product extends Model
         }
 
 
+        //priceNORWhenThisPriceIsNotStoreInPreviousTime
         public function priceNORWhenThidPriceIsNotStoreInPreviousTime()
         {
             $priceId = ProductPrice::where('branch_id',authBranch_hh())
