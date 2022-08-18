@@ -33,18 +33,127 @@ use App\Models\Backend\Stock\ProductStock;
         return 5;
     }
 
+
+    /*
+    |----------------------------------------------------------------------------
+    | selling master
+    |----------------------------------------------------------------------------
+    */
+        function masterSellingSession_hh()
+        {
+            return "master_selling_session";
+        } 
+
+        //get selling current session from master session
+        function getSellingCurrentSession_hh()
+        {
+            $sellMasterCartName = masterSellingSession_hh();
+            $sellCartMaster   = [];
+            $sellCartMaster   = session()->has($sellMasterCartName) ? session()->get($sellMasterCartName)  : [];
+            
+            $currentSession = NULL;
+            foreach($sellCartMaster as $master)
+            {
+                if($master['status'] == 'active')
+                {
+                    $currentSession = $master['session_name'];
+                }
+            }
+            return $currentSession;
+        }
+
+        //current selling session from master session
+        function currentSellingSession_hh()
+        {
+            return getSellingCurrentSession_hh();
+        }
+
+
+        //first time default master selling session create
+        function firstTimeDefaultMasterSellSessionCreate_hh()
+        {
+            $mastersessionname = masterSellingSession_hh();
+            $mastersession    = [];
+            $mastersession    = session()->has($mastersessionname) ? session()->get($mastersessionname)  : [];
+            if(count($mastersession) == 0)
+            {
+                $mastersession[defaultSellingSession_hh()] = [
+                        'session_name' => defaultSellingSession_hh(),
+                        'name' => defaultSellingSessionName_hh(),
+                        'status' => 'active',
+                    ];
+                session([$mastersessionname => $mastersession]);
+            }
+        }
+
+        //unset last sell session from master session (not using this)
+        function unsetLastSellSessionFromMasterSession_hh()
+        {
+            $mastersessionname = masterSellingSession_hh();
+            $mastersession    = [];
+            $mastersession    = session()->has($mastersessionname) ? session()->get($mastersessionname)  : [];
+            
+            if(count($mastersession) > 0)
+            {
+                unset($mastersession[currentSellingSession_hh()]);
+            }
+            session([$mastersessionname => $mastersession]);
+        }
+
+        //unset all from sell master session
+        function unsetRequestedSellSessionFromMasterSession_hh($requestSession)
+        {
+            session([sellCreateCartSessionName_hh() => []]);
+            session([sellCreateCartInvoiceSummerySessionName_hh() => []]);
+            session([sellCreateCartShippingAddressSessionName_hh() => []]);
+            
+            $mastersessionname = masterSellingSession_hh();
+            $mastersession    = [];
+            $mastersession    = session()->has($mastersessionname) ? session()->get($mastersessionname)  : [];
+            if(count($mastersession) > 0)
+            {
+                unset($mastersession[$requestSession]);
+            }
+            session([$mastersessionname => $mastersession]);
+        }
+
+        //remove all from sell master session
+        function removeAllSellSessionFromMasterSession_hh()
+        {
+            session([sellCreateCartSessionName_hh() => []]);
+            session([sellCreateCartInvoiceSummerySessionName_hh() => []]);
+            session([sellCreateCartShippingAddressSessionName_hh() => []]);
+
+            session([masterSellingSession_hh() => []]);
+        }
+    /*
+    |----------------------------------------------------------------------------
+    | selling master
+    |----------------------------------------------------------------------------
+    */
+
+    function defaultSellingSession_hh()
+    {
+        return "defaultSellingSession";
+    }
+    function defaultSellingSessionName_hh()
+    {
+        return "Default Selling Customer";
+    }
     function sellCreateCartSessionName_hh()
     {
-        return "SellCreateAddToCart"; 
+        return "SellCreateAddToCart_".currentSellingSession_hh(); 
     }
     function sellCreateCartInvoiceSummerySessionName_hh()
     {
-        return "SellCartInvoiceSummery";
+        return "SellCartInvoiceSummery_".currentSellingSession_hh();
     } 
     function sellCreateCartShippingAddressSessionName_hh()
     {
-        return "customerShippingAddress";
+        return "customerShippingAddress_".currentSellingSession_hh();
     }
+
+
 
     //get only single price, by product id,product stock id, stock id, price id
     function getProductPriceByProductStockIdProductIdStockIdPriceId_hh($productId,$productStockId,$stockId,$priceId)

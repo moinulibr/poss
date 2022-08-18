@@ -189,6 +189,7 @@ trait StoreDataFromSellCartTrait
         $productStock->cart = json_encode([
             'productName' => $cart['product_name'],
             "productId" =>$cart['product_id'],
+            'mrpPrice' =>$cart['mrp_price'] ,
             'soldPrice' =>$cart['final_sell_price'] ,
             'totalSellQuantity' =>$cart['final_sell_quantity'] ,
             'totalMainProductStockQuantity' =>$cart['total_qty_of_main_product_stock'] ,

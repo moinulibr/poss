@@ -33,26 +33,26 @@
                         <a href="{{route('admin.sell.regular.pos.create')}}" class="sidenav-link">
                         <div>Sale Create</div>
                         <div class="pl-1 ml-auto">
-                            {{-- <div class="badge badge-danger">New</div> --}}
+                            <!-- <div class="badge badge-danger">New</div> -->
                         </div>
                         </a>
                     </li>
-                    <li class="sidenav-item">
+                    {{-- <li class="sidenav-item">
                         <a href="dashboards_corona.html" class="sidenav-link">
                         <div>Quotation List</div>
                         <div class="pl-1 ml-auto">
-                            {{-- <div class="badge badge-danger">New</div> --}}
+                            <!-- <div class="badge badge-danger">New</div> -->
                         </div>
                         </a>
-                    </li>
-                    <li class="sidenav-item">
+                    </li> --}}
+                    {{-- <li class="sidenav-item">
                         <a href="dashboards_corona.html" class="sidenav-link">
                         <div>Sale Return</div>
                         <div class="pl-1 ml-auto">
-                            {{-- <div class="badge badge-danger">New</div> --}}
+                            <!-- <div class="badge badge-danger">New</div> -->
                         </div>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             <!---sales--->
@@ -253,7 +253,7 @@
                     <i class="sidenav-icon feather icon-home"></i>
                     <div>Attendance</div>
                     <div class="pl-1 ml-auto">
-                        {{-- <div class="badge badge-danger">Hot</div> --}}
+                        <!-- <div class="badge badge-danger">New</div> -->
                     </div>
                 </a>
                 <ul class="sidenav-menu">
@@ -266,7 +266,7 @@
                         <a href="dashboards_corona.html" class="sidenav-link">
                         <div>Attendance List</div>
                         <div class="pl-1 ml-auto">
-                            {{-- <div class="badge badge-danger">New</div> --}}
+                            <!-- <div class="badge badge-danger">New</div> -->
                         </div>
                         </a>
                     </li>
@@ -274,7 +274,7 @@
                         <a href="dashboards_corona.html" class="sidenav-link">
                         <div>Report</div>
                         <div class="pl-1 ml-auto">
-                            {{-- <div class="badge badge-danger">New</div> --}}
+                            <!-- <div class="badge badge-danger">New</div> -->
                         </div>
                         </a>
                     </li>

@@ -74,6 +74,33 @@ class PosController extends Controller
      */
     public function create()
     {
+        // first time default sell session create
+        firstTimeDefaultMasterSellSessionCreate_hh();
+
+        /* $mastersessionname = masterSellingSession_hh();
+        $mastersession    = [];
+        $mastersession    = session()->has($mastersessionname) ? session()->get($mastersessionname)  : [];
+        if(count($mastersession) == 0)
+        {
+            $mastersession[defaultSellingSession()] = [
+                    'session_name' => defaultSellingSession(),
+                    'name' => defaultSellingSessionName(),
+                    'status' => 'active',
+                ];
+            session([$mastersessionname => $mastersession]);
+        } */
+           
+        /* $mastersessionname = masterSellingSession_hh();
+        //session([$mastersessionname => []]);
+        $mastersession    = [];
+        $mastersession    = session()->has($mastersessionname) ? session()->get($mastersessionname)  : [];
+        echo "<pre>";
+        print_r($mastersession);
+        echo "</pre>";
+        echo"<br/><br/>";
+        echo getSellingCurrentSession();
+        echo"<br/><br/>";
+        return var_dump($mastersession); */
         /* $data['brands']         = Brand::latest()->get();
         $data['colors']         = Color::latest()->get();
         $data['suppliers']      = Supplier::latest()->get();

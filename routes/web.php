@@ -347,7 +347,11 @@ Route::group(['middleware' => ['auth']], function ()
 
 
 
-
+    Route::group(['prefix'=>'admin/session/setting','as'=> 'admin.session.','namespace'=>'Backend\Session'],function(){
+        Route::post('creating/selling/new/cart/session','SessionController@creatingSellingCartSession')->name('setting.create.selling.new.session');
+        Route::get('changing/selling/cart/{sessionname?}','SessionController@changingSellingCartSession')->name('changing.selling.cart.session');
+        Route::get('delete/selling/customer/name/{sessionname?}','SessionController@deleteingSellingCartSession')->name('deleting.selling.cart.session');
+    });   
 
     /*
     |----------------------------------------
@@ -398,30 +402,35 @@ Route::group(['middleware' => ['auth']], function ()
 
         Route::group(['as'=> 'admin.sell.regular.pos.', 'prefix'=>'admin/regular/sell','namespace'=>'Backend\Sell\Prints'],function(){
             //print sell invoice :- pos print
-            Route::get('pos/print/from/direct/sell/cart','InvoicePrintController@posPriceFromDirectSellCart')->name('pos.print.from.direct.sell.cart');
-            Route::get('normal/print/from/direct/sell/cart','InvoicePrintController@normalPriceFromDirectSellCart')->name('normal.print.from.direct.sell.cart');
+            Route::get('pos/print/from/direct/sell/cart','InvoicePrintController@posPrintFromDirectSellCart')->name('pos.print.from.direct.sell.cart');
+            Route::get('normal/print/from/direct/sell/cart','InvoicePrintController@normalPrintFromDirectSellCart')->name('normal.print.from.direct.sell.cart');
         });
 
         /*
         |-----------------------------------
-        | Sell list, and others
+        | Sell list, print  and others
         |-----------------------------------
         */
         Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.', 'namespace'=>'Backend\Sell\Details'],function(){
             Route::get('sell/list','SellController@index')->name('sell.index');//->middleware(['permissions:unit|index']);
             Route::get('sell/list/by/ajr','SellController@sellListByAjaxResponse')->name('sell.list.ajaxresponse');//->middleware(['permissions:unit|index']);
             Route::get('sell/single/view','SellController@singleView')->name('sell.single.view');//->middleware(['permissions:unit|index']);
-            
+        });
+        Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.','namespace'=>'Backend\Sell\Prints'],function(){
+            //print sell invoice :- pos print
+            Route::get('pos/print/from/sell/list/by/{invoiceId}','InvoicePrintController@posPrintFromSellList')->name('pos.print.from.sell.list');
+            Route::get('normal/print/from/sell/list/by/{invoiceId}','InvoicePrintController@normalPrintFromSellList')->name('normal.print.from.sell.list');
         });
         /*
         |-----------------------------------
-        | Sell list, and others
+        | Sell list, print  and others
         |-----------------------------------
         */
+        
 
         /*
         |-----------------------------------
-        | Sell list, and others
+        | Sell product delivery
         |-----------------------------------
         */
         Route::group(['prefix'=>'admin/sell/product/delivery','as'=> 'admin.sell.product.delivery.', 'namespace'=>'Backend\Sell\Delivery'],function(){
@@ -432,7 +441,7 @@ Route::group(['middleware' => ['auth']], function ()
         });
         /*
         |-----------------------------------
-        | Sell list, and others
+        | Sell product delivery
         |-----------------------------------
         */
     /*

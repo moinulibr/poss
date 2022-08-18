@@ -86,6 +86,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <header class="pos-header bg-white">
             <div class="container-fluid">
                 <div class="row align-items-center">
+                    <!--welcome-->
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="greeting-text">
                             <h3 class="card-label mb-0 font-weight-bold text-primary">
@@ -98,6 +99,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             </h3>
                         </div>
                     </div>
+                    <!--welcome-->
+
+                    <!--clock, hour , minute, second-->
                     <div class="col-xl-4 col-lg-5 col-md-6 clock-main">
                         <div class="clock">
                             <div class="datetime-content">
@@ -114,8 +118,11 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                     </div>
+                    <!--clock, hour , minute, second-->
+
                     <div class="col-xl-4 col-lg-3 col-md-12 order-lg-last order-second">
                         <div class="topbar justify-content-end">
+                            <!--calculator-->
                             <div class="dropdown mega-dropdown">
                                 <div id="id2" class="topbar-item" data-toggle="dropdown" data-display="static">
                                     <div class="btn btn-icon w-auto h-auto btn-clean d-flex align-items-center py-0 mr-3">
@@ -130,7 +137,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </span>
                                     </div>
                                 </div>
-
                                 <div class="dropdown-menu dropdown-menu-right calu" style="min-width: 248px;">
                                     <div class="calculator">
                                         <div class="input" id="input"></div>
@@ -170,10 +176,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </div>
                             </div>
+                            <!--calculator-->
 
+                            <!--session-->
                             <div class="topbar-item folder-data">
                                 <div class="btn btn-icon w-auto h-auto btn-clean d-flex align-items-center py-0 mr-3" data-toggle="modal" data-target="#folderpop">
-                                    <span class="badge badge-pill badge-primary">5</span>
+                                    <span class="badge badge-pill badge-primary">
+                                        @php
+                                            $mastersessionname = masterSellingSession_hh();
+                                            $mastersession    = [];
+                                            $mastersession    = session()->has($mastersessionname) ? session()->get($mastersessionname)  : [];
+                                        @endphp
+                                        {{count($mastersession)}}
+                                    </span>
                                     <span class="symbol symbol-35 symbol-light-success">
                                         <span class="symbol-label bg-warning font-size-h5">
                                             <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg" fill="#ffff" viewBox="0 0 16 16">
@@ -185,7 +200,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </span>
                                 </div>
                             </div>
+                            <!--session-->
 
+                            <!--logout-->
                             <div class="dropdown">
                                 <div class="topbar-item" data-toggle="dropdown" data-display="static">
                                     <div class="btn btn-icon w-auto h-auto btn-clean d-flex align-items-center py-0">
@@ -198,7 +215,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </span>
                                     </div>
                                 </div>
-
                                 <div class="dropdown-menu dropdown-menu-right" style="min-width: 150px;">
                                     <a href="#" class="dropdown-item">
                                         <span class="svg-icon svg-icon-xl svg-icon-primary mr-2">
@@ -222,6 +238,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </a>
                                 </div>
                             </div>
+                            <!--logout-->
                         </div>
                     </div>
                 </div>
@@ -458,7 +475,6 @@ License: You must have a valid license purchased only from themeforest(the above
         @include('backend.sell.pos.landing.modal.shipping_cost_modal')
         @include('backend.sell.pos.landing.modal.choose_customer_modal')
         @include('backend.sell.pos.landing.modal.folder_modal')
-       
 
        
 
@@ -566,6 +582,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{asset('custom_js/backend')}}/sell/pos/landing/product-list.js"></script>
         <script src="{{asset('custom_js/backend')}}/sell/pos/single-product/stock-with-price.js"></script>
         <script src="{{asset('custom_js/backend')}}/sell/pos/add-to-cart/add_to_cart.js"></script>
+        
+        <script src="{{asset('custom_js/backend')}}/sell/session/setting.js"></script>
 
         
         <!---customer related js file--->
