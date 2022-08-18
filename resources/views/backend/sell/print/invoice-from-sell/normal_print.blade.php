@@ -44,21 +44,23 @@ html {
 </head>
 <body onload="window.print();">
     <div class="invoice-wrap">
+            <!---
             <div class="invoice__title">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="invoice__logo text-left">
-                            <img src="{{ asset('assets/images/e-basket.png') }}" alt="AMADER SANITARY">
+                            <img src=" asset('assets/images/e-basket.png')" alt="AMADER SANITARY">
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="invoice__metaInfo" style="margin-top:0px;margin-bottom: -30px;">
+            -->
+
+            <div class="invoice__metaInfo" style="margin-top:-10px;margin-bottom: -30px;">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6">
                     <div class="invoice__orderDetails" style="text-align: center;font-size: 14px">
-                        <strong style="font-size: 18px">AMADER SANITARY</strong><br>
+                        <strong style="font-size: 19px">AMADER SANITARY</strong><br>
                         <span>Janata Bank More, Hafej Bulding Under</span><br/>
                              Graound, Faridpur<br>
                         <span><strong>Call: 01711 11 11 92</strong> </span><br>
@@ -68,30 +70,30 @@ html {
             </div>
             <hr>
 
-            <div class="invoice__metaInfo" style="margin-top:0px;">
-                <div class="col-lg-3">
-                    <div class="invoice__orderDetails" style="margin-top:5px;">
+            <div class="invoice__metaInfo" style="margin-top:-10px;">
+                <div class="col-lg-3" style="margin-top:-10px;">
+                    <div class="invoice__orderDetails" style="margin-top:1px;">
                         <strong  style="font-size: 15px">{{ __('Order Details') }} </strong><br>
                         <span><strong>{{ __('Invoice Number') }} :</strong> {{ $data->invoice_no }}</span><br>
-                        <span><strong>{{ __('Order Date') }} :</strong> {{ date('d-M-Y',strtotime($data->created_at)) }}</span><br>
-                        <span><strong>{{  __('Order ID')}} :</strong> {{ sprintf("%'.08d", $data->id) }}</span>
+                        <span>{{ __('Order Date') }} : <span> </span> {{ date('d-m-Y',strtotime($data->created_at)) }}</span><br>
+                        <span>{{  __('Order ID')}} : <span> </span> {{ sprintf("%'.08d", $data->id) }}</span>
                     </div>
                 </div>
-                <div class="col-lg-5" >
-                    <div class="invoice__orderDetails" style="margin-top:5px;">
-                        <strong  style="font-size: 15px">{{ __('Shipping Details') }}</strong><br>
-                        <span><strong>{{ __('Customer Name') }}</strong>: </span><br>
-                        <span><strong>{{ __('Customer Phone') }}</strong>: </span><br>
-                        <span><strong>{{ __('Address') }}</strong>: </span>
+                <div class="col-lg-5"  style="margin-top:-10px;">
+                    <div class="invoice__orderDetails" style="margin-top:1px;">
+                        <strong  style="font-size: 15px">{{ __('Customer Details') }}</strong><br>
+                        <span>{{ __('Customer Name') }}</span>:  <span> Md. Abul Hasanat (Hasan) </span><br>
+                        <span>{{ __('Customer Phone') }}</span>:  <span> 09489344594</span><br>
+                        <span>{{ __('Address') }}</span>: <span>Shatha, Shaltha Bazar, Faridpur</span>
                     </div>
                 </div>
                 
-                <div class="col-lg-4">
-                    <div class="invoice__orderDetails" style="margin-top:5px;">
-                        <strong  style="font-size: 15px">{{ __('Billing Details') }}</strong><br>
-                        <span><strong>{{ __('Customer Name') }}</strong>: </span><br>
-                        <span><strong>{{ __('Phone') }}</strong>: </span><br>
-                        <span><strong>{{ __('Address') }}</strong>: </span>
+                <div class="col-lg-4" style="margin-top:-10px;">
+                    <div class="invoice__orderDetails" style="margin-top:1px;">
+                        <strong  style="font-size: 15px">{{ __('Shipping Details') }}</strong><br>
+                        <span>{{ __('Shipping Phone') }}</span>: <span>54657657768 </span><br>
+                        <span>{{ __('Shipping Address') }}</span>: <span> Shalta, Shaltha bazar, Faridpur</span><br/>
+                        <span>{{ __('Receiver Details') }}</span>: <span> {{$data->receiver_details ?? NULL}},Mr. Shofiqul Islam: mobile NO 09387498544 </span><br>
                     </div>
                 </div>
             </div>
@@ -132,7 +134,7 @@ html {
                                                     NULL
                                                 @endif    
                                             </th>
-                                            <td>
+                                            <td style="text-align: center;">
                                                 {{$item->quantity}}
                                                 {{-- @if (array_key_exists('unitName',$cats))
                                                     <small>{{$cats['unitName']}}</small>
@@ -140,8 +142,8 @@ html {
                                                     NULL
                                                 @endif --}}    
                                             </th>
-                                            <td>{{$item->sold_price}}</th>
-                                            <td> 
+                                            <td style="text-align: center;">{{$item->sold_price}}</th>
+                                            <td style="text-align: right;"> 
                                                 {{$item->total_sold_price}}
                                                 @if ($item->total_discount > 0)
                                                     <br/>
@@ -150,6 +152,48 @@ html {
                                             </th>
                                         </tr> 
                                         @endforeach
+                                        <tr>
+                                            <th colspan="2">Less : 
+                                                <span style="margin-left:5px;">
+                                                    {{$data->total_discount}} 
+                                                </span> 
+                                            </th>
+                                            <th style="text-align: center;">
+                                                <span style="margin-right:5px;">
+                                                    Shipping :  {{$data->shipping_cost}},     
+                                                </span>    
+                                                <span style="margin-left:5px;margin-right:5px;">
+                                                    Other :  {{$data->others_cost}},     
+                                                </span>  
+                                                <span style="margin-left:8px;margin-right:2px;">
+                                                    Total :  {{$data->total_payable_amount}}     
+                                                </span> 
+                                            </th>
+                                            <th colspan="2" style="text-align: right;">
+                                                Subtotal
+                                            </th>
+                                            <th style="text-align: right;">{{$data->subtotal}}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">
+                                                Paid  : 
+                                                <span style="margin-left:5px;">
+                                                    {{ $data->total_paid_amount ?? 0.00 }} 
+                                                </span> 
+                                            </th>
+                                            <th style="text-align: center;">
+                                                <span style="margin-right:5px;">
+                                                    Current Due :  {{ $data->due_amount ?? 0.00 }},     
+                                                </span>    
+                                                <span style="margin-left:5px;margin-right:5px;">
+                                                    Previous Due :  {{$data->others_cost}},     
+                                                </span>  
+                                            </th>
+                                            <th colspan="2" style="text-align: right;">
+                                                Total Due Amount
+                                            </th>
+                                            <th style="text-align: right;">{{$data->subtotal}}</th>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -157,118 +201,121 @@ html {
                     </div>
                 </div>
 
-                <div class="invoice__metaInfo" style="margin-top:0px;">
-                    <div class="col-lg-6">
-                        <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Reference No</th>
-                                        <th>Amount</th>
-                                        <th>Credit/Debit</th>
-                                        <th>Payment Method</th>
-                                        <th>Payment Note</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
+                {{---
+                    <div class="invoice__metaInfo" style="margin-top:0px;">
+                        <div class="col-lg-6">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Reference No</th>
+                                            <th>Amount</th>
+                                            <th>Credit/Debit</th>
+                                            <th>Payment Method</th>
+                                            <th>Payment Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-6">
-                        <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Sub Total</strong>
-                                        </td>
-                                        <td></td>
-                                        <td style="text-align:center;">
-                                            <span style="font-size:14px;"> {{$data->subtotal}}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Less Amount</strong>
-                                        </td>
-                                        <td>(-)</td>
-                                        <td style="text-align:center;">
-                                            <span style="font-size:14px;"> {{$data->total_discount}}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>({{ $data->vat_amount }}%) Vat</strong>
-                                        </td>
-                                        <td>(+)</td>
-                                        <td style="text-align:center;">
-                                            {{ $data->total_vat }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Shipping</strong>
-                                        </td>
-                                        <td></td>
-                                        <td style="text-align:center;">
-                                            <span style="font-size:14px;"> {{$data->shipping_cost}}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Other cost</strong>
-                                        </td>
-                                        <td></td>
-                                        <td style="text-align:center;">
-                                            <span style="font-size:14px;"> {{$data->others_cost}}</span>
-                                        </td>
-                                    </tr>
-                                     <tr>
-                                        <td colspan="2">
-                                            <strong>Round off</strong>
-                                        </td>
-                                        <td>(+/-)</td>
-                                        <td style="text-align:center;">
-                                            <span style="font-size:14px;"> {{$data->round_amount}}</span>
-                                        </td>
-                                    </tr> 
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Total Payable</strong>
-                                        </td>
-                                        <td></td>
-                                        <td style="text-align:center;">
-                                            {{$data->total_payable_amount}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Total Paid</strong>
-                                        </td>
-                                        <td></td>
-                                        <td style="text-align:center;">
-                                            {{$data->total_paid_amount}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <strong>Total Due</strong>
-                                        </td>
-                                        <td></td>
-                                        <td style="text-align:center;">
-                                            {{$data->due_amount}}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        
+                        <div class="col-lg-6">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Sub Total</strong>
+                                            </td>
+                                            <td></td>
+                                            <td style="text-align:center;">
+                                                <span style="font-size:14px;"> {{$data->subtotal}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Less Amount</strong>
+                                            </td>
+                                            <td>(-)</td>
+                                            <td style="text-align:center;">
+                                                <span style="font-size:14px;"> {{$data->total_discount}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>({{ $data->vat_amount }}%) Vat</strong>
+                                            </td>
+                                            <td>(+)</td>
+                                            <td style="text-align:center;">
+                                                {{ $data->total_vat }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Shipping</strong>
+                                            </td>
+                                            <td></td>
+                                            <td style="text-align:center;">
+                                                <span style="font-size:14px;"> {{$data->shipping_cost}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Other cost</strong>
+                                            </td>
+                                            <td></td>
+                                            <td style="text-align:center;">
+                                                <span style="font-size:14px;"> {{$data->others_cost}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Round off</strong>
+                                            </td>
+                                            <td>(+/-)</td>
+                                            <td style="text-align:center;">
+                                                <span style="font-size:14px;"> {{$data->round_amount}}</span>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Total Payable</strong>
+                                            </td>
+                                            <td></td>
+                                            <td style="text-align:center;">
+                                                {{$data->total_payable_amount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Total Paid</strong>
+                                            </td>
+                                            <td></td>
+                                            <td style="text-align:center;">
+                                                {{$data->total_paid_amount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Total Due</strong>
+                                            </td>
+                                            <td></td>
+                                            <td style="text-align:center;">
+                                                {{$data->due_amount}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                    
                     </div>
-                </div>
-
+                --}}
             </div>
             
              

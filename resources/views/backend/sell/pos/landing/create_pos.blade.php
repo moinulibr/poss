@@ -272,10 +272,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </span>
                                             <span style="padding-left:1px;">Shipping Address</span> --}}
                                         </label>
-                                        <select class="addedNewCustomer customer_id" style="width: 100%;"> <!--arabic-select--->
+                                        <select class="addedNewCustomer customer_id arabic-select" style="width: 100%;"> <!--arabic-select--->
                                             <option value="1">walk in customer</option>
                                             @foreach ($customers as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            <option value="{{$item->id}}">{{$item->name}} ({{$item->phone}})</option>
                                             @endforeach
                                         </select>
                                     </div><!----------Customer---------->
@@ -291,10 +291,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-plus"></i>
                                             </span>
                                         </label>
-                                        <select class="addedNewReference reference_id" style="width: 100%;"><!--arabic-select--->
+                                        <select class="addedNewReference reference_id arabic-select" style="width: 100%;"><!--arabic-select--->
                                             <option value="">Select Reference</option>
                                             @foreach ($references as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            <option value="{{$item->id}}">{{$item->name}} ({{$item->phone}})</option>
                                             @endforeach
                                         </select>
                                     </div><!----------reference---------->
