@@ -32,4 +32,5 @@ class SellInvoice extends Model
     {
         return $this->hasMany(SellProduct::class,'sell_invoice_id','id');
     }
+
 }

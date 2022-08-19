@@ -61,7 +61,7 @@ html {
                 <div class="col-lg-6">
                     <div class="invoice__orderDetails" style="text-align: center;font-size: 14px">
                         <strong style="font-size: 19px">AMADER SANITARY</strong><br>
-                        <span>Janata Bank More, Hafej Bulding Under</span><br/>
+                        <span>Janata Bank More, Hafej Bulding Under</span> 
                              Graound, Faridpur<br>
                         <span><strong>Call: 01711 11 11 92</strong> </span><br>
                     </div>
@@ -82,18 +82,18 @@ html {
                 <div class="col-lg-5"  style="margin-top:-10px;">
                     <div class="invoice__orderDetails" style="margin-top:1px;">
                         <strong  style="font-size: 15px">{{ __('Customer Details') }}</strong><br>
-                        <span>{{ __('Customer Name') }}</span>:  <span> Md. Abul Hasanat (Hasan) </span><br>
-                        <span>{{ __('Customer Phone') }}</span>:  <span> 09489344594</span><br>
-                        <span>{{ __('Address') }}</span>: <span>Shatha, Shaltha Bazar, Faridpur</span>
+                        <span>{{ __('Customer Name') }}</span>:  <span> {{ $data->customer ? $data->customer->name : "N/L" }} </span><br>
+                        <span>{{ __('Customer Phone') }}</span>:  <span> {{ $data->customer ? $data->customer->phone : "N/L" }}</span><br>
+                        <span>{{ __('Address') }}</span>: <span>{{ $data->customer ? $data->customer->address : "N/L" }}</span>
                     </div>
                 </div>
                 
                 <div class="col-lg-4" style="margin-top:-10px;">
                     <div class="invoice__orderDetails" style="margin-top:1px;">
                         <strong  style="font-size: 15px">{{ __('Shipping Details') }}</strong><br>
-                        <span>{{ __('Shipping Phone') }}</span>: <span>54657657768 </span><br>
-                        <span>{{ __('Shipping Address') }}</span>: <span> Shalta, Shaltha bazar, Faridpur</span><br/>
-                        <span>{{ __('Receiver Details') }}</span>: <span> {{$data->receiver_details ?? NULL}},Mr. Shofiqul Islam: mobile NO 09387498544 </span><br>
+                        <span>{{ __('Shipping Phone') }}</span>: <span>{{ $data->shipping ? $data->shipping->phone : "N/L" }} </span><br>
+                        <span>{{ __('Shipping Address') }}</span>: <span> {{ $data->shipping ? $data->shipping->address : "N/L" }}</span><br/>
+                        <span>{{ __('Receiver Details') }}</span>: <span> {{$data->receiver_details ?? NULL}} </span><br>
                     </div>
                 </div>
             </div>
@@ -110,9 +110,9 @@ html {
                                             <th>{{ __('Sl.') }}</th>
                                             <th>{{ __('AS Code') }}</th>
                                             <th style="width:50%">{{ __('Product') }}</th>
-                                            <th>{{ __('Qty') }}</th>
-                                            <th>{{ __('Sale Price') }}</th>
-                                            <th>{{ __('Subtotal') }}</th>
+                                            <th  style="text-align: center;">{{ __('Qty') }}</th>
+                                            <th  style="text-align: center;">{{ __('Sale Price') }}</th>
+                                            <th  style="text-align: right;">{{ __('Subtotal') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>

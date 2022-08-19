@@ -19,12 +19,13 @@ trait CustomerValidationTrait
      */
     public function customerValidationWhenStoreCustomer(array $allFormData) : array
     {
+        $req = $allFormData['customer_type_id'] == 1 ? 'required' : 'nullable';
         $validators =  Validator::make($allFormData,[
             'customer_type_id' => 'required',
             'name' => 'required|max:150',
             'custom_id' => 'nullable|max:30',
             'email' => 'nullable|max:191|unique:customers,email',
-            'phone' => $allFormData['customer_type_id'] == 1 ? 'required': 'nullable'.'|max:15|unique:customers,phone',
+            'phone' => "$req|max:15|unique:customers,phone",
             'phone_2' => 'nullable|max:15|unique:customers,phone_2',
             'unique_id_no' => 'nullable|max:30|unique:customers,unique_id_no',
             'previous_due' => 'nullable|numeric', //'required|numeric|between:0,99.99',
@@ -52,12 +53,13 @@ trait CustomerValidationTrait
      */
     public function customerValidationWhenUpdateCustomer(array $allFormData,$id) : array
     {
+        $req = $allFormData['customer_type_id'] == 1 ? 'required' : 'nullable';
         $validators =  Validator::make($allFormData,[
             'name' => 'required|max:150',
             'custom_id' => 'nullable|max:30',
             'email' => 'nullable|max:191|unique:customers,email,'.$id,
             //'phone' => 'required|max:15|unique:customers,phone,'.$id,
-            'phone' => $allFormData['customer_type_id'] == 1 ? 'required': 'nullable'.'|max:15|unique:customers,phone,'.$id,
+            'phone' => "$req|max:15|unique:customers,phone,".$id,
             'phone_2' => 'nullable|max:15|unique:customers,phone_2,'.$id,
             'unique_id_no' => 'nullable|max:30|unique:customers,unique_id_no,'.$id,
             'previous_due' => 'nullable|numeric', //'required|numeric|between:0,99.99',

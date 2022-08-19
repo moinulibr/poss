@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests\Backend\Customer\CustomerValidationTrait;
+use App\Models\Backend\Customer\CustomerShippingAddress;
 use App\Models\Backend\Customer\CustomerType;
 use App\Traits\Backend\ProductAttribute\Unit\UnitTrait;
 use App\Traits\Permission\Permission;
@@ -83,6 +84,16 @@ class CustomerController extends Controller
 
         $saveData =  auth()->user()->customerUsers()->create($request->all());
 
+        //shipping address
+        $shipping = new CustomerShippingAddress();
+        $shipping->branch_id = authBranch_hh();
+        $shipping->customer_id = $saveData->id;
+        $shipping->phone = $saveData->phone;
+        $shipping->email = $saveData->email;
+        $shipping->address = $saveData->address;
+        $shipping->save();
+        //shipping address
+
         return response()->json([
             'status' => true,
             'type' => 'success',
@@ -137,8 +148,9 @@ class CustomerController extends Controller
         }
         $updateData = Customer::findOrFail($request->id);
         $updateData->update($request->all());//auth()->user()->unitUsers()->
-        $updateData->created_by = Auth::user()->id;
-        $updateData->save();
+        //$updateData->created_by = Auth::user()->id;
+        //$updateData->save();
+
         return response()->json([
             'status' => true,
             'type' => 'success',

@@ -315,7 +315,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" data-id="{{$data->id}}" class="printInvoiceClass btn btn-primary">Print</a>
+            <a class="btn btn-primary print" target="_blank" href="{{route('admin.sell.regular.normal.print.from.sell.list',$data->id)}}" style="cursor: pointer">Print</a>
             <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Cancel</button>
         </div>
     </div>
