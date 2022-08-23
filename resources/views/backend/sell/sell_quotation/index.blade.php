@@ -27,7 +27,7 @@
                         <a href="#"><i class="feather icon-home"></i></a>
                     </li>
                     <li class="breadcrumb-item">Sell</li>
-                    <li class="breadcrumb-item active">All Sells</li>
+                    <li class="breadcrumb-item active">All Quotation</li>
                 </ol>
             </div>
             <div class="products">
@@ -73,9 +73,9 @@
             </div>
             
             <!-------responsive table------> 
-            <div class="sellListAjaxResponseResult">
+            <div class="sellQuotationListAjaxResponseResult">
 
-                @include('backend.sell.sell_details.partial.list')
+                @include('backend.sell.sell_quotation.partial.list')
 
             </div>
             <!-------responsive table------> 
@@ -83,26 +83,18 @@
             
 
             <!-------single sell view Modal------> 
-            <div class="modal fade " id="singleModalView"  aria-modal="true"></div>
-            <input type="hidden" class="singleViewModalRoute" value="{{ route('admin.sell.regular.sell.single.view') }}">
+            <div class="modal fade " id="singleQuotationModalView"  aria-modal="true"></div>
+            <input type="hidden" class="singleQuotationViewModalRoute" value="{{ route('admin.sell.regular.sell.single.view') }}">
             <!-------single sell view Modal------> 
             
              <!-------single sell invoice profit loss view Modal------> 
             <div class="modal fade " id="singleSellInvoiceProftLossModalView"  aria-modal="true"></div>
-            <input type="hidden" class="singleSellInvoiceProftLossModalRoute" value="{{ route('admin.sell.regular.sell.view.single.invoice.profit.loss') }}">
+            <input type="hidden" class="singleSellInvoiceProftLossModalRoute" value="{{ route('admin.sell.regular.quotation.view.single.invoice.profit.loss') }}">
             <!-------single sell invoice profit loss view Modal------> 
             
 
-            <!-------Sell product delivery Modal------> 
-            <div class="modal fade " id="sellProductDeliveryModal"  aria-modal="true"></div>
-            <input type="hidden" class="sellProductDeliveryInvoiceWiseModalRoute" value="{{route('admin.sell.product.delivery.invoice.wise.list.index')}}">
-            <!-------Sell product delivery Modal------> 
 
 
-           {{--  <!-------delete Customer Modal------> 
-            @include('backend.customer.customer.partial.delete_modal')
-            <input type="hidden" class="deleteCustomerModalRoute" value="{{ route('admin.customer.delete') }}">
-            <!-------delete Customer Modal------> --}} 
             
 
 
@@ -126,7 +118,7 @@
 
 
     {{--sell list url --}}
-    <input type="hidden" class="sellListUrl" value="{{route('admin.sell.regular.sell.list.ajaxresponse')}}">
+    <input type="hidden" class="sellQuotationListUrl" value="{{route('admin.sell.regular.quotation.list.ajaxresponse')}}">
     {{--sell list url --}}
     
 
@@ -134,8 +126,7 @@
 <!--=================js=================-->
 @push('js')
 <!--=================js=================-->
-<script src="{{asset('custom_js/backend')}}/sell/sell_details/index.js?v=1"></script>
-<script src="{{asset('custom_js/backend')}}/sell/delivery/index.js?v=1"></script>
+<script src="{{asset('custom_js/backend')}}/sell/sell_quotation/index.js?v=1"></script>
 
 
 

@@ -23,9 +23,7 @@
         <div class="modal-body">
 
 
-            <div style="margin-top: -80px;">
-
-               
+            <div style="margin-top: -60px;">
                 <div>
                     <div class="mb-2 text-right my-5">
                         <label>
@@ -33,7 +31,72 @@
                         </label>
                     </div>
                 </div>
-                
+
+                <div class="row" style="margin:-5px 150px 10px 150px;">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="4" style="text-align: center;">
+                                            Invoice profit / loss
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th  style="width: 25%;">
+                                            <strong>({{ $data->vat_amount }}%) Vat</strong>
+                                        </th>
+                                        <th style="width: 25%;"> {{ $data->total_vat }}</th>
+                                        <th style="background-color: #3a743a;color:#ffff;width: 25%;text-align:right;">Total Sell Amount</th>
+                                        <th style="background-color: #3a743a;color:#ffff;text-align:right;width: 25%;">
+                                            <span style="font-size:14px;"> {{$data->subtotal}}</span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th  style="width: 25%;">
+                                            <strong>Shipping</strong>
+                                        </th>
+                                        <th style="width: 25%;">
+                                            <span style="font-size:14px;"> {{$data->shipping_cost}}</span>
+                                        </th>
+                                        <th style="background-color: #324632;color:#ffff;width: 25%;text-align:right;">Total Purchase Amount</th>
+                                        <th style="background-color: #324632;color:#ffff;text-align:right;width: 25%;">
+                                            <span style="font-size:14px;"> {{$data->total_purchase_amount}}</span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th  style="width: 25%;">
+                                             <strong>Other cost</strong>
+                                        </th>
+                                        <th style="width: 25%;">  
+                                            <span style="font-size:14px;"> {{$data->others_cost}}</span>
+                                        </th>
+                                        <th style="background-color: #c7d5c7;color:#000000;width: 25%;text-align:right;">Total Less Amount</th>
+                                        <th style="background-color: #c7d5c7;color:#000000;text-align:right;width: 25%;">
+                                            <span style="font-size:14px;"> {{$data->total_discount}}</span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th  style="width: 25%;">
+                                             <strong>Round off</strong>
+                                        </th>
+                                        <th style="width: 25%;">
+                                            <span style="font-size:14px;"> {{$data->round_amount}}</span>
+                                        </th>
+                                        <th style="width: 25%;text-align:right;background-color: green;color:#ffff;">Net Profit/Loss</th>
+                                        <th style="text-align:right;width: 25%;background-color: green;color:#ffff;">
+                                            <span style="font-size:14px;"> {{$data->total_invoice_profit}}</span>
+                                        </th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <br/>
+
 
                 <div class="row">
                     <div class="col-md-4">
@@ -125,15 +188,25 @@
                                     <tr>
                                         <th>AS Code</th>
                                         <th style="width:40%;">Product</th>
-                                        <th>Delivery Status</th>
-                                        <th>Quantity</th>
-                                        <th>Sell Price</th>
-                                        <th>Qty Price</th>
-                                        <th>Less Amount</th>
-                                        <th  style="text-align:right;">SubTotal</th>
+                                        <th><small>Quantity</small></th>
+                                        <th><small>Purchase Price</small></th>
+                                        <th><small>Total Purchase Price</small></th>
+                                        <th><small>Sell Price</small></th>
+                                        <th><small><small>Total Sell Price</small></small></th>
+                                        <th><small>Less Amount</small></th>
+                                        <th>SubTotal</th>
+                                        <th>Profit/Loss</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $totalQty = 0;
+                                        $totalPurchasePrice = 0;
+                                        $totalSellPrice = 0;
+                                        $totalLessAmount = 0;
+                                        $totalSoldWithoutLessAmount = 0;
+                                        $totalLineProfit = 0;
+                                    @endphp
                                     @foreach ($data->sellProducts ? $data->sellProducts : NULL  as $item)
                                     <tr>
                                         @php
@@ -147,31 +220,68 @@
                                                 NULL
                                             @endif
                                         </td>
-                                        <td>
-
-                                        </td>
                                         <td style="text-align: center">
                                             {{$item->quantity}}
+                                            @php
+                                                $totalQty += $item->quantity;
+                                            @endphp
                                             {{-- @if (array_key_exists('unitName',$cats))
-                                                <small>{{$cats['unitName']}}</small>
-                                                @else
-                                                NULL
+                                            <small>{{$cats['unitName']}}</small>
+                                            @else
+                                            NULL
                                             @endif --}}
                                         </td>
-                                        <td style="text-align: center;">
+                                        <td>
+                                            {{  number_format(($item->total_purchase_price / $item->quantity),2,'.', '') }}
+                                        </td>
+                                        <td>
+                                            @php
+                                                 $totalPurchasePrice += $item->total_purchase_price ;
+                                            @endphp
+                                            {{ $item->total_purchase_price }}
+                                        </td>
+                                        <td>
                                             {{$item->sold_price}}
                                         </td>
-                                        <td style="text-align: center;">
+                                        <td>
+                                            @php
+                                                $totalSellPrice += number_format(($item->sold_price * $item->quantity),2,'.', '');
+                                            @endphp
                                             {{ number_format(($item->sold_price * $item->quantity),2,'.', '')}}
                                         </td>
-                                        <td style="text-align: center;">
-                                            {{$item->total_discount}}
+                                        <td>
+                                            @php
+                                                $totalLessAmount += $item->total_discount;
+                                            @endphp
+                                            {{ $item->total_discount}}
                                         </td>
-                                        <td style="text-align: right;">
-                                            {{$item->total_sold_price}}   
+                                        <td>
+                                            @php
+                                                $totalSoldWithoutLessAmount += $item->total_sold_price
+                                            @endphp
+                                            {{ $item->total_profit}}   
+                                        </td>
+                                        <td>
+                                            @php
+                                            $totalLineProfit += $item->total_profit;
+                                            @endphp
+                                            {{ $item->total_profit}}   
                                         </td>
                                     </tr>
                                     @endforeach
+                                    <tr>
+                                        <th colspan="2" style="text-align: right;">Total</th>
+                                        <th>{{$data->total_quantity}}</th>
+                                        <th></th>
+                                        <th>
+                                            {{ number_format($totalPurchasePrice,2,'.', '') }}
+                                        </th>
+                                        <th></th>
+                                        <th>{{ number_format($totalSellPrice,2,'.', '') }}</th>
+                                        <th>{{ number_format($totalLessAmount,2,'.', '') }}</th>
+                                        <th>{{ number_format($totalSoldWithoutLessAmount,2,'.', '') }}</th>
+                                        <th>{{ number_format($totalLineProfit,2,'.', '') }}</th>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -230,16 +340,16 @@
                                             <strong>Sub Total</strong>
                                         </td>
                                         <td></td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             <span style="font-size:14px;"> {{$data->subtotal}}</span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" >
+                                        <td colspan="2">
                                             <strong>Less Amount</strong>
                                         </td>
                                         <td>(-)</td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             <span style="font-size:14px;"> {{$data->total_discount}}</span>
                                         </td>
                                     </tr>
@@ -248,7 +358,7 @@
                                             <strong>({{ $data->vat_amount }}%) Vat</strong>
                                         </td>
                                         <td>(+)</td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             {{ $data->total_vat }}
                                         </td>
                                     </tr>
@@ -257,7 +367,7 @@
                                             <strong>Shipping</strong>
                                         </td>
                                         <td></td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             <span style="font-size:14px;"> {{$data->shipping_cost}}</span>
                                         </td>
                                     </tr>
@@ -266,7 +376,7 @@
                                             <strong>Other cost</strong>
                                         </td>
                                         <td></td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             <span style="font-size:14px;"> {{$data->others_cost}}</span>
                                         </td>
                                     </tr>
@@ -275,7 +385,7 @@
                                             <strong>Round off</strong>
                                         </td>
                                         <td>(+/-)</td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             <span style="font-size:14px;"> {{$data->round_amount}}</span>
                                         </td>
                                     </tr> 
@@ -284,7 +394,7 @@
                                             <strong>Total Payable</strong>
                                         </td>
                                         <td></td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             {{$data->total_payable_amount}}
                                         </td>
                                     </tr>
@@ -293,7 +403,7 @@
                                             <strong>Total Paid</strong>
                                         </td>
                                         <td></td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             {{$data->total_paid_amount}}
                                         </td>
                                     </tr>
@@ -302,7 +412,7 @@
                                             <strong>Total Due</strong>
                                         </td>
                                         <td></td>
-                                        <td style="text-align:right;">
+                                        <td style="text-align:center;">
                                             {{$data->due_amount}}
                                         </td>
                                     </tr>
@@ -319,7 +429,7 @@
 
         </div>
         <div class="modal-footer">
-            <a class="btn btn-primary print" target="_blank" href="{{route('admin.sell.regular.normal.print.from.sell.list',$data->id)}}" style="cursor: pointer">Print</a>
+           {{--  <a class="btn btn-primary print" target="_blank" href="{{route('admin.sell.regular.normal.print.from.sell.list',$data->id)}}" style="cursor: pointer">Print</a> --}}
             <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Cancel</button>
         </div>
     </div>

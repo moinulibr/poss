@@ -83,8 +83,16 @@ class Product extends Model
         //total product stock. call: total_product_stock
         public function getTotalProductStockAttribute()
         {
-            return $this->productStocks()->sum('available_base_stock');
+            return ($this->productStocks()->sum('available_base_stock'));
         }
+
+        //total product stock . call: total_product_stock_with_remaining_delivery
+        public function getTotalProductStockWithRemainingDeliveryAttribute()
+        {
+            return number_format( ($this->productStocks()->sum('available_base_stock') + $this->productStocks()->sum('reduced_base_stock_remaining_delivery')),2,'.', '');
+        }
+
+
         public function productStocks()
         {
             return $this->hasMany(ProductStock::class,'product_id','id');

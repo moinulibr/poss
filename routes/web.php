@@ -346,12 +346,22 @@ Route::group(['middleware' => ['auth']], function ()
     */
 
 
+    /*
+    |----------------------------------------
+    |  session setting (sell)
+    |---------------------------------------
+    */
+        Route::group(['prefix'=>'admin/session/setting','as'=> 'admin.session.','namespace'=>'Backend\Session'],function(){
+            Route::post('creating/selling/new/cart/session','SessionController@creatingSellingCartSession')->name('setting.create.selling.new.session');
+            Route::get('changing/selling/cart/{sessionname?}','SessionController@changingSellingCartSession')->name('changing.selling.cart.session');
+            Route::get('delete/selling/customer/name/{sessionname?}','SessionController@deleteingSellingCartSession')->name('deleting.selling.cart.session');
+        });   
+    /*
+    |----------------------------------------
+    |  session setting (sell)
+    |---------------------------------------
+    */
 
-    Route::group(['prefix'=>'admin/session/setting','as'=> 'admin.session.','namespace'=>'Backend\Session'],function(){
-        Route::post('creating/selling/new/cart/session','SessionController@creatingSellingCartSession')->name('setting.create.selling.new.session');
-        Route::get('changing/selling/cart/{sessionname?}','SessionController@changingSellingCartSession')->name('changing.selling.cart.session');
-        Route::get('delete/selling/customer/name/{sessionname?}','SessionController@deleteingSellingCartSession')->name('deleting.selling.cart.session');
-    });   
 
     /*
     |----------------------------------------
@@ -411,11 +421,20 @@ Route::group(['middleware' => ['auth']], function ()
         | Sell list, print  and others
         |-----------------------------------
         */
-        Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.', 'namespace'=>'Backend\Sell\Details'],function(){
-            Route::get('sell/list','SellController@index')->name('sell.index');//->middleware(['permissions:unit|index']);
-            Route::get('sell/list/by/ajr','SellController@sellListByAjaxResponse')->name('sell.list.ajaxresponse');//->middleware(['permissions:unit|index']);
-            Route::get('sell/single/view','SellController@singleView')->name('sell.single.view');//->middleware(['permissions:unit|index']);
+        Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.sell.', 'namespace'=>'Backend\Sell\Details'],function(){
+            Route::get('sell/list','SellController@index')->name('index');//->middleware(['permissions:unit|index']);
+            Route::get('sell/list/by/ajr','SellController@sellListByAjaxResponse')->name('list.ajaxresponse');//->middleware(['permissions:unit|index']);
+            Route::get('sell/single/view','SellController@singleView')->name('single.view');//->middleware(['permissions:unit|index']);
+            Route::get('sell/single/invoice/profit/loss','SellController@viewSingleInvoiceProfitLoss')->name('view.single.invoice.profit.loss');
         });
+        //quotation
+        Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.quotation.', 'namespace'=>'Backend\Sell\Details'],function(){
+            Route::get('quotation/list','QuotationController@index')->name('index');//->middleware(['permissions:unit|index']);
+            Route::get('quotation/list/by/ajr','QuotationController@quotationListByAjaxResponse')->name('list.ajaxresponse');//->middleware(['permissions:unit|index']);
+            Route::get('quotation/single/view','QuotationController@singleView')->name('single.view');//->middleware(['permissions:unit|index']);
+            Route::get('quotation/single/invoice/profit/loss','QuotationController@viewSingleInvoiceProfitLoss')->name('view.single.invoice.profit.loss');
+        });
+
         Route::group(['prefix'=>'admin/sell/regular','as'=> 'admin.sell.regular.','namespace'=>'Backend\Sell\Prints'],function(){
             //print sell invoice :- pos print
             Route::get('pos/print/from/sell/list/by/{invoiceId}','InvoicePrintController@posPrintFromSellList')->name('pos.print.from.sell.list');

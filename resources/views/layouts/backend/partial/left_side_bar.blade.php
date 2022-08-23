@@ -37,14 +37,14 @@
                         </div>
                         </a>
                     </li>
-                    {{-- <li class="sidenav-item">
-                        <a href="dashboards_corona.html" class="sidenav-link">
+                    <li class="sidenav-item">
+                        <a href="{{route('admin.sell.regular.quotation.index')}}" class="sidenav-link">
                         <div>Quotation List</div>
                         <div class="pl-1 ml-auto">
                             <!-- <div class="badge badge-danger">New</div> -->
                         </div>
                         </a>
-                    </li> --}}
+                    </li>
                     {{-- <li class="sidenav-item">
                         <a href="dashboards_corona.html" class="sidenav-link">
                         <div>Sale Return</div>

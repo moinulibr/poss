@@ -143,6 +143,12 @@ trait StoreDataFromSellCartTrait
             $this->stock_quantity_FSCT = $instantlyProcessedQty;
             $this->unit_id_FSCT = $cart['unit_id'];
             $this->sellingFromPossStockTypeDecrement();
+
+            if($pStock)
+            {
+                $pStock->reduced_base_stock_remaining_delivery = $instantlyProcessedQty;
+                $pStock->save();
+            }
         }
 
         $productStock->stock_process_instantly_qty = $instantlyProcessedQty;

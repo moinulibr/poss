@@ -54,11 +54,11 @@
                         {{$product}}
                     </td> 
                     <td style="background-color: #ebebeb;text-align: center;">
-                        {{ $item->total_product_stock }}
+                        {{ $item->total_product_stock_with_remaining_delivery }}
                     </td>
                     @foreach ($item->productStockNORWhereStatusIsActive() as $productStock)
                     <td style="text-align: center;">
-                        {{$productStock->available_base_stock}}
+                        {{ number_format($productStock->available_base_stock + $productStock->reduced_base_stock_remaining_delivery,2,'.', '') }}
                     </td>
                 @endforeach
                 </tr>

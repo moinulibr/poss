@@ -1,6 +1,6 @@
     
 //-----------------------------------------------------------------------
-    $(document).on('click','.invoiceWiseDelivery',function(e){
+    $(document).on('click','.singleSellInvoiceWiseDelivery',function(e){
         e.preventDefault();
         var url = $('.sellProductDeliveryInvoiceWiseModalRoute').val();
         var id = $(this).data('id');

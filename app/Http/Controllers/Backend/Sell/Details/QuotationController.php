@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Backend\Sell\SellInvoice;
 use Illuminate\Http\Request;
 
-class SellController extends Controller
+class QuotationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,15 +15,15 @@ class SellController extends Controller
      */
     public function index()
     {
-        $data['datas'] = SellInvoice::where('sell_type',1)
+        $data['datas'] = SellInvoice::where('sell_type',2)
                         ->where('branch_id',authBranch_hh())
                         ->whereNull('deleted_at')
                         //->orderBy('custom_serial','ASC')
                         ->paginate(50);
-        return view('backend.sell.sell_details.index',$data);
+        return view('backend.sell.sell_quotation.index',$data);
     }
 
-    public function sellListByAjaxResponse(Request $request)
+    public function quotationListByAjaxResponse(Request $request)
     {
         $sell  = SellInvoice::query();
         if($request->ajax())
@@ -32,8 +32,8 @@ class SellController extends Controller
             {
                 $sell->where('invoice_no','like','%'.$request->search.'%');
             }
-            $data['datas']  =  $sell->where('sell_type',1)->latest()->paginate(50);
-            $html = view('backend.sell.sell_details.ajax.list_ajax_response',$data)->render();
+            $data['datas']  =  $sell->where('sell_type',2)->latest()->paginate(50);
+            $html = view('backend.sell.sell_quotation.ajax.list_ajax_response',$data)->render();
             return response()->json([
                 'status' => true,
                 'html' => $html
@@ -45,7 +45,7 @@ class SellController extends Controller
     public function singleView(Request $request)
     {
         $data['data']  =  SellInvoice::where('id',$request->id)->first();
-        $html = view('backend.sell.sell_details.show.show',$data)->render();
+        $html = view('backend.sell.sell_quotation.show.show',$data)->render();
         return response()->json([
             'status' => true,
             'html' => $html
@@ -56,7 +56,7 @@ class SellController extends Controller
     public function viewSingleInvoiceProfitLoss(Request $request)
     {
         $data['data']  =  SellInvoice::where('id',$request->id)->first();
-        $html = view('backend.sell.sell_details.show.profit_lost',$data)->render();
+        $html = view('backend.sell.sell_quotation.show.profit_lost',$data)->render();
         return response()->json([
             'status' => true,
             'html' => $html
@@ -78,7 +78,6 @@ class SellController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-  
     public function store(Request $request)
     {
         //

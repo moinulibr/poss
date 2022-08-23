@@ -31,11 +31,11 @@
                                 {{-- <i class="fas fa-cogs"></i> --}}
                             </button>
                             <div class="dropdown-menu " x-placement="top-start" style="position: absolute; will-change: top, left; top: -183px; left: 0px;">
-                                <a class="dropdown-item singleSellView" data-id="{{$item->id}}" style="cursor: pointer">View</a>
+                                <a class="dropdown-item singleSellQuotationView" data-id="{{$item->id}}" style="cursor: pointer">View</a>
                                 <a class="dropdown-item print" target="_blank" data-id="{{$item->id}}" href="{{route('admin.sell.regular.normal.print.from.sell.list',$item->id)}}" style="cursor: pointer">Print</a>
                                 <a class="dropdown-item print"  target="_blank" data-id="{{$item->id}}" href="{{route('admin.sell.regular.pos.print.from.sell.list',$item->id)}}" style="cursor: pointer">Print (POS)</a>
                                 <a class="dropdown-item singleSellInvoiceWiseDelivery" data-id="{{$item->id}}" style="cursor: pointer">Delivery</a>
-                                <a class="dropdown-item singleSellInvoiceProfitLossView" data-id="{{$item->id}}" style="cursor: pointer">View Profit/Loss</a>
+                                <a class="dropdown-item singleSellQuotationInvoiceProfitLossView" data-id="{{$item->id}}" style="cursor: pointer">View Profit/Loss</a>
                                 {{-- <a class="dropdown-item singleEditModal" data-id="{{$item->id}}" href="javascript:void(0)">Edit</a>
                                 <a class="dropdown-item singleDeleteModal" data-id="{{$item->id}}" data-name="{{$item->name}}" href="javascript:void(0)">Delete</a> --}}
                             {{-- <div class="dropdown-divider"></div>
@@ -43,9 +43,9 @@
                             </div> --}}
                         </div>
                     </td>
-                    <td> <a  class="singleSellView" data-id="{{$item->id}}" style="cursor: pointer">{{$item->invoice_no}} </a> </td>
+                    <td> <a  class="singleSellQuotationView" data-id="{{$item->id}}" style="cursor: pointer">{{$item->invoice_no}} </a> </td>
                     <td>
-                        <a  class="singleSellView" data-id="{{$item->id}}" style="cursor: pointer">
+                        <a  class="singleSellQuotationView" data-id="{{$item->id}}" style="cursor: pointer">
                             {{date('d-m-Y h:i:s A',strtotime($item->created_at))}}
                         </a>
                     </td>
