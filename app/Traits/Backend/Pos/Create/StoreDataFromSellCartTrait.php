@@ -150,6 +150,10 @@ trait StoreDataFromSellCartTrait
                 $pStock->save();
             }
         }
+        //delivery quantity
+        $totalDeliverdQty = 0;
+        $productStock->total_delivered_qty = $totalDeliverdQty;
+        $productStock->remaining_delivery_qty = $qty - $totalDeliverdQty;
 
         $productStock->stock_process_instantly_qty = $instantlyProcessedQty;
         $productStock->stock_process_later_qty = $stockProcessLaterQty;

@@ -32,6 +32,9 @@ class CreateSellProductStocksTable extends Migration
             $table->decimal('total_purchase_price',20,2)->nullable();
             $table->decimal('total_profit',20,2)->nullable();
 
+            $table->decimal('remaining_delivery_qty',20,3)->default(0);
+            $table->decimal('total_delivered_qty',20,3)->default(0);
+
             $table->tinyInteger('status')->nullable();
             $table->tinyInteger('delivery_status')->nullable();
             

@@ -121,9 +121,9 @@
                         <div class="table-responsive">
                             <table id="example1" class="table">
                                 <tr>
-                                    <th colspan="3"></th>
+                                    <th colspan="4"></th>
                                     <th style="text-align: right">
-                                        <input type="submit" value="Submit" class="btn btn-primary">
+                                        <input type="submit" value="Submit" class="btn btn-success">
                                     </th>
                                 </tr>
                             </table>
