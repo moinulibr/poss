@@ -123,7 +123,7 @@
                                 <tr>
                                     <th colspan="4"></th>
                                     <th style="text-align: right">
-                                        <input type="submit" value="Submit" class="btn btn-success">
+                                        <input type="submit" value="Submit" disabled class="btn btn-success">
                                     </th>
                                 </tr>
                             </table>

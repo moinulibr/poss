@@ -103,13 +103,21 @@
                                             $deliveryingQtyNow = 0; 
                                         }
                                     @endphp
-                                    <input type="text" value="{{$deliveryingQtyNow}}" class="form-control deliverying_qty deliverying_qty_{{$pstock->id}}">
+                                     @if ($deliveryingQtyNow > 0)
+                                     <input type="text" name="deliverying_qty" value="{{$deliveryingQtyNow}}" class="form-control deliverying_qty deliverying_qty_{{$pstock->id}} inputFieldValidatedOnlyNumeric" data-id="{{$pstock->id}}">
+                                         @else
+                                         <input type="text" disabled value="{{$deliveryingQtyNow}}" class="form-control" style="background-color: red;color:#ffff;">
+                                     @endif
                                 </td>
                                 <td style="width:10%;text-align: center">
                                     <input type="hidden" class="total_processed_qty total_processed_qty_{{$pstock->id}}" value="{{$pstock->total_stock_processed_qty}}">
                                     <input type="hidden" class="total_remaining_delivery_qty total_remaining_delivery_qty_{{$pstock->id}}" value="{{$pstock->remaining_delivery_qty}}">
                                     <input type="hidden" class="total_base_available_stock_WRBND_qty total_base_available_stock_WRBND_qty_{{$pstock->id}}" value="{{$totalAvailableStockWithReducedStockButNotDelivered}}">
-                                    <input class="check_single_class form-control" type="checkbox"  name="checked_id[]" value="{{ $pstock->id }}" class="check_single_class" id="{{$pstock->id}}" style="box-shadow:none;">
+                                    @if ($deliveryingQtyNow > 0)
+                                    <input class="check_single_class form-control check_single_class_{{$pstock->id}}" type="checkbox"  name="checked_id[]" value="{{ $pstock->id }}" id="{{$pstock->id}}" style="box-shadow:none;">
+                                        @else
+                                        <input class="form-control" type="checkbox" disabled style="box-shadow:none;" >
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

@@ -1,4 +1,13 @@
-    
+    /*
+    |--------------------------------------------------------
+    | input field protected .. only for numeric
+    |--------------------------------------------------------
+    */
+        jQuery(document).on('keyup keypress','.inputFieldValidatedOnlyNumeric',function(e){
+            if (String.fromCharCode(e.keyCode).match(/[^0-9\.]/g)) return false;
+        });
+
+
 //-----------------------------------------------------------------------
     $(document).on('click','.singleSellInvoiceWiseDelivery',function(e){
         e.preventDefault();
@@ -19,43 +28,132 @@
 //-----------------------------------------------------------------------
 
 
-
-
-        // checked all order list 
-        $(document).on('click','.check_all_class',function()
+    $(document).on('keyup','.deliverying_qty',function(){
+        var id = $(this).data('id');
+        var pressingVal = $(this).val();
+        
+        var processedQty = $('.total_processed_qty_'+id).val();
+        var remainingDeliveryQty = $('.total_remaining_delivery_qty_'+id).val();
+        var totalStockQtyWRBND = $('.total_base_available_stock_WRBND_qty_'+id).val();
+        
+        var deliveryingQtyNow = 0;
+        if((totalStockQtyWRBND > remainingDeliveryQty) 
+            && (remainingDeliveryQty > 0) 
+        )
         {
-            if (this.checked == false)
-            {   
-                $('.check_single_class').prop('checked', false).change();
-                $(".check_single_class").each(function ()
-                {
-                    var id = $(this).attr('id');
-                    $(this).val('').change();
-                    $('.deliverying_qty_'+id).val(0);
-                });
-            }
-            else
+            deliveryingQtyNow = remainingDeliveryQty; 
+        }
+        else if((totalStockQtyWRBND == remainingDeliveryQty) 
+            && (remainingDeliveryQty > 0) 
+        )
+        {
+            deliveryingQtyNow = remainingDeliveryQty; 
+        }
+        else if((totalStockQtyWRBND < remainingDeliveryQty)
+            && (remainingDeliveryQty > 0) 
+        )
+        {
+            deliveryingQtyNow = totalStockQtyWRBND; 
+        }
+        else if(remainingDeliveryQty == 0) 
+        {
+            deliveryingQtyNow = 0; 
+        }else{
+            deliveryingQtyNow = 0; 
+        }
+
+        var finalDeliveryQty = 0;
+        if(deliveryingQtyNow >= pressingVal)
+        {
+            finalDeliveryQty = pressingVal;
+        }else{
+            finalDeliveryQty = deliveryingQtyNow;
+        }
+        $('.deliverying_qty_'+id).val(finalDeliveryQty);
+
+        if(finalDeliveryQty == 0)
+        {
+            $('.check_single_class_'+id).prop('checked', false).change();
+            $('.check_single_class_'+id).val('').change();
+        }else{
+            $('.check_single_class_'+id).prop("checked", true).change();
+            $('.check_single_class_'+id).val(id).change();
+        }
+
+    });
+
+
+    // checked all order list 
+    $(document).on('click','.check_all_class',function()
+    {
+        if (this.checked == false)
+        {   
+            $('.check_single_class').prop('checked', false).change();
+            $(".check_single_class").each(function ()
             {
-                $('.check_single_class').prop("checked", true).change();
+                var id = $(this).attr('id');
+                $(this).val('').change();
+                $('.deliverying_qty_'+id).val(0);
+            });
+        }
+        else
+        {
+            $('.check_single_class').prop("checked", true).change();
 
-                $(".check_single_class").each(function ()
+            $(".check_single_class").each(function ()
+            {
+                var id = $(this).attr('id');
+                //$(this).val(id).change();
+
+                var processedQty = $('.total_processed_qty_'+id).val();
+                var remainingDeliveryQty = $('.total_remaining_delivery_qty_'+id).val();
+                var totalStockQtyWRBND = $('.total_base_available_stock_WRBND_qty_'+id).val();
+                
+                var deliveryingQtyNow = 0;
+                if((totalStockQtyWRBND > remainingDeliveryQty) 
+                    && (remainingDeliveryQty > 0) 
+                )
                 {
-                    var id = $(this).attr('id');
-                    $(this).val(id).change();
-
-                    var processedQty = $('.total_processed_qty_'+id).val();
-                    var remainingDeliveryQty = $('.total_remaining_delivery_qty_'+id).val();
-                    var totalStockQtyWRBND = $('.total_base_available_stock_WRBND_qty_'+id).val();
-
-                });
-
-                $(".check_single_class").each(function ()
+                    deliveryingQtyNow = remainingDeliveryQty; 
+                }
+                else if((totalStockQtyWRBND == remainingDeliveryQty) 
+                    && (remainingDeliveryQty > 0) 
+                )
                 {
-                    var id = $(this).attr('id');
+                    deliveryingQtyNow = remainingDeliveryQty; 
+                }
+                else if((totalStockQtyWRBND < remainingDeliveryQty)
+                    && (remainingDeliveryQty > 0) 
+                )
+                {
+                    deliveryingQtyNow = totalStockQtyWRBND; 
+                }
+                else if(remainingDeliveryQty == 0) 
+                {
+                    deliveryingQtyNow = 0; 
+                }else{
+                    deliveryingQtyNow = 0; 
+                }
+                $('.deliverying_qty_'+id).val(deliveryingQtyNow);
+
+                if(deliveryingQtyNow == 0)
+                {
+                    $(this).prop('checked', false).change();
+                    $(this).val('').change();
+                }else{
+                    $(this).prop("checked", true).change();
                     $(this).val(id).change();
-                });
-            }
-        });
+                }
+
+            });
+
+           /*  $(".check_single_class").each(function ()
+            {
+                var id = $(this).attr('id');
+                $(this).val(id).change();
+            }); */
+        }
+    });
     // checked all order list 
 
     
